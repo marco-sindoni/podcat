@@ -14,4 +14,4 @@ and link the spec folder here.
 | B-007 | Upload to YouTube as private draft with "AI use" disclosure (RF-14) | 2 | idea | |
 | B-008 | Scheduled daily run up to the approval gate, with notification (RF-15) | 2 | idea | |
 | B-009 | Real audio-driven lip-sync | 2 | idea | |
-| B-010 | "Giovedì buone notizie": every Thursday the daily reel covers one positive story (human progress, hope, heart-warming), from anywhere in the world, using the `good-news` source category | 1 | idea | |
+| B-010 | "Giovedì buone notizie": every Thursday the daily reel covers one positive story (human progress, hope, heart-warming), from anywhere in the world, using the `good-news` source category (in the constitution since v1.1.0) | 1 | ready | |
