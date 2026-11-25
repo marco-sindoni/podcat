@@ -4,6 +4,7 @@ Newest first. Rules that follow from a decision are also written into the consti
 
 | Date | Decision | Rationale |
 | --- | --- | --- |
+| 2026-11-25 | "Giovedì buone notizie" logo: a steaming plate of gnocchi al sugo, used as a short reusable opening sting every Thursday | "Buoni gli gnocchi, buone le notizie" (Marco) |
 | 2026-11-25 | "Giovedì buone notizie": every Thursday the daily reel is a positive story from around the world; dedicated "good news" source category | Recognisable weekly ritual (like "giovedì gnocchi"); varies the tone |
 | 2026-11-25 | Character sheets get verbal tics, voice profiles and seating (left to right: Fuzz, Flanella, Vinile, Feedback) | Marco approved; Fuzz and Vinile at opposite ends because they argue |
 | 2026-11-25 | The four cats: Flanella (F, host), Fuzz (M, hothead), Feedback (M, slow philosopher), Vinile (M, grumpy nostalgic) | Three males and one female, grunge-inspired names, no real people or brands |

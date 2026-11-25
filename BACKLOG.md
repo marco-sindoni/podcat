@@ -15,3 +15,4 @@ and link the spec folder here.
 | B-008 | Scheduled daily run up to the approval gate, with notification (RF-15) | 2 | idea | |
 | B-009 | Real audio-driven lip-sync | 2 | idea | |
 | B-010 | "Giovedì buone notizie": every Thursday the daily reel covers one positive story (human progress, hope, heart-warming), from anywhere in the world, using the `good-news` source category (in the constitution since v1.1.0) | 1 | ready | |
+| B-011 | "Giovedì buone notizie" logo and 2–3 s opening sting: steaming plate of gnocchi al sugo on the tavern table, soft 3D cartoon style (Fotor image, animated in CapCut) | 1 | ready | |
