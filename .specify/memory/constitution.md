@@ -48,7 +48,8 @@ project-wide settings and decisions; every spec, plan and task MUST comply with 
   change only through an approved amendment.
 - Visual style: soft 3D cartoon, animated-film look.
 - Every generated image or clip starts from the approved reference images. Each cat has a fixed
-  voice (fixed voice ID and parameters once voices are automated).
+  voice: in phase 1 a named CapCut voice recorded in the bible, in phase 2 a fixed ElevenLabs
+  voice ID and parameters.
 - Character personalities evolve only through each character's evolution log.
 - Lip-sync is generic (non-synchronized mouth movement) until a backlog item says otherwise.
 
@@ -113,4 +114,4 @@ project-wide settings and decisions; every spec, plan and task MUST comply with 
   MAJOR for removed or redefined principles, MINOR for new principles or settings, PATCH for
   wording.
 
-**Version**: 1.0.0 | **Ratified**: 2026-11-25 | **Last Amended**: 2026-11-25
+**Version**: 1.0.1 | **Ratified**: 2026-11-25 | **Last Amended**: 2026-11-25
