@@ -4,6 +4,7 @@ Newest first. Rules that follow from a decision are also written into the consti
 
 | Date | Decision | Rationale |
 | --- | --- | --- |
+| 2026-11-25 | "Giovedì buone notizie": every Thursday the daily reel is a positive story from around the world; dedicated "good news" source category | Recognisable weekly ritual (like "giovedì gnocchi"); varies the tone |
 | 2026-11-25 | Character sheets get verbal tics, voice profiles and seating (left to right: Fuzz, Flanella, Vinile, Feedback) | Marco approved; Fuzz and Vinile at opposite ends because they argue |
 | 2026-11-25 | The four cats: Flanella (F, host), Fuzz (M, hothead), Feedback (M, slow philosopher), Vinile (M, grumpy nostalgic) | Three males and one female, grunge-inspired names, no real people or brands |
 | 2026-11-25 | Phase 1 voices: four fixed CapCut voices, one per cat, recorded in the bible; ElevenLabs (Starter, 6 USD/month, commercial licence) in phase 2 | No account yet; free tier lacks commercial licence |

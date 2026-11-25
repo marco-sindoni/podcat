@@ -75,6 +75,7 @@ project-wide settings and decisions; every spec, plan and task MUST comply with 
 | Code language | English for all code, identifiers, comments, commit messages and technical docs |
 | Chat language | Conversations with Marco are always in Italian |
 | Outputs | Daily reel ~30 s (70–90 words); weekly episode ~2 min (280–320 words) |
+| Recurring slot | "Giovedì buone notizie": every Thursday the daily reel covers one positive story from anywhere in the world (human progress, hope, kindness). Cats stay witty but warm; no sarcasm aimed at the people in the story |
 | Aspect ratio | Always vertical 9:16 |
 | Subtitles | Always present (phase 1: CapCut auto-captions; phase 2: burned in by FFmpeg, one color per cat, plus SRT) |
 | Phase 1 production | Software gathers news and writes scripts; Marco reviews; Marco builds the video by hand in CapCut from a "CapCut package" (lines per cat, scene directions, visual prompts, Fotor prompt for the news image) and makes the news image by hand in Fotor |
@@ -114,4 +115,4 @@ project-wide settings and decisions; every spec, plan and task MUST comply with 
   MAJOR for removed or redefined principles, MINOR for new principles or settings, PATCH for
   wording.
 
-**Version**: 1.0.1 | **Ratified**: 2026-11-25 | **Last Amended**: 2026-11-25
+**Version**: 1.1.0 | **Ratified**: 2026-11-25 | **Last Amended**: 2026-11-25
