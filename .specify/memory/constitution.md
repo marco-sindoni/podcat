@@ -75,6 +75,7 @@ project-wide settings and decisions; every spec, plan and task MUST comply with 
 | Code language | English for all code, identifiers, comments, commit messages and technical docs |
 | Chat language | Conversations with Marco are always in Italian |
 | Outputs | Daily reel ~30 s (70–90 words); weekly episode ~2 min (280–320 words) |
+| News sources | Approved list and verification rules in `docs/news-sources.md`: two sources from different groups per story; no crime news or tragedies; politics only as satire of the powerful, never partisan |
 | Recurring slot | "Giovedì buone notizie": every Thursday the daily reel covers one positive story from anywhere in the world (human progress, hope, kindness). Cats stay witty but warm; no sarcasm aimed at the people in the story |
 | Aspect ratio | Always vertical 9:16 |
 | Subtitles | Always present (phase 1: CapCut auto-captions; phase 2: burned in by FFmpeg, one color per cat, plus SRT) |
@@ -115,4 +116,4 @@ project-wide settings and decisions; every spec, plan and task MUST comply with 
   MAJOR for removed or redefined principles, MINOR for new principles or settings, PATCH for
   wording.
 
-**Version**: 1.1.0 | **Ratified**: 2026-11-25 | **Last Amended**: 2026-11-25
+**Version**: 1.2.0 | **Ratified**: 2026-11-25 | **Last Amended**: 2026-11-25

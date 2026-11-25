@@ -4,6 +4,7 @@ Newest first. Rules that follow from a decision are also written into the consti
 
 | Date | Decision | Rationale |
 | --- | --- | --- |
+| 2026-11-25 | News sources approved: 10 per category (current affairs, sport, culture, entertainment, music, lifestyle, good news, satire as inspiration only); two-source rule; no crime news or tragedies; non-partisan politics | Verified, high-traffic sources; satire never as fact source |
 | 2026-11-25 | Prompt library in `bible/prompts/` and manual test plan `docs/visual-test-plan.md` before any production | Lock the look and voices once, then reuse |
 | 2026-11-25 | "Giovedì buone notizie" logo: a steaming plate of gnocchi al sugo, used as a short reusable opening sting every Thursday | "Buoni gli gnocchi, buone le notizie" (Marco) |
 | 2026-11-25 | "Giovedì buone notizie": every Thursday the daily reel is a positive story from around the world; dedicated "good news" source category | Recognisable weekly ritual (like "giovedì gnocchi"); varies the tone |

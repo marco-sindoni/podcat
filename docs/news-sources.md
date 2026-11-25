@@ -1,41 +1,46 @@
 # News sources
 
-**Status: DRAFT, under Marco's review (2026-11-25).** RSS availability not yet checked; sources
-without a working feed get a replacement or are read by hand.
+**Status: APPROVED by Marco on 2026-11-25.** RSS availability is checked when the news-gathering
+feature is planned; a source without a working feed gets a replacement or is read by hand.
 
-## Verification rules (proposed)
+## Verification rules
 
-1. A story is used only if at least **2 independent sources** from this list report it. Outlets
-   republishing the same agency wire (e.g. one ANSA dispatch) count as one source.
+1. A story becomes a candidate only if at least **two approved sources from different publishing
+   groups** report it. Outlets republishing the same agency wire count as one source.
 2. Every story records all confirming sources with their URLs.
-3. Automatically discarded: clickbait headlines, single-source stories, rumours, sponsored content.
-4. Facts come from agencies and major outlets, never from social media or blogs.
-5. Satire sources (`satire`) are never a source of facts and never count for rule 1.
+3. Automatically discarded: low-traffic portals, clickbait headlines ("non crederai...", "shock"),
+   rumours, sponsored content, stories based only on social media posts.
+4. `satire` sources are never a source of facts, never count for rule 1, and their jokes are never
+   copied. They show what the internet is already laughing at, so the cats pick a different angle.
+5. `good-news` stories follow rule 1 too: many good-news sites aggregate, so confirm with a major
+   outlet or agency.
+
+## Topics
+
+- Excluded: crime news (cronaca nera) and tragedies.
+- Politics: only as public fact and satire of the powerful; the show never takes a party's side.
 
 ## Categories
 
 | Category | Sources |
 | --- | --- |
-| `current-affairs` (attualità) | ANSA, AGI, Adnkronos, Corriere della Sera, la Repubblica, La Stampa, Il Sole 24 Ore, Sky TG24, RaiNews, Fanpage.it, Reuters / AP (foreign news cross-check) |
-| `sport` | La Gazzetta dello Sport, Corriere dello Sport, Tuttosport, Sky Sport, Rai Sport, ANSA Sport, Eurosport Italia, OA Sport, BBC Sport, ESPN |
-| `culture` (books, art, science, tech) | ANSA Cultura, Corriere – La Lettura, la Repubblica – Robinson, Il Sole 24 Ore – Domenica, Internazionale, Il Giornale dell'Arte, Artribune, Wired Italia, Le Scienze, Focus |
-| `entertainment` (spettacolo) | ANSA Spettacolo, Sky TG24 Spettacolo, ComingSoon.it, BadTaste.it, Ciak, The Hollywood Reporter Roma, DavideMaggio.it, Vanity Fair Italia, Variety, Deadline |
-| `music` | Rockol, Rolling Stone Italia, Billboard Italia, Rockit, OndaRock, All Music Italia, FIMI (official charts), Pitchfork, NME, Consequence |
-| `lifestyle` | Vogue Italia, GQ Italia, Esquire Italia, Elle Italia, Marie Claire Italia, Io Donna, D – la Repubblica, Gambero Rosso, Dissapore, Lonely Planet Italia |
-| `good-news` ("Giovedì buone notizie", B-010) | Corriere della Sera – Buone Notizie, Italia che Cambia, Vita.it, LifeGate, Positive News, Good News Network, Reasons to be Cheerful, Fix The News, YES! Magazine, Our World in Data |
-| `satire` (tone inspiration only, never facts, never copied) | Il Milanese Imbruttito, Lercio, Spinoza.it, Kotiomkin, Il Terzo Segreto di Satira, Feudalesimo e Libertà, Il Vernacoliere, The Onion, The Daily Mash, NewsThump |
+| `current-affairs` | ANSA, AGI, Adnkronos, Corriere della Sera, la Repubblica, La Stampa, Il Sole 24 Ore, Sky TG24, RaiNews, Reuters / BBC News (world news), Fanpage |
+| `sport` | La Gazzetta dello Sport, Corriere dello Sport, Tuttosport, Sky Sport, Sport Mediaset, RaiSport, Eurosport Italia, OA Sport, ANSA Sport, L'Ultimo Uomo |
+| `culture` | La Lettura (Corriere), Robinson (Repubblica), Domenica (Il Sole 24 Ore), Internazionale, Il Libraio, Artribune, Finestre sull'Arte, Focus, Wired Italia, National Geographic Italia |
+| `entertainment` | ANSA Cinema e Spettacolo, Comingsoon.it, MYmovies, BadTaste.it, Movieplayer, TV Sorrisi e Canzoni, TvBlog, DavideMaggio.it, Variety, Deadline |
+| `music` | Rolling Stone Italia, Rockol, Billboard Italia, All Music Italia, Rockit, Rumore, OndaRock, Loudwire, FIMI (official charts, for checking data), Pitchfork |
+| `lifestyle` | Vanity Fair Italia, GQ Italia, Vogue Italia, Elle Italia, Grazia, Cosmopolitan Italia, Gambero Rosso, Dissapore, Condé Nast Traveller Italia, How to Spend It (Il Sole 24 Ore) |
+| `good-news` ("Giovedì buone notizie") | Buone Notizie (Corriere della Sera), Italia che Cambia, Vita.it, Positive News, Good News Network, Reasons to be Cheerful, Fix the News, The Guardian – The Upside, Good Good Good, Our World in Data (for checking numbers) |
+| `satire` (inspiration only) | Il Milanese Imbruttito, Lercio, Spinoza.it, Il Terzo Segreto di Satira, The Jackal, Kotiomkin, Il Vernacoliere, The Daily Mash, The Onion, NewsThump |
 
 Notes:
-- `good-news` stories still follow rule 1: a positive story found on a good-news site must be
-  confirmed by a major outlet or agency (many of these sites aggregate).
-- `satire`: Il Milanese Imbruttito and Il Terzo Segreto di Satira live mostly on social media and
-  YouTube, with little or no RSS; they are checked by hand.
+- Il Milanese Imbruttito, The Jackal and Il Terzo Segreto di Satira live mostly on social media and
+  YouTube, with little or no RSS; they are read only partially.
+- Il Post and Il Fatto Quotidiano are used only to cross-check, never as starting sources.
 
 ## Excluded sources
 
 | Source | Reason |
 | --- | --- |
-| Le frasi di Osho | Satire too politically aligned (Marco, 2026-11-25) |
+| Le Frasi di Osho | Satire too politically aligned (Marco) |
 | The Babylon Bee | Satire too politically aligned |
-| Il Post, Il Fatto Quotidiano | Authoritative, but not the best fit for the stories the show comments on |
-| Aggregators, low-traffic portals, clickbait sites | Rule 3 |
