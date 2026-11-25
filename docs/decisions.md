@@ -4,6 +4,7 @@ Newest first. Rules that follow from a decision are also written into the consti
 
 | Date | Decision | Rationale |
 | --- | --- | --- |
+| 2026-11-25 | Code runs in `/home/marco/Projects/podcat`; assets in `/home/marco/Projects/podcat-assets` | Marco's machine; assets outside git |
 | 2026-11-25 | Future work tracked in `BACKLOG.md`, promoted to Spec Kit specs when picked | Markdown, versioned with the code, no extra tools |
 | 2026-11-25 | Monthly budget cap 50 USD across all services | Cost before quality |
 | 2026-11-25 | All videos vertical 9:16, daily and weekly | Shorts-first channel |

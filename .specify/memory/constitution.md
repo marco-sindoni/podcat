@@ -80,7 +80,7 @@ project-wide settings and decisions; every spec, plan and task MUST comply with 
 | Phase 2 production | Automated voices, clips, FFmpeg editing, YouTube upload (see `BACKLOG.md`) |
 | Monthly budget | 50 USD cap, all services |
 | Tracking | Markdown + YAML front matter under `tracking/` |
-| Assets | Binary assets live OUTSIDE git, under the directory in `PODCAT_ASSETS_DIR` |
+| Assets | Binary assets live OUTSIDE git, under the directory in `PODCAT_ASSETS_DIR` (`/home/marco/Projects/podcat-assets`) |
 | Secrets | API keys in `.env`, never committed |
 | Backlog | `BACKLOG.md` at the repository root |
 | Decision log | `docs/decisions.md` |
