@@ -17,4 +17,3 @@ and link the spec folder here.
 | B-010 | "Giovedì buone notizie": every Thursday the daily reel covers one positive story (human progress, hope, heart-warming), from anywhere in the world, using the `good-news` source category (in the constitution since v1.1.0) | 1 | ready | |
 | B-011 | "Giovedì buone notizie" logo and 2–3 s opening sting: steaming plate of gnocchi al sugo on the tavern table, soft 3D cartoon style (Fotor image, animated in CapCut) | 1 | ready | |
 | B-012 | Visual test session in Fotor and CapCut following `docs/visual-test-plan.md`; approve reference assets and voices | 1 | ready | |
-| B-012 | Prompt test session on Fotor and CapCut: characters, tavern, gnocchi logo, news image modes, clips, voices, dry run ([task](docs/tasks/T-001-prompt-test.md), prompts in `bible/prompts.md`) | 1 | ready | |
