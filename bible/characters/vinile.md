@@ -1,9 +1,10 @@
 ---
 name: Vinile
 sex: male
-armchair: 1 (left)
+armchair: 3 (center-right)
 subtitle_color: "#F2D16B"
 capcut_voice: TBD   # pick one CapCut Italian male voice (older, grumpy) and never change it
+voice_profile: "Raspy and theatrical."
 status: approved 2026-11-25
 ---
 
@@ -25,7 +26,8 @@ shirt, holding a vinyl record, sitting in a soft brown leather armchair, warm ta
 - Flanella's favourite target; old friend of Feedback.
 
 ## Verbal tics (Italian, channel language)
-- "Ai miei tempi..." (use sparingly, not in every episode).
+- "Ai miei tempi..." (use sparingly, not in every episode)
+- "Nel '94 questa cosa non sarebbe mai successa."
 
 ## Evolution log
 | Date | Episode | What happened |

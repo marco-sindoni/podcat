@@ -1,9 +1,10 @@
 ---
 name: Fuzz
 sex: male
-armchair: 3 (center-right)
+armchair: 1 (left)
 subtitle_color: "#FF4D6D"
 capcut_voice: TBD   # pick one CapCut Italian male voice and never change it
+voice_profile: "Fast; cracks when he gets angry."
 status: approved 2026-11-25
 ---
 
@@ -25,7 +26,9 @@ t-shirt, restless pose on a soft brown leather armchair, warm tavern light.
 - Flanella is the only one who can calm him down.
 
 ## Verbal tics (Italian, channel language)
-- TBD in the first scripts.
+- "No, no, no, fermi tutti!"
+- "Questo è uno scandalo!" (always for trivial things)
+- Ends every rant with air guitar.
 
 ## Evolution log
 | Date | Episode | What happened |

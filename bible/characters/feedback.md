@@ -4,6 +4,7 @@ sex: male
 armchair: 4 (right)
 subtitle_color: "#7FB2FF"
 capcut_voice: TBD   # pick one CapCut Italian male voice (deep, slow) and never change it
+voice_profile: "Deep and slow."
 status: approved 2026-11-25
 ---
 
@@ -24,7 +25,8 @@ deep into a soft brown leather armchair, warm tavern light.
 - Gets along with everyone; ignores Fuzz's outbursts.
 
 ## Verbal tics (Italian, channel language)
-- TBD in the first scripts.
+- "Mmh."
+- "E quindi?" (deflates any argument)
 
 ## Evolution log
 | Date | Episode | What happened |

@@ -4,6 +4,7 @@ Newest first. Rules that follow from a decision are also written into the consti
 
 | Date | Decision | Rationale |
 | --- | --- | --- |
+| 2026-11-25 | Character sheets get verbal tics, voice profiles and seating (left to right: Fuzz, Flanella, Vinile, Feedback) | Marco approved; Fuzz and Vinile at opposite ends because they argue |
 | 2026-11-25 | The four cats: Flanella (F, host), Fuzz (M, hothead), Feedback (M, slow philosopher), Vinile (M, grumpy nostalgic) | Three males and one female, grunge-inspired names, no real people or brands |
 | 2026-11-25 | Phase 1 voices: four fixed CapCut voices, one per cat, recorded in the bible; ElevenLabs (Starter, 6 USD/month, commercial licence) in phase 2 | No account yet; free tier lacks commercial licence |
 | 2026-11-25 | Code runs in `/home/marco/Projects/podcat`; assets in `/home/marco/Projects/podcat-assets` | Marco's machine; assets outside git |

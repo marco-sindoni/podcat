@@ -4,6 +4,7 @@ sex: female
 armchair: 2 (center-left)
 subtitle_color: "#FF8A3D"
 capcut_voice: TBD   # pick one CapCut Italian female voice and never change it
+voice_profile: "Warm, low and dry."
 status: approved 2026-11-25
 ---
 
@@ -25,7 +26,9 @@ collar, sitting upright in a soft brown leather armchair, warm tavern light.
 - Respects Feedback's slow wisdom; teases Vinile's nostalgia.
 
 ## Verbal tics (Italian, channel language)
-- TBD in the first scripts; record here once one sticks.
+- "Allora, gattini…"
+- "Ricapitoliamo."
+- Instead of answering, a long sip from her mug.
 
 ## Evolution log
 | Date | Episode | What happened |
