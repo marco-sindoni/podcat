@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-25
 
-**Status**: Draft (under review by Marco)
+**Status**: Draft (under review by Marco; questions answered 2026-11-26)
 
 **Input**: User description: "Daily news gathering and verification for Podcat: fetch the approved RSS feeds in docs/news-sources.md, filter out excluded topics, cross-check each story on at least two sources from different groups, and propose 3-5 candidate stories per day (positive story on Thursdays) for Marco to pick, recorded in tracking/ as Markdown with YAML front matter."
 
@@ -17,8 +17,9 @@ Covers requirements RF-01 and RF-02 of `docs/analisi-requisiti.md` and backlog i
 
 Every day Marco runs one command and gets a short list of 3–5 candidate stories for the daily reel.
 Each candidate is confirmed by at least two approved sources from different publishing groups,
-lists every confirming source with its link, carries a short neutral summary in Italian, a category
-and a "comic potential" rating with a one-line reason. Stories on excluded topics never appear.
+lists every confirming source with its link, carries a short neutral summary in Italian, a category,
+an importance rating and a "comic potential" rating, each with a one-line reason. Marco receives the
+shortlist as a commentable document. Stories on excluded topics never appear.
 
 **Why this priority**: Without verified stories there is nothing to write about. This is the first
 step of every episode and the smallest useful slice: even before scripts are automated, Marco can
@@ -32,7 +33,7 @@ confirming sources from different groups, and that every link opens the cited ar
 
 1. **Given** the approved feeds are reachable, **When** Marco runs the daily gathering, **Then** a
    shortlist for today is created with 3–5 candidates, each confirmed by at least two sources from
-   different publishing groups, ordered by comic potential.
+   different publishing groups, ordered by importance, each also showing its comic potential.
 2. **Given** two outlets republish the same agency wire, **When** confirmations are counted,
    **Then** they count as one source.
 3. **Given** a story only appears in one approved source, or only in satire sources, **When** the
@@ -48,14 +49,15 @@ confirming sources from different groups, and that every link opens the cited ar
 
 ### User Story 2 - Marco picks the story (Priority: P1)
 
-Marco reads the shortlist and marks one candidate as the story for the day's reel. The choice is
+Marco reads the shortlist in the commentable document and marks one candidate as the story for the day's reel. The choice is
 recorded in the shortlist file and becomes the input for the script-writing feature. Marco can
 change his pick until a script has been written from it.
 
 **Why this priority**: The constitution puts Marco in charge of editorial choices; the next feature
 needs a single, explicit chosen story.
 
-**Independent Test**: Mark a candidate as chosen (by command or by editing the file); check that
+**Independent Test**: Mark a candidate as chosen (by a comment on the document, by command or by
+editing the file); check that
 the shortlist shows exactly one chosen story and that a story record for it exists in
 `tracking/news/`.
 
@@ -94,9 +96,9 @@ labelled as "Giovedì buone notizie".
 
 ### User Story 4 - Stories for the weekly episode (Priority: P3)
 
-At the end of the week Marco gets a shortlist for the weekly episode, built from the week's
+Every Saturday Marco gets a shortlist for the weekly episode, built from the week's
 verified candidates and chosen stories, so the weekly episode can recap or expand the week's best
-material.
+material. The weekly episode is published on Sunday.
 
 **Why this priority**: The weekly episode depends on a week of daily data; it can come after the
 daily flow works.
@@ -149,9 +151,11 @@ already used in a daily reel.
   episode, except for clearly marked follow-ups.
 - **FR-007**: For each candidate the system MUST record: title, neutral Italian summary (2–3
   sentences, written in its own words, never copied from the source), category, all confirming
-  sources with outlet name, publishing group and URL, publication time, comic potential rating
-  (1–5) with a one-line reason, and sensitivity flags (politics, health, legal, finance).
-- **FR-008**: The system MUST produce 3–5 candidates per daily run, ordered by comic potential,
+  sources with outlet name, publishing group and URL, publication time, importance rating (1–5)
+  with a one-line reason (how widely and prominently it is covered, how much it matters to an
+  Italian audience), comic potential rating (1–5) with a one-line reason, and sensitivity flags (politics, health, legal, finance).
+- **FR-008**: The system MUST produce 3–5 candidates per daily run, ordered by importance, with
+  the comic potential rating always shown next to it,
   balancing categories so that no single category fills the whole list when others have verified
   stories.
 - **FR-009**: On Thursdays the system MUST build the shortlist only from positive stories
@@ -168,7 +172,10 @@ already used in a daily reel.
   monthly total, and refuse to start a paid step once the 50 USD monthly cap would be exceeded.
 - **FR-014**: The system MUST keep a run log for each run: feeds read, feeds failed, stories found,
   stories discarded with reasons, cost.
-- **FR-015**: The system MUST provide a weekly run that proposes 3–5 stories from the week's
+- **FR-017**: The system MUST deliver each shortlist (daily and weekly) to Marco as a commentable
+  document, with a link to it in the shortlist file; the Markdown file in `tracking/news/` stays the
+  source of truth, and Marco's pick made in the document is written back to it.
+- **FR-015**: The system MUST provide a weekly run, every Saturday, that proposes 3–5 stories from the week's
   verified candidates, marking which were already used in a daily reel.
 - **FR-016**: The system MUST NOT store full article text, images or video from sources; only
   headlines, links, timestamps and its own summaries.
@@ -178,10 +185,10 @@ already used in a daily reel.
 - **Source**: an approved outlet. Name, category, publishing group, feed address (or "manual
   only"), role (starting source, confirmation only, inspiration only).
 - **Story**: one news event confirmed by several sources. Title, summary, category, confirming
-  sources, first seen time, sensitivity flags, comic potential, status (candidate, chosen,
+  sources, first seen time, sensitivity flags, importance, comic potential, status (candidate, chosen,
   rejected, used, follow-up), episode that used it.
 - **Shortlist**: the list of candidates for one date and output type (daily or weekly), with the
-  Thursday flag, Marco's pick, and the link to the run log.
+  Thursday flag, Marco's pick, the link to its commentable document and the link to the run log.
 - **Run log**: what happened in one run: feeds read and failed, discarded stories with reasons,
   cost.
 
@@ -209,7 +216,8 @@ already used in a daily reel.
   potential rating may use a low-cost language model; that cost counts towards the budget.
 - Feed addresses for the approved sources are found and checked during planning; sources without a
   feed are "manual only" and do not block the feature.
-- The shortlist is reviewed in the terminal or by opening the Markdown file; publishing it as a
-  commentable document is not required in this feature.
-- The weekly run is done by hand at the end of the week (day chosen by Marco).
+- The weekly run is done on Saturday, so the weekly episode can be published on Sunday (Marco,
+  2026-11-26).
+- The commentable document is created from the project chat with Claude, the same way scripts will
+  be reviewed; the plan decides the exact mechanism.
 - Summaries are in Italian (channel content); file names, field names and logs are in English.

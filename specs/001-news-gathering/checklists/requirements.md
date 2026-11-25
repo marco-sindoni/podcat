@@ -33,5 +33,5 @@
 
 - RSS, Markdown/YAML and `tracking/news/` are project-level settings fixed by the constitution, not
   implementation choices of this feature.
-- Open points for Marco (weekly run day, review in terminal vs document) are listed as assumptions
-  and asked in the review document.
+- Marco's answers (2026-11-26): weekly run on Saturday; shortlist delivered as a commentable
+  document; order by importance, comic potential always shown.
