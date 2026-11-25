@@ -1,0 +1,16 @@
+# Backlog
+
+One row per item. Status: idea, ready, in-spec, done. When an item is picked, run `/speckit-specify`
+and link the spec folder here.
+
+| ID | Title | Phase | Status | Spec |
+| --- | --- | --- | --- | --- |
+| B-001 | Automated voices with fixed ElevenLabs voice per cat (RF-06) | 2 | idea | |
+| B-002 | Automated clip generation from reference images via video API (RF-07) | 2 | idea | |
+| B-003 | Automated FFmpeg editing: intro, scenes, audio, music, outro (RF-08) | 2 | idea | |
+| B-004 | Burned-in subtitles with one color per cat, plus SRT export (RF-09) | 2 | idea | |
+| B-005 | Reusable clip library per cat and shot | 2 | idea | |
+| B-006 | Fotor OpenAPI for reference and news images | 2 | idea | |
+| B-007 | Upload to YouTube as private draft with "AI use" disclosure (RF-14) | 2 | idea | |
+| B-008 | Scheduled daily run up to the approval gate, with notification (RF-15) | 2 | idea | |
+| B-009 | Real audio-driven lip-sync | 2 | idea | |
