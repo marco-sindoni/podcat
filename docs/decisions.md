@@ -21,4 +21,4 @@ Newest first. Rules that follow from a decision are also written into the consti
 | 2026-11-25 | Spec-driven framework: GitHub Spec Kit with Claude Code integration | Only major framework with a constitution; greenfield fit |
 | 2026-11-25 | Stack: Python 3.12+, uv, Typer, Pydantic, pytest; Claude API for scripts | Best ecosystem for AI, audio and video |
 
-Background analysis: Claude Doc "Podcat – Analisi e bozza requisiti".
+Background analysis: Claude Doc "Podcat – Analisi e bozza requisiti", snapshot in [`analisi-requisiti.md`](analisi-requisiti.md).
