@@ -1,6 +1,6 @@
 # Podcat – Analisi e bozza requisiti
 
-> Snapshot exported on 2026-11-25 from the Claude Doc https://claude.ai/artifact/WKEYiyksxVdkVquzMk6U5f (revision 58). The live doc may change; decisions that matter are also in the constitution and `docs/decisions.md`. The pipeline diagram is not included in this export.
+> Snapshot of the Claude Doc https://claude.ai/artifact/WKEYiyksxVdkVquzMk6U5f (revision 76), approved by Marco on 2026-11-25. The repository files (constitution, `docs/decisions.md`, `BACKLOG.md`, `bible/`, `docs/news-sources.md`) are the source of truth. The pipeline diagram is only in the original doc.
 
 Nov 25, 2026 · @Marco
 
@@ -115,6 +115,8 @@ I prezzi cambiano spesso: li riverifico prima di scegliere. L'audio nativo dei m
 
 La libreria garantisce anche la coerenza visiva. Le scene nuove a ogni puntata servono contro il rischio "template" di YouTube.
 
+**Giovedì buone notizie (decisione del 25/11/2026).** Come il proverbiale "giovedì gnocchi", ogni giovedì il reel giornaliero è dedicato a una notizia positiva da tutto il mondo. È un appuntamento fisso che dà al canale un tratto riconoscibile e varia il tono della settimana.
+
 **Un'immagine dedicata per ogni notizia (decisione del 25/11/2026).** Oltre alla libreria, ogni puntata ha almeno un'immagine creata apposta per la notizia con Fotor. In fase 1 il software scrive il prompt e Marco crea l'immagine a mano. Serve contro la ripetitività e rende ogni puntata riconoscibile. Tre modi per metterla in scena, usati a rotazione: due video consecutivi non usano mai lo stesso modo (la regola vale tra reel e puntata settimanale, in ordine di pubblicazione). La scheda della puntata registra il modo usato e il software sceglie il successivo.
 
 1. **La TV della taverna:** sopra il camino c'è un vecchio televisore a tubo che mostra l'immagine della notizia; i gatti si girano a guardarla e uno la commenta. È un elemento fisso del set, quindi coerente, ma il contenuto cambia sempre.
@@ -151,7 +153,7 @@ Deciso il 25/11/2026: stile visivo cartoon 3D morbido, tipo film d'animazione. �
 
 Ogni passo è un comando della CLI e aggiorna la scheda della puntata in `tracking/`. Tu intervieni in due punti: approvi il copione e approvi il video finale.
 
-*[Diagramma: pipeline di una puntata, 8 passi, 1 approvazione — vedi il Claude Doc originale]*
+&#91;embedded content: pipeline di una puntata · 8 passi, 1 approvazione\]
 
 Voci e clip si preparano in parallelo; il montaggio unisce tutto e imprime i sottotitoli. Un copione bocciato torna all'autore con le tue note, prima di spendere un centesimo in video.
 
@@ -249,7 +251,7 @@ Voci già previste nel backlog: voci automatiche (RF-06), clip automatiche (RF-0
 | ID | Requisito |
 | --- | --- |
 | RF-01 | Raccogliere ogni giorno le notizie da un elenco configurabile di feed RSS, per categoria (attualità, sport, cultura, spettacolo). |
-| RF-02 | Proporre 3-5 notizie candidate con un punteggio di "potenziale comico" ed escludere argomenti già trattati o vietati dalla costituzione. |
+| RF-02 | Proporre 3-5 notizie candidate, ciascuna confermata da almeno due fonti approvate di gruppi editoriali diversi, con un punteggio di "potenziale comico" ed escludere argomenti già trattati o vietati dalla costituzione. |
 | RF-03 | Scrivere il copione del reel (circa 30 s, 70-90 parole) e della puntata settimanale (circa 2 min, 280-320 parole) con battute assegnate ai gatti secondo personalità e registro dell'evoluzione. |
 | RF-04 | Revisione automatica del copione (secondo passaggio da "capo autore"), poi pubblicazione del copione come documento commentabile: Marco commenta battute e scene, il copione si aggiorna finché non lo approva. |
 | RF-05 | Dividere il copione in scene: chi parla, inquadratura, clip di libreria o nuova, durata. |
@@ -292,6 +294,141 @@ Alternative: Riot (F, dal movimento riot grrrl, al posto di Flanella), Anfibio (
 
 Ogni gatto ha la sua scheda in `bible/characters/` con carattere, aspetto, tic verbali, voce CapCut, colore dei sottotitoli e registro dell'evoluzione.
 
+## Fonti delle notizie (approvate il 25/11/2026)
+
+Una notizia entra tra le candidate solo se compare su almeno due fonti di questo elenco appartenenti a gruppi editoriali diversi. Due testate che ripubblicano lo stesso lancio d'agenzia contano come una sola fonte. Ogni notizia registra tutte le fonti che la confermano. Scartati in automatico: portali a basso traffico, titoli clickbait ("non crederai...", "shock"), indiscrezioni, contenuti sponsorizzati e notizie basate solo su post social. La disponibilità dei feed RSS va verificata fonte per fonte in fase di piano; dove manca, si legge la pagina della sezione.
+
+**Attualità**
+
+| Fonte | Perché |
+| --- | --- |
+| ANSA | Agenzia di stampa nazionale, prima a dare le notizie |
+| AGI | Agenzia, buona per il secondo riscontro |
+| Adnkronos | Agenzia, forte su costume e curiosità |
+| Corriere della Sera | Primo quotidiano per diffusione |
+| la Repubblica | Grande quotidiano nazionale, gruppo diverso dal Corriere |
+| La Stampa | Quotidiano nazionale, ottimo su esteri |
+| Il Sole 24 Ore | Economia, lavoro, soldi |
+| Sky TG24 | All news, aggiornamento continuo |
+| RaiNews | Servizio pubblico |
+| Reuters / BBC News | Notizie dal mondo da fonte internazionale |
+| Fanpage | Grande traffico, forte su temi virali e social |
+
+**Sport**
+
+| Fonte | Perché |
+| --- | --- |
+| La Gazzetta dello Sport | Il quotidiano sportivo di riferimento |
+| Corriere dello Sport | Secondo grande quotidiano sportivo |
+| Tuttosport | Terzo quotidiano sportivo, gruppo diverso |
+| Sky Sport | Calcio, F1, MotoGP, tennis |
+| Sport Mediaset | Calcio e mercato |
+| RaiSport | Servizio pubblico, sport olimpici |
+| Eurosport Italia | Tennis, ciclismo, sport invernali |
+| OA Sport | Tutti gli sport olimpici, molto completo |
+| ANSA Sport | Riscontro d'agenzia |
+| L'Ultimo Uomo | Analisi e storie, utile per l'angolo comico |
+
+**Cultura**
+
+| Fonte | Perché |
+| --- | --- |
+| La Lettura (Corriere) | Libri, idee, mostre |
+| Robinson (Repubblica) | Supplemento culturale |
+| Domenica (Il Sole 24 Ore) | Arte, libri, scienza |
+| Internazionale | Il meglio della stampa estera |
+| Il Libraio | Editoria e classifiche dei libri |
+| Artribune | Arte contemporanea e mostre |
+| Finestre sull'Arte | Musei, patrimonio, polemiche d'arte |
+| Focus | Scienza e curiosità |
+| Wired Italia | Tecnologia, internet, AI |
+| National Geographic Italia | Natura, scienza, viaggi |
+
+**Spettacolo (cinema, TV, celebrità)**
+
+| Fonte | Perché |
+| --- | --- |
+| ANSA Cinema e Spettacolo | Riscontro d'agenzia |
+| Comingsoon.it | Cinema e serie, uscite e box office |
+| MYmovies | Cinema e incassi |
+| BadTaste.it | Cinema, serie, cultura pop |
+| Movieplayer | Cinema e TV |
+| TV Sorrisi e Canzoni | La TV italiana e i suoi personaggi |
+| TvBlog | Ascolti e retroscena TV |
+| DavideMaggio.it | Palinsesti e ascolti TV |
+| Variety | Hollywood e industria internazionale |
+| Deadline | Notizie dall'industria USA |
+
+**Musica**
+
+| Fonte | Perché |
+| --- | --- |
+| Rolling Stone Italia | Il riferimento per musica e cultura pop |
+| Rockol | Notizie musicali italiane quotidiane |
+| Billboard Italia | Classifiche e industria |
+| All Music Italia | Pop italiano, Sanremo, talent |
+| Rockit | Scena italiana indipendente |
+| Rumore | Rock e alternativo, anima vicina al grunge |
+| Ondarock | Rock, recensioni e storia |
+| Loudwire | Rock e metal internazionale |
+| FIMI | Classifiche ufficiali italiane, per verificare i dati |
+| Pitchfork | Musica alternativa internazionale |
+
+**Lifestyle (moda, cibo, tendenze, costume)**
+
+| Fonte | Perché |
+| --- | --- |
+| Vanity Fair Italia | Personaggi, costume, tendenze |
+| GQ Italia | Stile e cultura maschile |
+| Vogue Italia | Moda e tendenze |
+| Elle Italia | Moda, bellezza, costume |
+| Grazia | Lifestyle e personaggi |
+| Cosmopolitan Italia | Relazioni, tendenze, cultura pop |
+| Gambero Rosso | Cibo e vino, autorevole |
+| Dissapore | Cibo, con tono ironico |
+| Condé Nast Traveller Italia | Viaggi e tendenze |
+| How to Spend It (Il Sole 24 Ore) | Lusso e consumi, ottimo bersaglio per la satira |
+
+**Sarcasmo e satira (solo ispirazione, mai fonte dei fatti)**
+
+Queste fonti non contano per la doppia verifica: servono a capire di cosa si ride in rete e a evitare di ripetere battute già fatte. Non si copia mai una loro battuta: se la satira sta già ridendo di una notizia, i gatti cercano un angolo diverso. Il Milanese Imbruttito, The Jackal e Il Terzo Segreto di Satira vivono soprattutto su social e YouTube, quindi il software li leggerà solo in parte.
+
+| Fonte | Perché |
+| --- | --- |
+| Il Milanese Imbruttito | Ironia sul lavoro e sulla vita in città |
+| Lercio | Notizie finte, il riferimento della satira italiana |
+| Spinoza.it | Battute sulle notizie del giorno |
+| Il Terzo Segreto di Satira | Video satirici su politica e società |
+| The Jackal | Comicità video e cultura pop |
+| Kotiomkin | Satira sui social |
+| Il Vernacoliere | Satira storica, toni ruvidi |
+| The Daily Mash | Satira britannica sulle notizie |
+| The Onion | La satira americana per eccellenza |
+| NewsThump | Satira britannica, utile per confronto |
+
+**Buone notizie (per il "Giovedì buone notizie")**
+
+Ogni giovedì il reel giornaliero racconta una notizia positiva da tutto il mondo: un progresso umano, un gesto che apre il cuore, una fonte di speranza. I gatti restano spiritosi ma il tono è caldo, senza sarcasmo sul protagonista della notizia. Vale la stessa doppia verifica delle altre categorie.
+
+| Fonte | Perché |
+| --- | --- |
+| Buone Notizie (Corriere della Sera) | L'inserto del Corriere dedicato a solidarietà e impresa sociale |
+| Italia che Cambia | Storie italiane di innovazione e comunità |
+| Vita.it | Terzo settore, volontariato, sociale |
+| Positive News | Testata britannica di giornalismo costruttivo |
+| Good News Network | Archivio storico di buone notizie dal mondo |
+| Reasons to be Cheerful | Soluzioni concrete ai problemi, ben documentate |
+| Fix the News | Rassegna settimanale dei progressi globali |
+| The Guardian, The Upside | Rubrica di soluzioni e progressi |
+| Good Good Good | Buone notizie e curiosità da tutto il mondo |
+| Our World in Data | Dati sul progresso umano, per il riscontro dei numeri |
+
+**Fonti escluse:** Le Frasi di Osho e The Babylon Bee, perché satira troppo schierata politicamente. La satira dei gatti colpisce fatti e potenti senza schierarsi.
+
+Il Post e Il Fatto Quotidiano restano utili solo come riscontro, non come fonti di partenza. Fanpage aggiunto su indicazione di Marco.
+
+Temi: si escludono cronaca nera e tragedie; la politica si commenta solo come fatto pubblico e satira sui potenti, mai schierandosi con un partito.
+
 ## Ipotesi e domande aperte
 
 Le ipotesi qui sotto sono già nella bozza; se ne cambi una, aggiorno costituzione e requisiti.
@@ -309,7 +446,7 @@ Le ipotesi qui sotto sono già nella bozza; se ne cambi una, aggiorno costituzio
 - [x] **Fotor:** Fotor Pro annuale, valido fino al 21/10/2027 (non si rinnova da solo). In fase 1 le immagini si fanno a mano; la chiave API della Developer Platform serve solo in fase 2 e usa token a parte.
 - [x] **ElevenLabs:** deciso il 25/11: in fase 1 si usano quattro voci fisse di CapCut, una per gatto, registrate nella bibbia; ElevenLabs solo in fase 2 (piano Starter, 6 USD al mese: il piano gratuito non ha licenza commerciale).
 - [x] **Nomi dei gatti:** deciso il 25/11: Flanella, Fuzz, Feedback e Vinile (sezione "I quattro gatti").
-- [ ] **Fonti di news:** testate preferite o da evitare? Temi esclusi (per esempio politica o cronaca nera)?
+- [x] **Fonti di news:** decise il 25/11, vedi la sezione "Fonti delle notizie". Regola: notizia verificata su almeno due fonti di gruppi diversi.
 
 **Ipotesi tecniche da verificare in fase di piano**
 
