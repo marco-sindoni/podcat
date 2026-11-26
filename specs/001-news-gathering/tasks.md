@@ -134,8 +134,8 @@ own.
 ## Phase 8: Polish
 
 - [X] T043 [P] Update `README.md` with install, commands and the daily routine
-- [ ] T044 [P] Mark FR coverage in `specs/001-news-gathering/checklists/requirements.md` notes; update `BACKLOG.md` (B-010, B-008 done when verified)
-- [ ] T045 Run all quickstart.md scenarios, including the budget cap (Scenario 6), and record the results in `tracking/news/runs/`
+- [X] T044 [P] Mark FR coverage in `specs/001-news-gathering/checklists/requirements.md` notes; update `BACKLOG.md` (B-010, B-008 done when verified)
+- [X] T045 Run all quickstart.md scenarios, including the budget cap (Scenario 6), and record the results in `tracking/news/runs/`
 
 ---
 

@@ -53,6 +53,9 @@ def test_weekly_uses_only_this_week_and_marks_used(repo):
     assert "2026-11-22" in meta["gaps"] and "2026-11-23" not in meta["gaps"]
     body = store.shortlist_path(SATURDAY, "weekly").read_text()
     assert "già usata" in body and "nuova" in body and "Giorni senza giro" in body
+    table = [l for l in body.splitlines() if l.startswith("|")]
+    assert table[0].endswith("| Fonti | Reel |")
+    assert len({l.count("|") for l in table}) == 1  # header, separator and rows have the same columns
 
 
 def test_weekly_idempotent(repo):

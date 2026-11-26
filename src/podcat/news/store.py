@@ -164,7 +164,7 @@ class NewsStore:
     def _story_table(self, ids: list[str], picked: str | None, weekly: bool) -> list[str]:
         head = "| # | Notizia | Categoria | Importanza | Potenziale comico | Fonti |"
         if weekly:
-            head = head[:-1] + " Reel |"
+            head += " Reel |"
         lines = [head, "|" + " --- |" * (head.count("|") - 1)]
         for n, sid in enumerate(ids, start=1):
             s = self.read_story(sid)
