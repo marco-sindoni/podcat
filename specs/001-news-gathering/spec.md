@@ -87,7 +87,7 @@ labelled as "Giovedì buone notizie".
 **Acceptance Scenarios**:
 
 1. **Given** today is Thursday, **When** the gathering runs, **Then** all candidates are positive
-   stories with at least one confirmation outside the good-news aggregators.
+   stories from the last 7 days, each reported by at least one approved starting source.
 2. **Given** today is Thursday and fewer than 3 verified positive stories are found, **When** the
    shortlist is built, **Then** Marco is shown what was found with a clear warning, and the
    positive stories of the previous 7 days that were not used are offered as backups.
@@ -160,8 +160,8 @@ already used in a daily reel.
   balancing categories so that no single category fills the whole list when others have verified
   stories.
 - **FR-009**: On Thursdays the system MUST build the shortlist only from positive stories
-  ("Giovedì buone notizie"), each confirmed by at least one approved source outside the
-  `good-news` aggregators.
+  ("Giovedì buone notizie") published in the last 7 days. One approved, non-satire starting
+  source is enough for such a story; the two-groups rule of FR-004 does not apply on Thursdays.
 - **FR-010**: Marco MUST be able to pick exactly one candidate per day and change the pick until a
   script exists for it; he MUST be able to reject the shortlist and request a new one that excludes
   rejected stories.

@@ -6,6 +6,7 @@ from podcat.llm.base import TextModel, Usage
 from podcat.news.models import FeedItem, Source, TriageResult
 
 MAX_TOKENS = 16_000
+THURSDAY_CHUNK = 600  # items per call on Thursdays, when the window is 7 days
 
 SYSTEM = """Sei la redazione di "Podcat", una trasmissione satirica italiana che commenta le notizie.
 Ricevi un elenco di articoli, uno per riga: id | testata | titolo | anteprima.
@@ -28,6 +29,12 @@ Compito:
    anche se la categoria non è good-news.
 Usa solo gli id ricevuti. Non inventare articoli."""
 
+THURSDAY = """
+
+Oggi è giovedì, "Giovedì buone notizie". Cambia il punto 2: restituisci SOLO i gruppi con
+positive = true, anche quelli di un solo articolo. Ignora tutti gli altri fatti.
+Continua a segnare come escluso ogni gruppo positivo che rientra nel punto 4."""
+
 
 def render_items(items: list[FeedItem], sources: dict[str, Source]) -> str:
     lines = []
@@ -39,17 +46,35 @@ def render_items(items: list[FeedItem], sources: dict[str, Source]) -> str:
     return "\n".join(lines)
 
 
-def triage(model: TextModel, items: list[FeedItem], sources: dict[str, Source]) -> tuple[TriageResult, Usage]:
-    """Run the triage call on non-satire items. Unknown ids in the answer are dropped."""
+def triage(
+    model: TextModel,
+    items: list[FeedItem],
+    sources: dict[str, Source],
+    thursday: bool = False,
+) -> tuple[TriageResult, Usage]:
+    """Run the triage call on non-satire items. Unknown ids in the answer are dropped.
+
+    Weekdays: one call, groups of at least two items. Thursdays: the 7-day window is split
+    into chunks, and single-item positive groups are kept (one reliable source is enough).
+    """
     eligible = [i for i in items if sources[i.source_id].effective_role != "inspiration-only"]
     if not eligible:
         return TriageResult(groups=[]), Usage(0, 0)
-    user = "Articoli delle ultime 24 ore:\n" + render_items(eligible, sources)
     if hasattr(model, "for_step"):
         model = model.for_step("triage")
-    result, usage = model.parse(SYSTEM, user, TriageResult, MAX_TOKENS)
-    known = {i.item_id for i in eligible}
-    for group in result.groups:
-        group.item_ids = [i for i in dict.fromkeys(group.item_ids) if i in known]
-    result.groups = [g for g in result.groups if len(g.item_ids) >= 2]
-    return result, usage
+    if not thursday:
+        chunks, system, header = [eligible], SYSTEM, "Articoli delle ultime 24 ore:\n"
+    else:
+        ordered = sorted(eligible, key=lambda i: i.published_at, reverse=True)
+        chunks = [ordered[n : n + THURSDAY_CHUNK] for n in range(0, len(ordered), THURSDAY_CHUNK)]
+        system, header = SYSTEM + THURSDAY, "Articoli degli ultimi 7 giorni:\n"
+    groups, total = [], Usage(0, 0)
+    for chunk in chunks:
+        result, usage = model.parse(system, header + render_items(chunk, sources), TriageResult, MAX_TOKENS)
+        total = Usage(total.input_tokens + usage.input_tokens, total.output_tokens + usage.output_tokens)
+        known = {i.item_id for i in chunk}
+        for group in result.groups:
+            group.item_ids = [i for i in dict.fromkeys(group.item_ids) if i in known]
+        minimum = 1 if thursday else 2
+        groups += [g for g in result.groups if len(g.item_ids) >= minimum and (g.positive or not thursday)]
+    return TriageResult(groups=groups), total

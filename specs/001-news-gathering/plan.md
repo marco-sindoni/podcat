@@ -11,7 +11,7 @@ same event with one cheap language-model call, verifies each story with a determ
 two-groups rule (agency wires counted once, satire never), writes an Italian summary with
 importance and comic potential ratings in a second cheap call, and saves a 3–5 story shortlist
 plus story records, a run log and a cost ledger as Markdown in `tracking/`. Thursdays use only
-positive stories; Saturdays build the weekly shortlist from the week's stories. Claude publishes
+positive stories from the last 7 days, one reliable source each; Saturdays build the weekly shortlist from the week's stories. Claude publishes
 each shortlist as a commentable document from the project chat; Marco picks the story there.
 Every morning at 07:00 a scheduled cloud session runs the gather, pushes the results to GitHub and
 publishes the document, so Marco's computer can stay off.

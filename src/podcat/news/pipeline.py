@@ -23,6 +23,7 @@ from podcat.settings import ROME, Settings, now_rome
 from podcat.tracking.costs import Ledger, load_prices
 
 THURSDAY = 3
+THURSDAY_WINDOW_HOURS = 7 * 24  # "Giovedì buone notizie" looks at the whole week (FR-009)
 
 
 @dataclass
@@ -84,7 +85,8 @@ def gather(
     )
 
     # 2. window and free filters
-    items = [i for i in in_window(report.items, window_end(day, now)) if i.source_id in sources]
+    hours = THURSDAY_WINDOW_HOURS if thursday else 24
+    items = [i for i in in_window(report.items, window_end(day, now), hours) if i.source_id in sources]
     rejected = {normalize_url(u) for u in store.rejected_urls(day)}
     items = [i for i in items if normalize_url(i.url) not in rejected]
     items, discarded = prefilter(items)
@@ -93,7 +95,7 @@ def gather(
     # 3. triage (cached)
     triage_cached = store.cache_read(day, kind, "triage")
     if triage_cached is None:
-        triage, usage = triage_step.triage(model, items, sources)
+        triage, usage = triage_step.triage(model, items, sources, thursday)
         usages.append(usage)
         store.cache_write(day, kind, "triage", triage.model_dump(mode="json"))
     else:
@@ -191,7 +193,7 @@ def gather(
         "cost_usd": cost,
     }
     run_log = store.write_run_log(day, kind, run_meta, discarded)
-    warning = warning_for(len(candidate_ids))
+    warning = warning_for(len(candidate_ids), thursday)
     if report.feeds_ok == [] and report.feeds_failed:
         warning = "nessun feed raggiungibile: controlla la rete."
     meta = {

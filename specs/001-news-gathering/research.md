@@ -48,7 +48,8 @@ Phase 0 of the plan. Each item: decision, rationale, alternatives considered.
   group from `config/sources.yaml`, except when the item credits an agency (patterns such as
   "(ANSA)", "Adnkronos", "(AGI)", "Reuters", "AP") — then it is the agency. `satire` sources never
   count; Il Post and Il Fatto Quotidiano count only as confirmations (they cannot be the only
-  starting source). On Thursdays at least one confirmation must come from a non-`good-news` source.
+  starting source). On Thursdays the window is 7 days, triage runs in chunks of 600 items and returns only positive
+  groups, and one approved starting source is enough (decided 2026-11-26 after the first real run).
 - **Rationale**: The rule is the editorial core of the feature and must be predictable and testable
   without network or model calls.
 - **Alternatives**: Ask the model to judge verification (not reproducible, harder to test).

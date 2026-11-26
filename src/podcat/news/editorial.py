@@ -26,7 +26,9 @@ Rispondi per tutte le notizie ricevute."""
 
 THURSDAY = """
 Oggi è giovedì, "Giovedì buone notizie": sono tutte notizie positive. Nei motivi del potenziale comico
-pensa a un umorismo caldo e affettuoso, mai sarcastico verso le persone della notizia."""
+pensa a un umorismo caldo e affettuoso, mai sarcastico verso le persone della notizia.
+Le notizie arrivano dagli ultimi 7 giorni: se due gruppi raccontano lo stesso fatto, rispondi solo per
+il primo. Preferisci i fatti che un pubblico italiano capisce subito."""
 
 
 def render_groups(verdicts: list[Verdict], sources: dict[str, Source]) -> str:

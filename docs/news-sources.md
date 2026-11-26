@@ -12,8 +12,9 @@ feature is planned; a source without a working feed gets a replacement or is rea
    rumours, sponsored content, stories based only on social media posts.
 4. `satire` sources are never a source of facts, never count for rule 1, and their jokes are never
    copied. They show what the internet is already laughing at, so the cats pick a different angle.
-5. `good-news` stories follow rule 1 too: many good-news sites aggregate, so confirm with a major
-   outlet or agency.
+5. "Giovedì buone notizie" exception (decided 2026-11-26): on Thursdays the search covers the last
+   7 days, and one approved, non-satire starting source is enough for a positive story. Rule 1
+   still applies on every other day.
 
 ## Topics
 

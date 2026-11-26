@@ -28,7 +28,10 @@ FEEDS = {
     "gazzetta": [("Sinner vince le Finals di Torino", "Battuto Alcaraz in due set.", RECENT)],
     "corrieredellosport": [("Sinner trionfa a Torino", "Il numero uno del mondo vince le Finals.", RECENT)],
     "skysport": [("Finals, Sinner campione", "Secondo titolo di fila.", RECENT)],
-    "italiachecambia": [("Volontari riaprono la biblioteca di quartiere", "Un progetto partito dal basso.", RECENT)],
+    "italiachecambia": [
+        ("Volontari riaprono la biblioteca di quartiere", "Un progetto partito dal basso.", RECENT),
+        ("Una scuola pianta un bosco di mille alberi", "Gli studenti hanno curato ogni pianta.", OLD),
+    ],
     "lercio": [("Sciopero dei treni: i pendolari scioperano a loro volta", "Satira.", RECENT)],
 }
 

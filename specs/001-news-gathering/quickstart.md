@@ -51,8 +51,8 @@ stories.
 uv run podcat news gather --date <a Thursday>
 ```
 
-Expected: only positive stories, each with a confirmation outside `good-news` sources; a warning and
-backups if fewer than 3.
+Expected: only positive stories from the last 7 days, each with at least one approved starting
+source; a warning and backups if fewer than 3.
 
 ## Scenario 5: weekly (US4)
 

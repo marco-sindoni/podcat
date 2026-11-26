@@ -66,10 +66,13 @@ def test_excluded_topic():
     assert not v.verified and "crime" in v.reason
 
 
-def test_thursday_needs_positive_and_outside_confirmation():
+def test_thursday_needs_positive_and_one_reliable_source():
     assert not check(item("vita"), item("corriere"), thursday=True, positive=False).verified
-    assert not check(item("vita"), item("positive"), thursday=True, positive=True, category="good-news").verified
-    assert check(item("vita"), item("corriere"), thursday=True, positive=True, category="good-news").verified
+    assert check(item("vita"), thursday=True, positive=True, category="good-news").verified
+    assert check(item("corriere"), thursday=True, positive=True).verified
+    assert not check(item("ilpost"), thursday=True, positive=True).verified  # confirmation-only
+    assert not check(item("lercio"), thursday=True, positive=True).verified  # satire never counts
+    assert not check(item("vita"), positive=True, category="good-news").verified  # other days: two groups
 
 
 def test_agency_own_item_and_its_wire_count_once():

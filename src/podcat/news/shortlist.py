@@ -35,7 +35,13 @@ def select(stories: list[dict], limit: int = MAX_CANDIDATES) -> list[dict]:
     return sorted(chosen, key=lambda s: (-s["importance"], -s["comic_potential"], s["id"]))
 
 
-def warning_for(count: int) -> str | None:
+def warning_for(count: int, thursday: bool = False) -> str | None:
+    if thursday:
+        if count == 0:
+            return "nessuna buona notizia trovata negli ultimi 7 giorni."
+        if count < MIN_CANDIDATES:
+            return f"solo {count} buone notizie trovate negli ultimi 7 giorni."
+        return None
     if count == 0:
         return "nessuna notizia verificata su due fonti indipendenti."
     if count < MIN_CANDIDATES:

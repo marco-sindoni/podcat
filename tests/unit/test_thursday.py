@@ -13,15 +13,16 @@ def run(repo, day=THURSDAY, now=THURSDAY_EVENING):
     return gather(settings, day, lambda l, d: fake_model(), now=now, http_client=mock_client(settings.config_dir))
 
 
-def test_thursday_only_positive_confirmed_stories(repo):
+def test_thursday_positive_stories_from_the_week_one_source_is_enough(repo):
     meta = run(repo).meta
     store = NewsStore(repo / "tracking", load_settings(repo).cache_dir)
     assert meta["good_news_thursday"] is True
     stories = [store.read_story(s) for s in meta["candidates"]]
-    assert [s["title"] for s in stories] == ["Volontari riaprono una biblioteca"]
+    # the library story (two sources, today) and the forest story (one source, six days ago)
+    assert [s["title"] for s in stories] == ["Volontari riaprono una biblioteca", "Una scuola pianta un bosco"]
     assert all(s["positive"] for s in stories)
-    assert any(src["outlet"] == "Corriere della Sera" for src in stories[0]["sources"])  # outside good-news
-    assert meta["warning"] == "solo 1 notizie verificate su due fonti indipendenti."
+    assert [src["outlet"] for src in stories[1]["sources"]] == ["Italia che Cambia"]
+    assert meta["warning"] == "solo 2 buone notizie trovate negli ultimi 7 giorni."
     body = store.shortlist_path(THURSDAY, "daily").read_text()
     assert "# Giovedì buone notizie – giovedì 26 novembre 2026" in body
 
@@ -54,3 +55,26 @@ def test_editorial_gets_warm_tone_on_thursday(repo):
     model.parse = spy
     gather(settings, THURSDAY, lambda l, d: model, now=THURSDAY_EVENING, http_client=mock_client(settings.config_dir))
     assert "Giovedì buone notizie" in calls[-1]
+
+
+def test_thursday_triage_runs_in_chunks(repo, monkeypatch):
+    from podcat.news import triage
+
+    monkeypatch.setattr(triage, "THURSDAY_CHUNK", 3)
+    settings = load_settings(repo)
+    model = fake_model()
+    users = []
+    original = model.parse
+
+    def spy(system, user, schema, max_tokens):
+        if schema.__name__ == "TriageResult":
+            users.append(user)
+            assert "giovedì" in system and "7 giorni" in user
+        return original(system, user, schema, max_tokens)
+
+    model.parse = spy
+    meta = gather(settings, THURSDAY, lambda l, d: model, now=THURSDAY_EVENING,
+                  http_client=mock_client(settings.config_dir)).meta
+    assert len(users) > 1
+    assert "Una scuola pianta un bosco" in [NewsStore(settings.tracking_dir, settings.cache_dir).read_story(s)["title"]
+                                            for s in meta["candidates"]]

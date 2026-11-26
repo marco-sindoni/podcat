@@ -24,6 +24,7 @@ STORIES = {
     "sinner": ("F", "sport", None, False),
     "bibliotec": ("H", "good-news", None, True),
     "caravaggio": ("I", "culture", None, False),
+    "bosco": ("J", "good-news", None, True),
 }
 EDITORIAL = {
     "A": ("Sciopero dei treni di 24 ore", 5, 4),
@@ -31,6 +32,7 @@ EDITORIAL = {
     "F": ("Sinner vince le Finals", 4, 3),
     "H": ("Volontari riaprono una biblioteca", 3, 3),
     "I": ("Caravaggio in mostra a Roma", 3, 2),
+    "J": ("Una scuola pianta un bosco", 2, 3),
 }
 
 

@@ -1,4 +1,8 @@
-"""Deterministic verification: the two-groups rule (research R4, FR-004, FR-009)."""
+"""Deterministic verification: the two-groups rule (research R4, FR-004) and the Thursday rule (FR-009).
+
+On Thursdays ("Giovedì buone notizie") one approved, non-satire starting source is enough,
+because the story only has to be a real positive fact, not breaking news.
+"""
 
 from __future__ import annotations
 
@@ -42,15 +46,12 @@ def verify_group(
         return fail(f"argomento escluso ({group.excluded}): {group.excluded_reason or ''}".strip())
     if not counted:
         return fail("solo fonti satiriche")
-    if len(groups) < 2:
+    if thursday and not group.positive:
+        return fail("giovedì: non è una buona notizia")
+    if len(groups) < 2 and not thursday:
         return fail("una sola fonte (o la stessa agenzia ripresa da più testate)")
     if not any(sources[m.source_id].effective_role == "starting" for m in counted):
         return fail("solo fonti di conferma, nessuna fonte di partenza")
-    if thursday:
-        if not group.positive:
-            return fail("giovedì: non è una buona notizia")
-        if not any(sources[m.source_id].category != "good-news" for m in counted):
-            return fail("giovedì: manca una conferma fuori dai siti di buone notizie")
     return Verdict(group, members, groups, True)
 
 
