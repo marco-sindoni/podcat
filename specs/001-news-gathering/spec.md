@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-25
 
-**Status**: Draft (under review by Marco; questions answered 2026-11-26)
+**Status**: Approved by Marco on 2026-11-26
 
 **Input**: User description: "Daily news gathering and verification for Podcat: fetch the approved RSS feeds in docs/news-sources.md, filter out excluded topics, cross-check each story on at least two sources from different groups, and propose 3-5 candidate stories per day (positive story on Thursdays) for Marco to pick, recorded in tracking/ as Markdown with YAML front matter."
 
@@ -140,7 +140,8 @@ already used in a daily reel.
   from a single configuration derived from `docs/news-sources.md`; adding or removing a source MUST
   NOT require code changes.
 - **FR-002**: The system MUST fetch recent items from every approved source with a working feed,
-  covering at least the last 24 hours for the daily run and the last 7 days for the weekly run.
+  covering at least the last 24 hours. The weekly run uses the stories verified by the daily runs of
+  the past 7 days plus the last 24 hours, because feeds keep only one or two days of items.
 - **FR-003**: The system MUST group items from different sources that report the same story.
 - **FR-004**: The system MUST count a story as verified only when at least two approved sources
   from different publishing groups report it; republications of the same agency wire count once;
