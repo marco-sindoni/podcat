@@ -76,7 +76,7 @@ own.
 - [X] T026 [US1] Implement selection in `src/podcat/news/shortlist.py`: 3–5 candidates ordered by importance with category balance (FR-008), warning when fewer than 3 (Shortlist.warning)
 - [X] T027 [US1] Implement `podcat news gather [--date] [--refresh]` and `podcat news show` in `src/podcat/cli.py`, idempotent per FR-012, printing the shortlist path at the end
 - [X] T028 [US1] On Marco's machine or in the cloud with network: run `podcat sources check --write`, fix or mark `manual` the failing sources, commit `config/sources.yaml`
-- [ ] T029 [US1] First real run: `podcat news gather`; Marco checks the shortlist against SC-002 and SC-003
+- [X] T029 [US1] First real run: `podcat news gather`; Marco checks the shortlist against SC-002 and SC-003
 
 **Checkpoint**: MVP. The daily shortlist works end to end.
 
