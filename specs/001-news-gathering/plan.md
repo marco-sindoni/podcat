@@ -13,6 +13,8 @@ importance and comic potential ratings in a second cheap call, and saves a 3–5
 plus story records, a run log and a cost ledger as Markdown in `tracking/`. Thursdays use only
 positive stories; Saturdays build the weekly shortlist from the week's stories. Claude publishes
 each shortlist as a commentable document from the project chat; Marco picks the story there.
+Every morning at 07:00 a scheduled cloud session runs the gather, pushes the results to GitHub and
+publishes the document, so Marco's computer can stay off.
 
 ## Technical Context
 
@@ -26,7 +28,8 @@ cache in `$PODCAT_ASSETS_DIR/cache/news/` (outside git)
 
 **Testing**: pytest; offline fixtures for feeds and recorded model outputs; no paid calls in tests
 
-**Target Platform**: Marco's Linux machine (Ubuntu), run by hand or by Claude through Remote Control
+**Target Platform**: Claude Code cloud sessions (Linux container, repo cloned from GitHub), started
+by a daily 07:00 Europe/Rome schedule or from the project chat; also Marco's Linux machine
 
 **Project Type**: single-project CLI
 
@@ -110,6 +113,9 @@ tests/
 
 - FR-002: the weekly run uses the week's daily runs plus the last 24 hours, because RSS feeds keep
   only one or two days of items (research R8).
+
+- FR-018 and SC-007: automatic daily start at 07:00 in the cloud (Marco, 2026-11-26; backlog B-008
+  brought forward). Constitution amended to v1.3.0 (runs in the cloud).
 
 ## Complexity Tracking
 

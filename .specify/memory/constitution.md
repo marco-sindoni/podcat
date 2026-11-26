@@ -83,7 +83,7 @@ project-wide settings and decisions; every spec, plan and task MUST comply with 
 | Phase 2 production | Automated voices, clips, FFmpeg editing, YouTube upload (see `BACKLOG.md`) |
 | Monthly budget | 50 USD cap, all services |
 | Tracking | Markdown + YAML front matter under `tracking/` |
-| Assets | Binary assets live OUTSIDE git, under the directory in `PODCAT_ASSETS_DIR` (`/home/marco/Projects/podcat-assets`) |
+| Assets | Binary assets live OUTSIDE git, under the directory in `PODCAT_ASSETS_DIR` (`/home/marco/Projects/podcat-assets` on Marco's machine; a temporary folder in cloud sessions, used only for caches) |
 | Secrets | API keys in `.env`, never committed |
 | Backlog | `BACKLOG.md` at the repository root |
 | Decision log | `docs/decisions.md` |
@@ -97,7 +97,10 @@ project-wide settings and decisions; every spec, plan and task MUST comply with 
 - Reference and news images: Fotor (phase 1 manual; Fotor OpenAPI later).
 - Phase 2: ElevenLabs for voices, an official video-generation API behind an adapter, FFmpeg for
   editing and subtitles.
-- Runs on Marco's Linux machine (`/home/marco/Projects/podcat`).
+- Runs in Claude Code cloud sessions that clone the GitHub repository, so the daily work needs no
+  local computer; results are committed and pushed. The daily news run starts automatically at
+  07:00 Europe/Rome. The same commands also run on Marco's Linux machine
+  (`/home/marco/Projects/podcat`).
 
 ## Development Workflow
 
@@ -116,4 +119,4 @@ project-wide settings and decisions; every spec, plan and task MUST comply with 
   MAJOR for removed or redefined principles, MINOR for new principles or settings, PATCH for
   wording.
 
-**Version**: 1.2.0 | **Ratified**: 2026-11-25 | **Last Amended**: 2026-11-25
+**Version**: 1.3.0 | **Ratified**: 2026-11-25 | **Last Amended**: 2026-11-26

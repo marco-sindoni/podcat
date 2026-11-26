@@ -123,3 +123,18 @@ Phase 0 of the plan. Each item: decision, rationale, alternatives considered.
 - **Rationale**: Constitution technology stack; smallest set of dependencies.
 - **Alternatives**: `python-frontmatter` (tiny gain, one more dependency); `pydantic-settings`
   (fine, but `python-dotenv` + Pydantic is enough).
+
+## R11. Running without Marco's computer
+
+- **Decision**: The default place to run is a Claude Code cloud session. A scheduled trigger starts a
+  session every day at 07:00 Europe/Rome (Saturday also runs `news weekly`). The session clones the
+  repository, installs dependencies with `uv sync` (environment setup script), runs
+  `podcat news gather`, commits and pushes `tracking/` to `main`, and publishes the shortlist as a
+  commentable document. The cloud environment needs outbound access to the feed hosts and
+  `ANTHROPIC_API_KEY` as an environment variable (entered by Marco). `PODCAT_ASSETS_DIR` points to a
+  temporary folder there; losing the cache only means a refresh would re-pay a few cents, while the
+  shortlist in git still makes re-runs free.
+- **Rationale**: Marco wants to work from his phone with the computer off (2026-11-26). Phase 1
+  produces only text files, which all live in git.
+- **Alternatives**: GitHub Actions cron (no project chat or document publishing); a home server (new
+  infrastructure, against constitution VI).

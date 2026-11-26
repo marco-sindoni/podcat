@@ -176,6 +176,9 @@ already used in a daily reel.
 - **FR-017**: The system MUST deliver each shortlist (daily and weekly) to Marco as a commentable
   document, with a link to it in the shortlist file; the Markdown file in `tracking/news/` stays the
   source of truth, and Marco's pick made in the document is written back to it.
+- **FR-018**: The daily run MUST be able to start automatically every day at 07:00 Europe/Rome
+  without Marco's computer, save its results to the shared repository, and deliver the shortlist
+  document so Marco can pick from his phone. The weekly run starts the same way on Saturday.
 - **FR-015**: The system MUST provide a weekly run, every Saturday, that proposes 3–5 stories from the week's
   verified candidates, marking which were already used in a daily reel.
 - **FR-016**: The system MUST NOT store full article text, images or video from sources; only
@@ -206,13 +209,15 @@ already used in a daily reel.
   without asking for a new shortlist.
 - **SC-005**: The average cost of a daily run stays under 0.10 USD (about 3 USD per month, well
   within the 50 USD cap).
+- **SC-007**: On at least 6 days out of 7, the shortlist document is ready by 07:30 without anyone
+  starting it.
 - **SC-006**: Re-running the command for a date that already has a shortlist costs nothing and
   changes nothing.
 
 ## Assumptions
 
-- Marco runs the command by hand once a day on his machine; scheduled runs are backlog item B-008.
-- The daily run happens in the morning (Italian time) and looks at the previous 24 hours.
+- The daily run starts automatically at 07:00 Italian time (Marco, 2026-11-26) and looks at the
+  previous 24 hours; Marco can also start it by asking in the project chat.
 - Choosing which items describe the same story, the topic filter, the summary and the comic
   potential rating may use a low-cost language model; that cost counts towards the budget.
 - Feed addresses for the approved sources are found and checked during planning; sources without a

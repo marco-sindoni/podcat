@@ -66,7 +66,8 @@ code 2, a clear message, no new cost row. Restore the cap afterwards.
 
 ## Daily routine (phase 1)
 
-1. Marco asks in the project chat for today's news (or Claude does it when asked).
-2. Claude runs `podcat news gather` on Marco's machine and publishes the shortlist as a commentable
-   document; `podcat news link-doc` stores the link.
+1. At 07:00 a scheduled cloud session runs `podcat news gather` (Saturday also `podcat news weekly`),
+   commits and pushes `tracking/`, publishes the shortlist as a commentable document and stores the
+   link with `podcat news link-doc`. Marco can also ask for it in the project chat at any time.
+2. On Marco's machine, `git pull` brings the same files.
 3. Marco comments the pick; Claude runs `podcat news pick N`. The chosen story feeds spec 002.
