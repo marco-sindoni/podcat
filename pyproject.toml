@@ -1,0 +1,32 @@
+[project]
+name = "podcat"
+version = "0.1.0"
+description = "Podcat episode preparation pipeline: news gathering, scripts and tracking"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.80",
+    "feedparser>=6.0",
+    "httpx>=0.27",
+    "pydantic>=2.7",
+    "python-dotenv>=1.0",
+    "pyyaml>=6.0",
+    "typer>=0.12",
+]
+
+[project.scripts]
+podcat = "podcat.cli:app"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/podcat"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tests"]

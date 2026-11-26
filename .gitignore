@@ -12,3 +12,6 @@ __pycache__/
 *.jpg
 *.jpeg
 *.webp
+venv/
+dist/
+*.egg-info/

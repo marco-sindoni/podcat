@@ -1,0 +1,11 @@
+# Agency credit patterns (case-insensitive regular expressions on title + description).
+# An item that credits an agency counts as that agency's group (research R4).
+agencies:
+  ansa: ['\(ANSA\)', '\bANSA\b']
+  agi: ['\(AGI\)']
+  adnkronos: ['\(Adnkronos\)', '\bAdnkronos\b']
+  reuters: ['\(Reuters\)', '\bReuters\b']
+  ap: ['\(AP\)', '\bAssociated Press\b']
+  afp: ['\(AFP\)', '\bAFP\b']
+  lapresse: ['\(LaPresse\)', '\bLaPresse\b']
+  dire: ['\(DIRE\)', '\bagenzia Dire\b']

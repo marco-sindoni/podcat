@@ -85,7 +85,8 @@ discarded groups with reason (excluded topic, single source, satire only, alread
 
 ## Cost ledger (`tracking/costs/<YYYY-MM>.md`)
 
-Front matter: `month`, `cap_usd` (50), `total_usd`. Body: one row per paid call: `date`, `feature`
+Front matter: `month`, `cap_usd` (50), `total_usd`, `entries` (one per paid call). The body shows
+the same entries as a table, regenerated on each write. Entry fields: `date`, `feature`
 (`news`), `step` (`triage`, `editorial`, `weekly-rank`), `model`, `input_tokens`, `output_tokens`,
 `usd`. Shared by all future features.
 

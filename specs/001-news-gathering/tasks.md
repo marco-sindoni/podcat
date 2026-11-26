@@ -25,12 +25,12 @@ own.
 
 **Purpose**: Python project, configuration and test scaffolding
 
-- [ ] T001 Create `pyproject.toml` (uv project `podcat`, Python >=3.12, `src/` layout, script `podcat = "podcat.cli:app"`, dependencies typer, pydantic, httpx, feedparser, pyyaml, python-dotenv, anthropic; dev dependency pytest) and run `uv lock`
-- [ ] T002 Create package skeleton per plan.md: `src/podcat/__init__.py`, `src/podcat/{tracking,llm,news}/__init__.py`, `tests/{unit,integration,fixtures}/`, `tests/conftest.py` with a temporary repo root and assets dir fixture
-- [ ] T003 [P] Create `config/sources.yaml` from `docs/news-sources.md` with every source: `id`, `name`, `category`, `group`, `role`, `feeds` (best-known URL or empty), `manual` (see data-model.md Source)
-- [ ] T004 [P] Create `config/agencies.yaml` with credit patterns for ANSA, AGI, Adnkronos, Reuters, AP, AFP, LaPresse, Dire (data-model.md Source / agency patterns)
-- [ ] T005 [P] Create `config/pricing.yaml` with `claude-haiku-5-5` input 0.10 and output 0.50 USD per million tokens, and the default news model id
-- [ ] T006 [P] Add `.gitignore` entries for `.venv/`, `__pycache__/`, `.pytest_cache/`; update `.env.example` comments for cloud use
+- [X] T001 Create `pyproject.toml` (uv project `podcat`, Python >=3.12, `src/` layout, script `podcat = "podcat.cli:app"`, dependencies typer, pydantic, httpx, feedparser, pyyaml, python-dotenv, anthropic; dev dependency pytest) and run `uv lock`
+- [X] T002 Create package skeleton per plan.md: `src/podcat/__init__.py`, `src/podcat/{tracking,llm,news}/__init__.py`, `tests/{unit,integration,fixtures}/`, `tests/conftest.py` with a temporary repo root and assets dir fixture
+- [X] T003 [P] Create `config/sources.yaml` from `docs/news-sources.md` with every source: `id`, `name`, `category`, `group`, `role`, `feeds` (best-known URL or empty), `manual` (see data-model.md Source)
+- [X] T004 [P] Create `config/agencies.yaml` with credit patterns for ANSA, AGI, Adnkronos, Reuters, AP, AFP, LaPresse, Dire (data-model.md Source / agency patterns)
+- [X] T005 [P] Create `config/pricing.yaml` with `claude-haiku-5-5` input 0.10 and output 0.50 USD per million tokens, and the default news model id
+- [X] T006 [P] Add `.gitignore` entries for `.venv/`, `__pycache__/`, `.pytest_cache/`; update `.env.example` comments for cloud use
 
 ---
 
@@ -38,13 +38,13 @@ own.
 
 **Purpose**: shared pieces used by every story and reused by spec 002
 
-- [ ] T007 Implement settings in `src/podcat/settings.py`: load `.env` if present, read `PODCAT_ASSETS_DIR` (default a temp dir) and `ANTHROPIC_API_KEY`, repo root detection, Europe/Rome timezone helper
-- [ ] T008 [P] Implement front matter read/write in `src/podcat/tracking/frontmatter.py` (preserve unknown keys and hand-written body, per contracts/tracking-files.md) with tests in `tests/unit/test_frontmatter.py`
-- [ ] T009 [P] Write cost ledger tests in `tests/unit/test_costs.py`: estimate, refuse when total + estimate > cap, record actual usage, new month file
-- [ ] T010 Implement cost ledger in `src/podcat/tracking/costs.py` (data-model.md Cost ledger: `month`, `cap_usd`, `total_usd`, rows) with `BudgetExceeded` error
-- [ ] T011 [P] Define `TextModel` interface in `src/podcat/llm/base.py`: `parse(system, user, schema, max_tokens) -> (parsed, usage)`; plus a `FakeModel` in `tests/fakes.py` that returns recorded outputs from `tests/fixtures/`
-- [ ] T012 Implement `src/podcat/llm/anthropic_model.py` with the official SDK (`messages.parse` with Pydantic schema), cost check through `tracking/costs.py` before every call and recording after it
-- [ ] T013 Create the Typer app in `src/podcat/cli.py` with groups `sources`, `news`, `costs`, Italian messages and exit codes from contracts/cli.md; implement `podcat costs show`
+- [X] T007 Implement settings in `src/podcat/settings.py`: load `.env` if present, read `PODCAT_ASSETS_DIR` (default a temp dir) and `ANTHROPIC_API_KEY`, repo root detection, Europe/Rome timezone helper
+- [X] T008 [P] Implement front matter read/write in `src/podcat/tracking/frontmatter.py` (preserve unknown keys and hand-written body, per contracts/tracking-files.md) with tests in `tests/unit/test_frontmatter.py`
+- [X] T009 [P] Write cost ledger tests in `tests/unit/test_costs.py`: estimate, refuse when total + estimate > cap, record actual usage, new month file
+- [X] T010 Implement cost ledger in `src/podcat/tracking/costs.py` (data-model.md Cost ledger: `month`, `cap_usd`, `total_usd`, rows) with `BudgetExceeded` error
+- [X] T011 [P] Define `TextModel` interface in `src/podcat/llm/base.py`: `parse(system, user, schema, max_tokens) -> (parsed, usage)`; plus a `FakeModel` in `tests/fakes.py` that returns recorded outputs from `tests/fixtures/`
+- [X] T012 Implement `src/podcat/llm/anthropic_model.py` with the official SDK (`messages.parse` with Pydantic schema), cost check through `tracking/costs.py` before every call and recording after it
+- [X] T013 Create the Typer app in `src/podcat/cli.py` with groups `sources`, `news`, `costs`, Italian messages and exit codes from contracts/cli.md; implement `podcat costs show`
 
 **Checkpoint**: `uv run pytest` passes; `uv run podcat costs show` prints an empty month.
 

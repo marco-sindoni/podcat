@@ -1,0 +1,98 @@
+# Approved news sources (generated from docs/news-sources.md, approved 2026-11-25).
+# Fields: see specs/001-news-gathering/data-model.md (Source).
+# `group` = publishing group: sources in the same group never confirm each other.
+# `feeds` are best-known addresses; `podcat sources check --write` verifies them,
+# tries autodiscovery from `home` and sets `manual: true` when nothing works.
+sources:
+  # current-affairs
+  - {id: ansa, name: ANSA, category: current-affairs, group: ansa, home: https://www.ansa.it, feeds: [https://www.ansa.it/sito/notizie/topnews/topnews_rss.xml]}
+  - {id: agi, name: AGI, category: current-affairs, group: agi, home: https://www.agi.it, feeds: [https://www.agi.it/cronaca/rss]}
+  - {id: adnkronos, name: Adnkronos, category: current-affairs, group: adnkronos, home: https://www.adnkronos.com, feeds: [https://www.adnkronos.com/RSS_PrimaPagina.xml]}
+  - {id: corriere, name: Corriere della Sera, category: current-affairs, group: rcs, home: https://www.corriere.it, feeds: [https://xml2.corriereobjects.it/rss/homepage.xml]}
+  - {id: repubblica, name: la Repubblica, category: current-affairs, group: gedi, home: https://www.repubblica.it, feeds: [https://www.repubblica.it/rss/homepage/rss2.0.xml]}
+  - {id: lastampa, name: La Stampa, category: current-affairs, group: gedi, home: https://www.lastampa.it, feeds: [https://www.lastampa.it/rss.xml]}
+  - {id: sole24ore, name: Il Sole 24 Ore, category: current-affairs, group: sole24ore, home: https://www.ilsole24ore.com, feeds: [https://www.ilsole24ore.com/rss/italia.xml]}
+  - {id: skytg24, name: Sky TG24, category: current-affairs, group: sky, home: https://tg24.sky.it, feeds: [https://tg24.sky.it/rss/tg24.xml]}
+  - {id: rainews, name: RaiNews, category: current-affairs, group: rai, home: https://www.rainews.it, feeds: [https://www.rainews.it/rss/tutti]}
+  - {id: reuters, name: Reuters, category: current-affairs, group: reuters, home: https://www.reuters.com, feeds: []}
+  - {id: bbc, name: BBC News, category: current-affairs, group: bbc, home: https://www.bbc.com/news, feeds: [https://feeds.bbci.co.uk/news/world/rss.xml]}
+  - {id: fanpage, name: Fanpage, category: current-affairs, group: ciaopeople, home: https://www.fanpage.it, feeds: [https://www.fanpage.it/feed/]}
+  - {id: ilpost, name: Il Post, category: current-affairs, group: ilpost, role: confirmation-only, home: https://www.ilpost.it, feeds: [https://www.ilpost.it/feed/]}
+  - {id: ilfatto, name: Il Fatto Quotidiano, category: current-affairs, group: sef, role: confirmation-only, home: https://www.ilfattoquotidiano.it, feeds: [https://www.ilfattoquotidiano.it/feed/]}
+  # sport
+  - {id: gazzetta, name: La Gazzetta dello Sport, category: sport, group: rcs, home: https://www.gazzetta.it, feeds: [https://www.gazzetta.it/rss/home.xml]}
+  - {id: corrieredellosport, name: Corriere dello Sport, category: sport, group: amodei, home: https://www.corrieredellosport.it, feeds: [https://www.corrieredellosport.it/rss]}
+  - {id: tuttosport, name: Tuttosport, category: sport, group: amodei, home: https://www.tuttosport.com, feeds: [https://www.tuttosport.com/rss]}
+  - {id: skysport, name: Sky Sport, category: sport, group: sky, home: https://sport.sky.it, feeds: [https://sport.sky.it/rss/sport.xml]}
+  - {id: sportmediaset, name: Sport Mediaset, category: sport, group: mediaset, home: https://www.sportmediaset.mediaset.it, feeds: [https://www.sportmediaset.mediaset.it/rss/homepage.xml]}
+  - {id: raisport, name: RaiSport, category: sport, group: rai, home: https://www.rainews.it/rai-sport, feeds: []}
+  - {id: eurosport, name: Eurosport Italia, category: sport, group: wbd, home: https://www.eurosport.it, feeds: [https://www.eurosport.it/rss.xml]}
+  - {id: oasport, name: OA Sport, category: sport, group: oasport, home: https://www.oasport.it, feeds: [https://www.oasport.it/feed/]}
+  - {id: ansasport, name: ANSA Sport, category: sport, group: ansa, home: https://www.ansa.it/sito/notizie/sport/sport.shtml, feeds: [https://www.ansa.it/sito/notizie/sport/sport_rss.xml]}
+  - {id: ultimouomo, name: L'Ultimo Uomo, category: sport, group: ultimouomo, home: https://www.ultimouomo.com, feeds: [https://www.ultimouomo.com/feed/]}
+  # culture
+  - {id: lalettura, name: La Lettura (Corriere), category: culture, group: rcs, home: https://www.corriere.it/la-lettura/, feeds: []}
+  - {id: robinson, name: Robinson (Repubblica), category: culture, group: gedi, home: https://www.repubblica.it/robinson/, feeds: []}
+  - {id: domenica24, name: Domenica (Il Sole 24 Ore), category: culture, group: sole24ore, home: https://www.ilsole24ore.com/sez/domenica, feeds: [https://www.ilsole24ore.com/rss/cultura.xml]}
+  - {id: internazionale, name: Internazionale, category: culture, group: internazionale, home: https://www.internazionale.it, feeds: [https://www.internazionale.it/sitemaps/rss.xml]}
+  - {id: illibraio, name: Il Libraio, category: culture, group: gems, home: https://www.illibraio.it, feeds: [https://www.illibraio.it/feed/]}
+  - {id: artribune, name: Artribune, category: culture, group: artribune, home: https://www.artribune.com, feeds: [https://www.artribune.com/feed/]}
+  - {id: finestresullarte, name: Finestre sull'Arte, category: culture, group: finestresullarte, home: https://www.finestresullarte.info, feeds: [https://www.finestresullarte.info/rss]}
+  - {id: focus, name: Focus, category: culture, group: mondadori, home: https://www.focus.it, feeds: [https://www.focus.it/rss]}
+  - {id: wired, name: Wired Italia, category: culture, group: condenast, home: https://www.wired.it, feeds: [https://www.wired.it/feed/rss]}
+  - {id: natgeo, name: National Geographic Italia, category: culture, group: gedi, home: https://www.nationalgeographic.it, feeds: []}
+  # entertainment
+  - {id: ansacinema, name: ANSA Cinema e Spettacolo, category: entertainment, group: ansa, home: https://www.ansa.it/sito/notizie/cultura/cinema/cinema.shtml, feeds: [https://www.ansa.it/sito/notizie/cultura/cinema/cinema_rss.xml]}
+  - {id: comingsoon, name: Comingsoon.it, category: entertainment, group: comingsoon, home: https://www.comingsoon.it, feeds: [https://www.comingsoon.it/feed/]}
+  - {id: mymovies, name: MYmovies, category: entertainment, group: mymovies, home: https://www.mymovies.it, feeds: [https://www.mymovies.it/rss/news.xml]}
+  - {id: badtaste, name: BadTaste.it, category: entertainment, group: badtaste, home: https://www.badtaste.it, feeds: [https://www.badtaste.it/feed/]}
+  - {id: movieplayer, name: Movieplayer, category: entertainment, group: movieplayer, home: https://movieplayer.it, feeds: [https://movieplayer.it/rss/news/]}
+  - {id: sorrisi, name: TV Sorrisi e Canzoni, category: entertainment, group: mondadori, home: https://www.sorrisi.com, feeds: [https://www.sorrisi.com/feed/]}
+  - {id: tvblog, name: TvBlog, category: entertainment, group: tvblog, home: https://www.tvblog.it, feeds: [https://www.tvblog.it/feed]}
+  - {id: davidemaggio, name: DavideMaggio.it, category: entertainment, group: davidemaggio, home: https://www.davidemaggio.it, feeds: [https://www.davidemaggio.it/feed]}
+  - {id: variety, name: Variety, category: entertainment, group: pmc, home: https://variety.com, feeds: [https://variety.com/feed/]}
+  - {id: deadline, name: Deadline, category: entertainment, group: pmc, home: https://deadline.com, feeds: [https://deadline.com/feed/]}
+  # music
+  - {id: rollingstone, name: Rolling Stone Italia, category: music, group: rollingstoneit, home: https://www.rollingstone.it, feeds: [https://www.rollingstone.it/feed/]}
+  - {id: rockol, name: Rockol, category: music, group: rockol, home: https://www.rockol.it, feeds: [https://www.rockol.it/rss/news]}
+  - {id: billboardit, name: Billboard Italia, category: music, group: billboardit, home: https://www.billboard.it, feeds: [https://www.billboard.it/feed/]}
+  - {id: allmusicitalia, name: All Music Italia, category: music, group: allmusicitalia, home: https://www.allmusicitalia.it, feeds: [https://www.allmusicitalia.it/feed]}
+  - {id: rockit, name: Rockit, category: music, group: rockit, home: https://www.rockit.it, feeds: []}
+  - {id: rumore, name: Rumore, category: music, group: rumore, home: https://www.rumoremag.com, feeds: [https://www.rumoremag.com/feed/]}
+  - {id: ondarock, name: OndaRock, category: music, group: ondarock, home: https://www.ondarock.it, feeds: []}
+  - {id: loudwire, name: Loudwire, category: music, group: townsquare, home: https://loudwire.com, feeds: [https://loudwire.com/feed/]}
+  - {id: fimi, name: FIMI, category: music, group: fimi, role: confirmation-only, home: https://www.fimi.it, feeds: []}
+  - {id: pitchfork, name: Pitchfork, category: music, group: condenast, home: https://pitchfork.com, feeds: [https://pitchfork.com/feed/feed-news/rss]}
+  # lifestyle
+  - {id: vanityfair, name: Vanity Fair Italia, category: lifestyle, group: condenast, home: https://www.vanityfair.it, feeds: [https://www.vanityfair.it/feed/rss]}
+  - {id: gq, name: GQ Italia, category: lifestyle, group: condenast, home: https://www.gqitalia.it, feeds: [https://www.gqitalia.it/feed/rss]}
+  - {id: vogue, name: Vogue Italia, category: lifestyle, group: condenast, home: https://www.vogue.it, feeds: [https://www.vogue.it/feed/rss]}
+  - {id: elle, name: Elle Italia, category: lifestyle, group: hearst, home: https://www.elle.com/it/, feeds: []}
+  - {id: grazia, name: Grazia, category: lifestyle, group: reworld, home: https://www.grazia.it, feeds: [https://www.grazia.it/feed]}
+  - {id: cosmopolitan, name: Cosmopolitan Italia, category: lifestyle, group: hearst, home: https://www.cosmopolitan.com/it/, feeds: []}
+  - {id: gamberorosso, name: Gambero Rosso, category: lifestyle, group: gamberorosso, home: https://www.gamberorosso.it, feeds: [https://www.gamberorosso.it/feed/]}
+  - {id: dissapore, name: Dissapore, category: lifestyle, group: dissapore, home: https://www.dissapore.com, feeds: [https://www.dissapore.com/feed/]}
+  - {id: cntraveller, name: Condé Nast Traveller Italia, category: lifestyle, group: condenast, home: https://www.cntraveller.it, feeds: [https://www.cntraveller.it/feed/rss]}
+  - {id: howtospendit, name: How to Spend It (Il Sole 24 Ore), category: lifestyle, group: sole24ore, home: https://www.ilsole24ore.com/sez/how-to-spend-it, feeds: []}
+  # good-news ("Giovedì buone notizie")
+  - {id: buonenotizie, name: Buone Notizie (Corriere della Sera), category: good-news, group: rcs, home: https://www.corriere.it/buone-notizie/, feeds: []}
+  - {id: italiachecambia, name: Italia che Cambia, category: good-news, group: italiachecambia, home: https://www.italiachecambia.org, feeds: [https://www.italiachecambia.org/feed/]}
+  - {id: vita, name: Vita.it, category: good-news, group: vita, home: https://www.vita.it, feeds: [https://www.vita.it/feed/]}
+  - {id: positivenews, name: Positive News, category: good-news, group: positivenews, home: https://www.positive.news, feeds: [https://www.positive.news/feed/]}
+  - {id: goodnewsnetwork, name: Good News Network, category: good-news, group: goodnewsnetwork, home: https://www.goodnewsnetwork.org, feeds: [https://www.goodnewsnetwork.org/feed/]}
+  - {id: reasonstobecheerful, name: Reasons to be Cheerful, category: good-news, group: reasonstobecheerful, home: https://reasonstobecheerful.world, feeds: [https://reasonstobecheerful.world/feed/]}
+  - {id: fixthenews, name: Fix the News, category: good-news, group: fixthenews, home: https://fixthenews.com, feeds: [https://fixthenews.com/feed]}
+  - {id: guardianupside, name: The Guardian – The Upside, category: good-news, group: guardian, home: https://www.theguardian.com/world/series/the-upside, feeds: [https://www.theguardian.com/world/series/the-upside/rss]}
+  - {id: goodgoodgood, name: Good Good Good, category: good-news, group: goodgoodgood, home: https://www.goodgoodgood.co, feeds: []}
+  - {id: ourworldindata, name: Our World in Data, category: good-news, group: owid, role: confirmation-only, home: https://ourworldindata.org, feeds: [https://ourworldindata.org/atom.xml]}
+  # satire (inspiration only, never a source of facts)
+  - {id: milaneseimbruttito, name: Il Milanese Imbruttito, category: satire, group: imbruttito, home: https://www.milaneseimbruttito.com, feeds: []}
+  - {id: lercio, name: Lercio, category: satire, group: lercio, home: https://www.lercio.it, feeds: [https://www.lercio.it/feed/]}
+  - {id: spinoza, name: Spinoza.it, category: satire, group: spinoza, home: https://www.spinoza.it, feeds: [https://www.spinoza.it/feed/]}
+  - {id: terzosegreto, name: Il Terzo Segreto di Satira, category: satire, group: terzosegreto, home: https://www.ilterzosegretodisatira.it, feeds: []}
+  - {id: thejackal, name: The Jackal, category: satire, group: thejackal, home: https://www.thejackal.it, feeds: []}
+  - {id: kotiomkin, name: Kotiomkin, category: satire, group: kotiomkin, home: https://www.kotiomkin.it, feeds: []}
+  - {id: vernacoliere, name: Il Vernacoliere, category: satire, group: vernacoliere, home: https://www.vernacoliere.com, feeds: []}
+  - {id: dailymash, name: The Daily Mash, category: satire, group: dailymash, home: https://www.thedailymash.co.uk, feeds: [https://www.thedailymash.co.uk/feed]}
+  - {id: theonion, name: The Onion, category: satire, group: onion, home: https://theonion.com, feeds: [https://theonion.com/feed/]}
+  - {id: newsthump, name: NewsThump, category: satire, group: newsthump, home: https://newsthump.com, feeds: [https://newsthump.com/feed/]}
