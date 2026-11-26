@@ -1,6 +1,6 @@
 # Routine: daily news shortlist
 
-Followed by Claude every morning at 07:00 Europe/Rome (scheduled task) and whenever Marco asks for
+Followed by Claude every morning (scheduled task at 06:33 Europe/Rome, so the document is ready by 07:00) and whenever Marco asks for
 "notizie di oggi" in the project chat. Spec: `specs/001-news-gathering/` (FR-017, FR-018).
 
 ## Requirements of the cloud environment

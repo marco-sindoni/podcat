@@ -35,6 +35,6 @@ Run them with `uv run podcat …`. Details: [`specs/001-news-gathering/contracts
 
 ## Daily routine
 
-Every day at 07:00 Europe/Rome a scheduled Claude Code session follows
+Every morning (scheduled at 06:33 Europe/Rome, so the document is ready by 07:00) a scheduled Claude Code session follows
 [`docs/routines/daily-news.md`](docs/routines/daily-news.md): it gathers the news, pushes
 `tracking/` to GitHub and publishes the shortlist as a commentable document for Marco.
