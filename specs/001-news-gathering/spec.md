@@ -205,7 +205,7 @@ already used in a daily reel.
 - **SC-001**: On a normal weekday, a full daily run gives Marco a shortlist in under 5 minutes,
   with a single command.
 - **SC-002**: 100% of candidates have at least two confirming sources from different publishing
-  groups, with working links.
+  groups, with working links (Thursdays: at least one approved starting source, see FR-009).
 - **SC-003**: Over the first 4 weeks, 0 candidates fall in an excluded topic, as checked by Marco.
 - **SC-004**: On at least 4 days out of 5, Marco finds at least one candidate good enough to pick
   without asking for a new shortlist.
