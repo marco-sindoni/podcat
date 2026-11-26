@@ -40,3 +40,6 @@
   FR-008 shortlist.select; FR-009 Thursday rule; FR-010 pick/unpick/reject; FR-011 tracking/news;
   FR-012 cache + existing shortlist; FR-013 cost ledger; FR-014 run logs; FR-015 weekly; FR-016 only
   titles, links, snippets and own summaries; FR-017 routine document step; FR-018 scheduled task.
+- Verified 2026-11-26 on Marco's machine: FR-009 changed after the first real Thursday run (7-day
+  window, one reliable source, no good endings of violence, importance + comic ranking). B-010 done;
+  B-008 is closed after the first automatic cloud run.
