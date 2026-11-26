@@ -17,3 +17,4 @@ and link the spec folder here.
 | B-010 | "Giovedì buone notizie": every Thursday the daily reel covers one positive story (human progress, hope, heart-warming), from anywhere in the world, using the `good-news` source category (in the constitution since v1.1.0) | 1 | done | [001](specs/001-news-gathering/spec.md) |
 | B-011 | "Giovedì buone notizie" logo and 2–3 s opening sting: steaming plate of gnocchi al sugo on the tavern table, soft 3D cartoon style (Fotor image, animated in CapCut) | 1 | ready | |
 | B-012 | Visual test session in Fotor and CapCut following `docs/visual-test-plan.md`; approve reference assets and voices | 1 | ready | |
+| B-013 | Script writing for the four cats: two passes, scenes, review by comments (RF-03, RF-04, RF-05) | 1 | in-spec | [002](specs/002-script-writing/spec.md) |
