@@ -33,7 +33,10 @@ THURSDAY = """
 
 Oggi è giovedì, "Giovedì buone notizie". Cambia il punto 2: restituisci SOLO i gruppi con
 positive = true, anche quelli di un solo articolo. Ignora tutti gli altri fatti.
-Continua a segnare come escluso ogni gruppo positivo che rientra nel punto 4."""
+Continua a segnare come escluso ogni gruppo positivo che rientra nel punto 4.
+Segna come escluso anche ogni fatto positivo che nasce da un lutto, una morte, una violenza o un
+crimine contro persone (per esempio un premio o un incontro per le vittime di un femminicidio):
+usa tragedy o crime e spiega il motivo. Un furto d'arte ritrovato o una truffa sventata vanno bene."""
 
 
 def render_items(items: list[FeedItem], sources: dict[str, Source]) -> str:

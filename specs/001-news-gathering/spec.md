@@ -162,6 +162,8 @@ already used in a daily reel.
 - **FR-009**: On Thursdays the system MUST build the shortlist only from positive stories
   ("Giovedì buone notizie") published in the last 7 days. One approved, non-satire starting
   source is enough for such a story; the two-groups rule of FR-004 does not apply on Thursdays.
+  Positive outcomes of mourning, deaths, violence or crimes against people are excluded, and
+  Thursday candidates are ordered by importance plus comic potential (equal weight).
 - **FR-010**: Marco MUST be able to pick exactly one candidate per day and change the pick until a
   script exists for it; he MUST be able to reject the shortlist and request a new one that excludes
   rejected stories.

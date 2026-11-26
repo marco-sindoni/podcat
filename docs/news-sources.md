@@ -14,7 +14,9 @@ feature is planned; a source without a working feed gets a replacement or is rea
    copied. They show what the internet is already laughing at, so the cats pick a different angle.
 5. "Giovedì buone notizie" exception (decided 2026-11-26): on Thursdays the search covers the last
    7 days, and one approved, non-satire starting source is enough for a positive story. Rule 1
-   still applies on every other day.
+   still applies on every other day. Positive outcomes of mourning, deaths, violence or crimes
+   against people are excluded on Thursdays, and candidates are ranked by importance plus comic
+   potential.
 
 ## Topics
 

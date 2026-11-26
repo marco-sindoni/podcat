@@ -15,9 +15,17 @@ class ShortlistError(ValueError):
     """A user error on a shortlist command (wrong number, missing list, script already written)."""
 
 
-def select(stories: list[dict], limit: int = MAX_CANDIDATES) -> list[dict]:
-    """Order by importance (then comic potential) and keep categories balanced."""
-    ordered = sorted(stories, key=lambda s: (-s["importance"], -s["comic_potential"], s["id"]))
+def rank_key(story: dict, thursday: bool = False) -> tuple:
+    """Importance first, comic potential as tie-break. On Thursdays the two weigh the same,
+    because the good-news reel needs a story the cats can joke about (decided 2026-11-26)."""
+    if thursday:
+        return (-(story["importance"] + story["comic_potential"]), -story["comic_potential"], story["id"])
+    return (-story["importance"], -story["comic_potential"], story["id"])
+
+
+def select(stories: list[dict], limit: int = MAX_CANDIDATES, thursday: bool = False) -> list[dict]:
+    """Order stories (see rank_key) and keep categories balanced."""
+    ordered = sorted(stories, key=lambda s: rank_key(s, thursday))
     chosen, per_category = [], {}
     for s in ordered:
         if per_category.get(s["category"], 0) >= MAX_PER_CATEGORY:
@@ -32,7 +40,7 @@ def select(stories: list[dict], limit: int = MAX_CANDIDATES) -> list[dict]:
                 chosen.append(s)
                 if len(chosen) == limit:
                     break
-    return sorted(chosen, key=lambda s: (-s["importance"], -s["comic_potential"], s["id"]))
+    return sorted(chosen, key=lambda s: rank_key(s, thursday))
 
 
 def warning_for(count: int, thursday: bool = False) -> str | None:

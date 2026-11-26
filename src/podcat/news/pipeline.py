@@ -136,7 +136,7 @@ def gather(
         }
         for i, (s, v) in enumerate(proposals)
     ]
-    chosen = select(drafts)
+    chosen = select(drafts, thursday=thursday)
     candidate_ids = []
     first_seen = now.astimezone(ROME).isoformat(timespec="minutes")
     for d in chosen:

@@ -78,3 +78,20 @@ def test_thursday_triage_runs_in_chunks(repo, monkeypatch):
     assert len(users) > 1
     assert "Una scuola pianta un bosco" in [NewsStore(settings.tracking_dir, settings.cache_dir).read_story(s)["title"]
                                             for s in meta["candidates"]]
+
+
+def test_thursday_ranking_weighs_comic_potential():
+    from podcat.news.shortlist import select
+
+    def s(id, importance, comic):
+        return {"id": id, "importance": importance, "comic_potential": comic, "category": "good-news"}
+
+    stories = [s("a-health", 4, 1), s("b-thief", 3, 5), s("c-painting", 3, 3)]
+    assert [x["id"] for x in select(stories)] == ["a-health", "b-thief", "c-painting"]
+    assert [x["id"] for x in select(stories, thursday=True)] == ["b-thief", "c-painting", "a-health"]
+
+
+def test_thursday_triage_excludes_good_endings_of_violence():
+    from podcat.news import triage
+
+    assert "femminicidio" in triage.THURSDAY and "tragedy o crime" in triage.THURSDAY
