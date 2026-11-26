@@ -88,10 +88,10 @@ own.
 
 **Independent test**: quickstart.md Scenario 3.
 
-- [ ] T030 [P] [US2] Write tests in `tests/unit/test_pick.py`: pick N, change pick, unpick blocked when a script exists, reject then refresh excludes rejected stories (data-model.md Story.status transitions, Shortlist.picked)
-- [ ] T031 [US2] Implement pick, unpick, reject and link-doc in `src/podcat/news/shortlist.py`
-- [ ] T032 [US2] Add `podcat news pick|unpick|reject|link-doc` to `src/podcat/cli.py`
-- [ ] T033 [US2] Write the publishing routine in `docs/routines/daily-news.md`: steps for Claude to run gather, publish the shortlist as a commentable document, run link-doc, then pick on Marco's comment
+- [X] T030 [P] [US2] Write tests in `tests/unit/test_pick.py`: pick N, change pick, unpick blocked when a script exists, reject then refresh excludes rejected stories (data-model.md Story.status transitions, Shortlist.picked)
+- [X] T031 [US2] Implement pick, unpick, reject and link-doc in `src/podcat/news/shortlist.py`
+- [X] T032 [US2] Add `podcat news pick|unpick|reject|link-doc` to `src/podcat/cli.py`
+- [X] T033 [US2] Write the publishing routine in `docs/routines/daily-news.md`: steps for Claude to run gather, publish the shortlist as a commentable document, run link-doc, then pick on Marco's comment
 
 ---
 
@@ -101,8 +101,8 @@ own.
 
 **Independent test**: a manual firing of the scheduled run produces the document and pushes `tracking/` to GitHub.
 
-- [ ] T034 [US1] Add the cloud environment setup script (install uv, `uv sync`) and document required settings (network access, `ANTHROPIC_API_KEY`) in `docs/routines/daily-news.md`
-- [ ] T035 [US1] Add commit-and-push of `tracking/` after a run (commit message "News shortlist <date>") in the routine; no push of cache files
+- [X] T034 [US1] Install with `uv sync` at the start of the routine (no setup script needed: uv is preinstalled) and document required settings (network access, `ANTHROPIC_API_KEY`) in `docs/routines/daily-news.md`
+- [X] T035 [US1] Add commit-and-push of `tracking/` after a run (commit message "News shortlist <date>") in the routine; no push of cache files
 - [ ] T036 [US1] Create the scheduled trigger: every day 07:00 Europe/Rome, prompt = the routine in `docs/routines/daily-news.md`; on Saturday also the weekly run once US4 exists
 - [ ] T037 [US1] Fire the trigger once by hand and check the result against SC-007
 
@@ -114,8 +114,8 @@ own.
 
 **Independent test**: quickstart.md Scenario 4 with a fixture Thursday.
 
-- [ ] T038 [P] [US3] Write tests in `tests/unit/test_thursday.py`: only `positive` groups, a confirmation outside `good-news` required, backups from the previous 7 days when fewer than 3 (data-model.md Story.positive, Shortlist.good_news_thursday, Shortlist.backups)
-- [ ] T039 [US3] Implement the Thursday rule in `src/podcat/news/verify.py` and `src/podcat/news/shortlist.py`, and the warm-tone instruction in `src/podcat/news/editorial.py`
+- [X] T038 [P] [US3] Write tests in `tests/unit/test_thursday.py`: only `positive` groups, a confirmation outside `good-news` required, backups from the previous 7 days when fewer than 3 (data-model.md Story.positive, Shortlist.good_news_thursday, Shortlist.backups)
+- [X] T039 [US3] Implement the Thursday rule in `src/podcat/news/verify.py` and `src/podcat/news/shortlist.py`, and the warm-tone instruction in `src/podcat/news/editorial.py`
 
 ---
 
@@ -125,15 +125,15 @@ own.
 
 **Independent test**: quickstart.md Scenario 5 with a week of fixture shortlists.
 
-- [ ] T040 [P] [US4] Write tests in `tests/unit/test_weekly.py`: stories only from Sunday–Saturday, "already used" marks, gaps listed, idempotent
-- [ ] T041 [US4] Implement `src/podcat/news/weekly.py` (research R8) with one ranking call (`weekly-rank` cost step)
-- [ ] T042 [US4] Add `podcat news weekly` to `src/podcat/cli.py` and the Saturday step to `docs/routines/daily-news.md`
+- [X] T040 [P] [US4] Write tests in `tests/unit/test_weekly.py`: stories only from Sunday–Saturday, "already used" marks, gaps listed, idempotent
+- [X] T041 [US4] Implement `src/podcat/news/weekly.py` (research R8) with one ranking call (`weekly-rank` cost step)
+- [X] T042 [US4] Add `podcat news weekly` to `src/podcat/cli.py` and the Saturday step to `docs/routines/daily-news.md`
 
 ---
 
 ## Phase 8: Polish
 
-- [ ] T043 [P] Update `README.md` with install, commands and the daily routine
+- [X] T043 [P] Update `README.md` with install, commands and the daily routine
 - [ ] T044 [P] Mark FR coverage in `specs/001-news-gathering/checklists/requirements.md` notes; update `BACKLOG.md` (B-010, B-008 done when verified)
 - [ ] T045 Run all quickstart.md scenarios, including the budget cap (Scenario 6), and record the results in `tracking/news/runs/`
 

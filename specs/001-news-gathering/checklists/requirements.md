@@ -35,3 +35,8 @@
   implementation choices of this feature.
 - Marco's answers (2026-11-26): weekly run on Saturday; shortlist delivered as a commentable
   document; order by importance, comic potential always shown.
+- Implementation coverage (2026-11-26): FR-001 config/sources.yaml; FR-002 fetch + window; FR-003 triage;
+  FR-004 verify; FR-005 prefilter + triage exclusions; FR-006 editorial follow-ups; FR-007 Story files;
+  FR-008 shortlist.select; FR-009 Thursday rule; FR-010 pick/unpick/reject; FR-011 tracking/news;
+  FR-012 cache + existing shortlist; FR-013 cost ledger; FR-014 run logs; FR-015 weekly; FR-016 only
+  titles, links, snippets and own summaries; FR-017 routine document step; FR-018 scheduled task.

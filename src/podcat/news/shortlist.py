@@ -57,10 +57,11 @@ def pick(store: NewsStore, day: date, kind: str, number: int) -> str:
         raise ShortlistError(f"Numero non valido: scegli tra 1 e {len(candidates)}.")
     new = candidates[number - 1]
     old = meta.get("picked")
-    if old and old != new:
-        _ensure_no_script(store, old)
-        store.set_story(old, status="candidate")
-    store.set_story(new, status="chosen")
+    if kind == "daily":  # the weekly list reuses stories: their daily status stays as it is
+        if old and old != new:
+            _ensure_no_script(store, old)
+            store.set_story(old, status="candidate")
+        store.set_story(new, status="chosen")
     meta.update(picked=new, status="picked")
     store.write_shortlist(meta)
     return new
@@ -71,14 +72,19 @@ def unpick(store: NewsStore, day: date, kind: str) -> None:
     old = meta.get("picked")
     if not old:
         raise ShortlistError("Nessuna notizia scelta da annullare.")
-    _ensure_no_script(store, old)
-    store.set_story(old, status="candidate")
+    if kind == "daily":
+        _ensure_no_script(store, old)
+        store.set_story(old, status="candidate")
     meta.update(picked=None, status="proposed")
     store.write_shortlist(meta)
 
 
 def reject(store: NewsStore, day: date, kind: str) -> list[str]:
     meta = _require(store, day, kind)
+    if kind == "weekly":
+        meta.update(picked=None, status="rejected")
+        store.write_shortlist(meta)
+        return meta.get("candidates", [])
     for sid in meta.get("candidates", []):
         story = store.read_story(sid)
         if story.get("status") in ("used",) or story.get("episode"):

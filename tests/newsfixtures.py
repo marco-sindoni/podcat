@@ -14,7 +14,7 @@ from podcat.settings import ROME
 
 FEEDS = Path(__file__).parent / "fixtures" / "feeds"
 FRIDAY_7AM = datetime(2026, 11, 27, 7, 0, tzinfo=ROME)
-THURSDAY_7AM = datetime(2026, 11, 26, 21, 0, tzinfo=ROME)
+THURSDAY_EVENING = datetime(2026, 11, 26, 21, 0, tzinfo=ROME)
 
 # keyword -> (story key, category, excluded, positive)
 STORIES = {

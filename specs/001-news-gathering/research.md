@@ -94,7 +94,8 @@ Phase 0 of the plan. Each item: decision, rationale, alternatives considered.
 ## R8. Weekly run
 
 - **Decision**: The Saturday run builds the weekly shortlist from the stories already verified by the
-  daily runs of the past 7 days (Sunday to Saturday), plus a fresh fetch of the last 24 hours. It
+  daily runs of the week (Sunday to Saturday); the Saturday daily run, done first, covers the last
+  24 hours. It
   re-ranks them with one editorial call and marks "already used in reel". Days without a daily run
   are listed as gaps.
 - **Rationale**: RSS feeds usually keep only the last 1–2 days of items, so a 7-day fetch is not
@@ -126,9 +127,9 @@ Phase 0 of the plan. Each item: decision, rationale, alternatives considered.
 
 ## R11. Running without Marco's computer
 
-- **Decision**: The default place to run is a Claude Code cloud session. A scheduled trigger starts a
-  session every day at 07:00 Europe/Rome (Saturday also runs `news weekly`). The session clones the
-  repository, installs dependencies with `uv sync` (environment setup script), runs
+- **Decision**: The default place to run is a Claude Code cloud session. A scheduled task resumes the
+  project session every day at 07:00 Europe/Rome (Saturday also runs `news weekly`). The session pulls the
+  repository, installs dependencies with `uv sync` (no setup script needed), runs
   `podcat news gather`, commits and pushes `tracking/` to `main`, and publishes the shortlist as a
   commentable document. The cloud environment needs outbound access to the feed hosts and
   `ANTHROPIC_API_KEY` as an environment variable (entered by Marco). `PODCAT_ASSETS_DIR` points to a
