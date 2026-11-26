@@ -20,7 +20,7 @@ FEEDS = {
         ("Caravaggio, a Roma la grande mostra", "Quaranta opere a Palazzo Barberini.", RECENT),
     ],
     "lastampa": [("Il vinile batte il cd: vendite record", "(ANSA) - Il sorpasso nel 2026.", RECENT)],
-    "fanpage": [
+    "open": [
         ("Rapina a Milano, presi i due banditi", "Arrestati dopo un inseguimento.", RECENT),
         ("Non crederai a cosa ha fatto il sindaco", "Video virale.", RECENT),
     ],

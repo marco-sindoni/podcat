@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"><channel><title>fanpage</title><link>https://example.org/fanpage</link>
+<rss version="2.0"><channel><title>open</title><link>https://example.org/open</link>
 <description>fixture</description>
-  <item><title>Rapina a Milano, presi i due banditi</title><link>https://example.org/fanpage/0</link>
+  <item><title>Rapina a Milano, presi i due banditi</title><link>https://example.org/open/0</link>
     <description>Arrestati dopo un inseguimento.</description><pubDate>Thu, 26 Nov 2026 18:00:00 +0100</pubDate></item>
-  <item><title>Non crederai a cosa ha fatto il sindaco</title><link>https://example.org/fanpage/1</link>
+  <item><title>Non crederai a cosa ha fatto il sindaco</title><link>https://example.org/open/1</link>
     <description>Video virale.</description><pubDate>Thu, 26 Nov 2026 18:00:00 +0100</pubDate></item>
 </channel></rss>

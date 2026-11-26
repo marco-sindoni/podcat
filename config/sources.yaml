@@ -14,23 +14,23 @@ sources:
   - {id: sole24ore, name: Il Sole 24 Ore, category: current-affairs, group: sole24ore, home: 'https://www.ilsole24ore.com', feeds: ['https://www.ilsole24ore.com/rss/italia.xml'], last_check: '2026-11-26'}
   - {id: skytg24, name: Sky TG24, category: current-affairs, group: sky, home: 'https://tg24.sky.it', feeds: ['https://tg24.sky.it/rss/tg24.xml'], last_check: '2026-11-26'}
   - {id: rainews, name: RaiNews, category: current-affairs, group: rai, home: 'https://www.rainews.it', feeds: ['https://www.rainews.it/rss/tutti'], last_check: '2026-11-26'}
-  - {id: reuters, name: Reuters, category: current-affairs, group: reuters, home: 'https://www.reuters.com', feeds: [], manual: true, last_check: '2026-11-26'}
   - {id: bbc, name: BBC News, category: current-affairs, group: bbc, home: 'https://www.bbc.com/news', feeds: ['https://feeds.bbci.co.uk/news/world/rss.xml'], last_check: '2026-11-26'}
-  - {id: fanpage, name: Fanpage, category: current-affairs, group: ciaopeople, home: 'https://www.fanpage.it', feeds: ['https://www.fanpage.it/feed/'], manual: true, last_check: '2026-11-26'}
-  - {id: ilpost, name: Il Post, category: current-affairs, group: ilpost, role: confirmation-only, home: 'https://www.ilpost.it', feeds: ['https://www.ilpost.it/feed/'], manual: true, last_check: '2026-11-26'}
+  - {id: ilpost, name: Il Post, category: current-affairs, group: ilpost, role: confirmation-only, home: 'https://www.ilpost.it', feeds: ['https://www.ilpost.it/italia/feed/'], last_check: '2026-11-26'}
   - {id: ilfatto, name: Il Fatto Quotidiano, category: current-affairs, group: sef, role: confirmation-only, home: 'https://www.ilfattoquotidiano.it', feeds: ['https://www.ilfattoquotidiano.it/feed/'], last_check: '2026-11-26'}
+  - {id: euronews, name: Euronews Italiano, category: current-affairs, group: euronews, home: 'https://it.euronews.com', feeds: ['https://it.euronews.com/rss'], last_check: '2026-11-26'}
+  - {id: open, name: Open, category: current-affairs, group: open, home: 'https://www.open.online', feeds: ['https://www.open.online/feed/'], last_check: '2026-11-26'}
   - {id: gazzetta, name: La Gazzetta dello Sport, category: sport, group: rcs, home: 'https://www.gazzetta.it', feeds: ['https://www.gazzetta.it/rss/home.xml'], last_check: '2026-11-26'}
   - {id: corrieredellosport, name: Corriere dello Sport, category: sport, group: amodei, home: 'https://www.corrieredellosport.it', feeds: ['https://www.corrieredellosport.it/rss/home'], last_check: '2026-11-26'}
   - {id: tuttosport, name: Tuttosport, category: sport, group: amodei, home: 'https://www.tuttosport.com', feeds: ['https://www.tuttosport.com/rss/home'], last_check: '2026-11-26'}
   - {id: skysport, name: Sky Sport, category: sport, group: sky, home: 'https://sport.sky.it', feeds: ['https://sport.sky.it/rss/sport.xml'], last_check: '2026-11-26'}
-  - {id: sportmediaset, name: Sport Mediaset, category: sport, group: mediaset, home: 'https://www.sportmediaset.mediaset.it', feeds: ['https://www.sportmediaset.mediaset.it/rss/homepage.xml'], manual: true, last_check: '2026-11-26'}
-  - {id: raisport, name: RaiSport, category: sport, group: rai, home: 'https://www.rainews.it/rai-sport', feeds: [], manual: true, last_check: '2026-11-26'}
-  - {id: eurosport, name: Eurosport Italia, category: sport, group: wbd, home: 'https://www.eurosport.it', feeds: ['https://www.eurosport.it/rss.xml'], manual: true, last_check: '2026-11-26'}
+  - {id: sportmediaset, name: Sport Mediaset, category: sport, group: mediaset, home: 'https://www.sportmediaset.mediaset.it', feeds: ['https://www.sportmediaset.mediaset.it/rss/'], last_check: '2026-11-26'}
+  - {id: raisport, name: RaiSport, category: sport, group: rai, home: 'https://www.rainews.it/rai-sport', feeds: ['https://www.rainews.it/rss/sport'], last_check: '2026-11-26'}
   - {id: oasport, name: OA Sport, category: sport, group: oasport, home: 'https://www.oasport.it', feeds: ['https://www.oasport.it/feed/'], last_check: '2026-11-26'}
   - {id: ansasport, name: ANSA Sport, category: sport, group: ansa, home: 'https://www.ansa.it/sito/notizie/sport/sport.shtml', feeds: ['https://www.ansa.it/sito/notizie/sport/sport_rss.xml'], last_check: '2026-11-26'}
   - {id: ultimouomo, name: L'Ultimo Uomo, category: sport, group: ultimouomo, home: 'https://www.ultimouomo.com', feeds: ['https://www.ultimouomo.com/feed/'], last_check: '2026-11-26'}
-  - {id: lalettura, name: La Lettura (Corriere), category: culture, group: rcs, home: 'https://www.corriere.it/la-lettura/', feeds: [], manual: true, last_check: '2026-11-26'}
-  - {id: robinson, name: Robinson (Repubblica), category: culture, group: gedi, home: 'https://www.repubblica.it/robinson/', feeds: [], manual: true, last_check: '2026-11-26'}
+  - {id: sportface, name: Sportface, category: sport, group: sportface, home: 'https://www.sportface.it', feeds: ['https://www.sportface.it/feed'], last_check: '2026-11-26'}
+  - {id: lalettura, name: Corriere della Sera – Cultura (La Lettura), category: culture, group: rcs, home: 'https://www.corriere.it/la-lettura/', feeds: ['https://www.corriere.it/rss/cultura.xml'], last_check: '2026-11-26'}
+  - {id: robinson, name: la Repubblica – Cultura (Robinson), category: culture, group: gedi, home: 'https://www.repubblica.it/robinson/', feeds: ['https://www.repubblica.it/rss/cultura/rss2.0.xml'], last_check: '2026-11-26'}
   - {id: domenica24, name: Domenica (Il Sole 24 Ore), category: culture, group: sole24ore, home: 'https://www.ilsole24ore.com/sez/domenica', feeds: ['https://www.ilsole24ore.com/rss/cultura.xml'], last_check: '2026-11-26'}
   - {id: internazionale, name: Internazionale, category: culture, group: internazionale, home: 'https://www.internazionale.it', feeds: ['https://www.internazionale.it/sitemaps/rss.xml'], last_check: '2026-11-26'}
   - {id: illibraio, name: Il Libraio, category: culture, group: gems, home: 'https://www.illibraio.it', feeds: ['https://www.illibraio.it/feed/'], last_check: '2026-11-26'}
@@ -38,10 +38,9 @@ sources:
   - {id: finestresullarte, name: Finestre sull'Arte, category: culture, group: finestresullarte, home: 'https://www.finestresullarte.info', feeds: ['https://www.finestresullarte.info/rss'], last_check: '2026-11-26'}
   - {id: focus, name: Focus, category: culture, group: mondadori, home: 'https://www.focus.it', feeds: ['https://www.focus.it/rss'], last_check: '2026-11-26'}
   - {id: wired, name: Wired Italia, category: culture, group: condenast, home: 'https://www.wired.it', feeds: ['https://www.wired.it/feed/rss'], last_check: '2026-11-26'}
-  - {id: natgeo, name: National Geographic Italia, category: culture, group: gedi, home: 'https://www.nationalgeographic.it', feeds: [], manual: true, last_check: '2026-11-26'}
+  - {id: doppiozero, name: Doppiozero, category: culture, group: doppiozero, home: 'https://www.doppiozero.com', feeds: ['https://www.doppiozero.com/rss.xml'], last_check: '2026-11-26'}
   - {id: ansacinema, name: ANSA Cinema e Spettacolo, category: entertainment, group: ansa, home: 'https://www.ansa.it/sito/notizie/cultura/cinema/cinema.shtml', feeds: ['https://www.ansa.it/sito/notizie/cultura/cinema/cinema_rss.xml'], last_check: '2026-11-26'}
   - {id: comingsoon, name: Comingsoon.it, category: entertainment, group: comingsoon, home: 'https://www.comingsoon.it', feeds: ['https://www.comingsoon.it/feedrss/'], last_check: '2026-11-26'}
-  - {id: mymovies, name: MYmovies, category: entertainment, group: mymovies, home: 'https://www.mymovies.it', feeds: ['https://www.mymovies.it/rss/news.xml'], manual: true, last_check: '2026-11-26'}
   - {id: badtaste, name: BadTaste.it, category: entertainment, group: badtaste, home: 'https://www.badtaste.it', feeds: ['https://www.badtaste.it/feed'], last_check: '2026-11-26'}
   - {id: movieplayer, name: Movieplayer, category: entertainment, group: movieplayer, home: 'https://movieplayer.it', feeds: ['https://movieplayer.it/rss/homepage.xml'], last_check: '2026-11-26'}
   - {id: sorrisi, name: TV Sorrisi e Canzoni, category: entertainment, group: mondadori, home: 'https://www.sorrisi.com', feeds: ['https://www.sorrisi.com/feed/'], last_check: '2026-11-26'}
@@ -49,16 +48,17 @@ sources:
   - {id: davidemaggio, name: DavideMaggio.it, category: entertainment, group: davidemaggio, home: 'https://www.davidemaggio.it', feeds: ['https://www.davidemaggio.it/feed'], last_check: '2026-11-26'}
   - {id: variety, name: Variety, category: entertainment, group: pmc, home: 'https://variety.com', feeds: ['https://variety.com/feed/'], last_check: '2026-11-26'}
   - {id: deadline, name: Deadline, category: entertainment, group: pmc, home: 'https://deadline.com', feeds: ['https://deadline.com/feed/'], last_check: '2026-11-26'}
+  - {id: ciak, name: Ciak, category: entertainment, group: ciak, home: 'https://www.ciakmagazine.it', feeds: ['https://www.ciakmagazine.it/feed/'], last_check: '2026-11-26'}
   - {id: rollingstone, name: Rolling Stone Italia, category: music, group: rollingstoneit, home: 'https://www.rollingstone.it', feeds: ['https://www.rollingstone.it/feed/'], last_check: '2026-11-26'}
-  - {id: rockol, name: Rockol, category: music, group: rockol, home: 'https://www.rockol.it', feeds: ['https://www.rockol.it/rss/news'], manual: true, last_check: '2026-11-26'}
-  - {id: billboardit, name: Billboard Italia, category: music, group: billboardit, home: 'https://www.billboard.it', feeds: ['https://www.billboard.it/feed/'], manual: true, last_check: '2026-11-26'}
   - {id: allmusicitalia, name: All Music Italia, category: music, group: allmusicitalia, home: 'https://www.allmusicitalia.it', feeds: ['https://www.allmusicitalia.it/feed'], last_check: '2026-11-26'}
-  - {id: rockit, name: Rockit, category: music, group: rockit, home: 'https://www.rockit.it', feeds: [], manual: true, last_check: '2026-11-26'}
   - {id: rumore, name: Rumore, category: music, group: rumore, home: 'https://www.rumoremag.com', feeds: ['https://www.rumoremag.com/feed/'], last_check: '2026-11-26'}
-  - {id: ondarock, name: OndaRock, category: music, group: ondarock, home: 'https://www.ondarock.it', feeds: [], manual: true, last_check: '2026-11-26'}
+  - {id: ondarock, name: OndaRock, category: music, group: ondarock, home: 'https://www.ondarock.it', feeds: ['https://www.ondarock.it/feed'], last_check: '2026-11-26'}
   - {id: loudwire, name: Loudwire, category: music, group: townsquare, home: 'https://loudwire.com', feeds: ['https://loudwire.com/feed/'], last_check: '2026-11-26'}
-  - {id: fimi, name: FIMI, category: music, group: fimi, role: confirmation-only, home: 'https://www.fimi.it', feeds: [], manual: true, last_check: '2026-11-26'}
   - {id: pitchfork, name: Pitchfork, category: music, group: condenast, home: 'https://pitchfork.com', feeds: ['https://pitchfork.com/feed/feed-news/rss'], last_check: '2026-11-26'}
+  - {id: soundsblog, name: Soundsblog, category: music, group: soundsblog, home: 'https://www.soundsblog.it', feeds: ['https://www.soundsblog.it/feed'], last_check: '2026-11-26'}
+  - {id: sentireascoltare, name: SentireAscoltare, category: music, group: sentireascoltare, home: 'https://www.sentireascoltare.com', feeds: ['https://www.sentireascoltare.com/feed/'], last_check: '2026-11-26'}
+  - {id: rockon, name: Rockon, category: music, group: rockon, home: 'https://www.rockon.it', feeds: ['https://www.rockon.it/feed/'], last_check: '2026-11-26'}
+  - {id: nme, name: NME, category: music, group: nme, home: 'https://www.nme.com', feeds: ['https://www.nme.com/news/music/feed'], last_check: '2026-11-26'}
   - {id: vanityfair, name: Vanity Fair Italia, category: lifestyle, group: condenast, home: 'https://www.vanityfair.it', feeds: ['https://www.vanityfair.it/feed/rss'], last_check: '2026-11-26'}
   - {id: gq, name: GQ Italia, category: lifestyle, group: condenast, home: 'https://www.gqitalia.it', feeds: ['https://www.gqitalia.it/feed/rss'], last_check: '2026-11-26'}
   - {id: vogue, name: Vogue Italia, category: lifestyle, group: condenast, home: 'https://www.vogue.it', feeds: ['https://www.vogue.it/feed/rss'], last_check: '2026-11-26'}
@@ -67,25 +67,25 @@ sources:
   - {id: cosmopolitan, name: Cosmopolitan Italia, category: lifestyle, group: hearst, home: 'https://www.cosmopolitan.com/it/', feeds: ['https://www.cosmopolitan.com/it/rss/default.xml'], last_check: '2026-11-26'}
   - {id: gamberorosso, name: Gambero Rosso, category: lifestyle, group: gamberorosso, home: 'https://www.gamberorosso.it', feeds: ['https://www.gamberorosso.it/feed/'], last_check: '2026-11-26'}
   - {id: dissapore, name: Dissapore, category: lifestyle, group: dissapore, home: 'https://www.dissapore.com', feeds: ['https://www.dissapore.com/feed/'], last_check: '2026-11-26'}
-  - {id: cntraveller, name: Condé Nast Traveller Italia, category: lifestyle, group: condenast, home: 'https://www.cntraveller.it', feeds: ['https://www.cntraveller.it/feed/rss'], manual: true, last_check: '2026-11-26'}
   - {id: howtospendit, name: How to Spend It (Il Sole 24 Ore), category: lifestyle, group: sole24ore, home: 'https://www.ilsole24ore.com/sez/how-to-spend-it', feeds: ['https://www.ilsole24ore.com/rss/htsi.xml'], last_check: '2026-11-26'}
-  - {id: buonenotizie, name: Buone Notizie (Corriere della Sera), category: good-news, group: rcs, home: 'https://www.corriere.it/buone-notizie/', feeds: [], manual: true, last_check: '2026-11-26'}
+  - {id: doveviaggi, name: Dove Viaggi (Corriere), category: lifestyle, group: rcs, home: 'https://viaggi.corriere.it', feeds: ['https://viaggi.corriere.it/feed/'], last_check: '2026-11-26'}
   - {id: italiachecambia, name: Italia che Cambia, category: good-news, group: italiachecambia, home: 'https://www.italiachecambia.org', feeds: ['https://www.italiachecambia.org/feed/'], last_check: '2026-11-26'}
   - {id: vita, name: Vita.it, category: good-news, group: vita, home: 'https://www.vita.it', feeds: ['https://www.vita.it/feed/'], last_check: '2026-11-26'}
-  - {id: positivenews, name: Positive News, category: good-news, group: positivenews, home: 'https://www.positive.news', feeds: ['https://www.positive.news/feed/'], manual: true, last_check: '2026-11-26'}
   - {id: goodnewsnetwork, name: Good News Network, category: good-news, group: goodnewsnetwork, home: 'https://www.goodnewsnetwork.org', feeds: ['https://www.goodnewsnetwork.org/feed/'], last_check: '2026-11-26'}
   - {id: reasonstobecheerful, name: Reasons to be Cheerful, category: good-news, group: reasonstobecheerful, home: 'https://reasonstobecheerful.world', feeds: ['https://reasonstobecheerful.world/feed/'], last_check: '2026-11-26'}
   - {id: fixthenews, name: Fix the News, category: good-news, group: fixthenews, home: 'https://fixthenews.com', feeds: ['https://fixthenews.com/feed'], last_check: '2026-11-26'}
   - {id: guardianupside, name: The Guardian – The Upside, category: good-news, group: guardian, home: 'https://www.theguardian.com/world/series/the-upside', feeds: ['https://www.theguardian.com/world/series/the-upside/rss'], last_check: '2026-11-26'}
-  - {id: goodgoodgood, name: Good Good Good, category: good-news, group: goodgoodgood, home: 'https://www.goodgoodgood.co', feeds: [], manual: true, last_check: '2026-11-26'}
+  - {id: goodgoodgood, name: Good Good Good, category: good-news, group: goodgoodgood, home: 'https://www.goodgoodgood.co', feeds: ['https://www.goodgoodgood.co/articles/rss.xml'], last_check: '2026-11-26'}
   - {id: ourworldindata, name: Our World in Data, category: good-news, group: owid, role: confirmation-only, home: 'https://ourworldindata.org', feeds: ['https://ourworldindata.org/atom.xml'], last_check: '2026-11-26'}
-  - {id: milaneseimbruttito, name: Il Milanese Imbruttito, category: satire, group: imbruttito, home: 'https://www.milaneseimbruttito.com', feeds: [], manual: true, last_check: '2026-11-26'}
+  - {id: optimistdaily, name: The Optimist Daily, category: good-news, group: optimistdaily, home: 'https://www.optimistdaily.com', feeds: ['https://www.optimistdaily.com/feed/'], last_check: '2026-11-26'}
+  - {id: yesmagazine, name: YES! Magazine, category: good-news, group: yesmagazine, home: 'https://www.yesmagazine.org', feeds: ['https://www.yesmagazine.org/feed'], last_check: '2026-11-26'}
   - {id: lercio, name: Lercio, category: satire, group: lercio, home: 'https://www.lercio.it', feeds: ['https://www.lercio.it/feed/'], last_check: '2026-11-26'}
-  - {id: spinoza, name: Spinoza.it, category: satire, group: spinoza, home: 'https://www.spinoza.it', feeds: ['https://www.spinoza.it/feed/'], manual: true, last_check: '2026-11-26'}
-  - {id: terzosegreto, name: Il Terzo Segreto di Satira, category: satire, group: terzosegreto, home: 'https://www.ilterzosegretodisatira.it', feeds: [], manual: true, last_check: '2026-11-26'}
-  - {id: thejackal, name: The Jackal, category: satire, group: thejackal, home: 'https://www.thejackal.it', feeds: [], manual: true, last_check: '2026-11-26'}
-  - {id: kotiomkin, name: Kotiomkin, category: satire, group: kotiomkin, home: 'https://www.kotiomkin.it', feeds: [], manual: true, last_check: '2026-11-26'}
   - {id: vernacoliere, name: Il Vernacoliere, category: satire, group: vernacoliere, home: 'https://www.vernacoliere.com', feeds: ['https://vernacoliere.com/feed/'], last_check: '2026-11-26'}
   - {id: dailymash, name: The Daily Mash, category: satire, group: dailymash, home: 'https://www.thedailymash.co.uk', feeds: ['https://www.thedailymash.co.uk/feed'], last_check: '2026-11-26'}
   - {id: theonion, name: The Onion, category: satire, group: onion, home: 'https://theonion.com', feeds: ['https://theonion.com/feed/'], last_check: '2026-11-26'}
   - {id: newsthump, name: NewsThump, category: satire, group: newsthump, home: 'https://newsthump.com', feeds: ['https://newsthump.com/feed/'], last_check: '2026-11-26'}
+  - {id: beaverton, name: The Beaverton, category: satire, group: beaverton, home: 'https://www.thebeaverton.com', feeds: ['https://www.thebeaverton.com/feed/'], last_check: '2026-11-26'}
+  - {id: theshovel, name: The Shovel, category: satire, group: theshovel, home: 'https://www.theshovel.com.au', feeds: ['https://www.theshovel.com.au/feed/'], last_check: '2026-11-26'}
+  - {id: legorafi, name: Le Gorafi, category: satire, group: legorafi, home: 'https://www.legorafi.fr', feeds: ['https://www.legorafi.fr/feed/'], last_check: '2026-11-26'}
+  - {id: thehardtimes, name: The Hard Times, category: satire, group: thehardtimes, home: 'https://thehardtimes.net', feeds: ['https://thehardtimes.net/feed/'], last_check: '2026-11-26'}
+  - {id: reductress, name: Reductress, category: satire, group: reductress, home: 'https://reductress.com', feeds: ['https://reductress.com/feed/'], last_check: '2026-11-26'}

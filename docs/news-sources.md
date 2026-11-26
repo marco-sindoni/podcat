@@ -1,6 +1,6 @@
 # News sources
 
-**Status: APPROVED by Marco on 2026-11-25.** RSS availability is checked when the news-gathering
+**Status: APPROVED by Marco on 2026-11-25; sources without a working feed replaced on 2026-11-26.** RSS availability is checked when the news-gathering
 feature is planned; a source without a working feed gets a replacement or is read by hand.
 
 ## Verification rules
@@ -24,23 +24,29 @@ feature is planned; a source without a working feed gets a replacement or is rea
 
 | Category | Sources |
 | --- | --- |
-| `current-affairs` | ANSA, AGI, Adnkronos, Corriere della Sera, la Repubblica, La Stampa, Il Sole 24 Ore, Sky TG24, RaiNews, Reuters / BBC News (world news), Fanpage |
-| `sport` | La Gazzetta dello Sport, Corriere dello Sport, Tuttosport, Sky Sport, Sport Mediaset, RaiSport, Eurosport Italia, OA Sport, ANSA Sport, L'Ultimo Uomo |
-| `culture` | La Lettura (Corriere), Robinson (Repubblica), Domenica (Il Sole 24 Ore), Internazionale, Il Libraio, Artribune, Finestre sull'Arte, Focus, Wired Italia, National Geographic Italia |
-| `entertainment` | ANSA Cinema e Spettacolo, Comingsoon.it, MYmovies, BadTaste.it, Movieplayer, TV Sorrisi e Canzoni, TvBlog, DavideMaggio.it, Variety, Deadline |
-| `music` | Rolling Stone Italia, Rockol, Billboard Italia, All Music Italia, Rockit, Rumore, OndaRock, Loudwire, FIMI (official charts, for checking data), Pitchfork |
-| `lifestyle` | Vanity Fair Italia, GQ Italia, Vogue Italia, Elle Italia, Grazia, Cosmopolitan Italia, Gambero Rosso, Dissapore, Condé Nast Traveller Italia, How to Spend It (Il Sole 24 Ore) |
-| `good-news` ("Giovedì buone notizie") | Buone Notizie (Corriere della Sera), Italia che Cambia, Vita.it, Positive News, Good News Network, Reasons to be Cheerful, Fix the News, The Guardian – The Upside, Good Good Good, Our World in Data (for checking numbers) |
-| `satire` (inspiration only) | Il Milanese Imbruttito, Lercio, Spinoza.it, Il Terzo Segreto di Satira, The Jackal, Kotiomkin, Il Vernacoliere, The Daily Mash, The Onion, NewsThump |
+| `current-affairs` | ANSA, AGI, Adnkronos, Corriere della Sera, la Repubblica, La Stampa, Il Sole 24 Ore, Sky TG24, RaiNews, BBC News (world news), Euronews Italiano, Open; Il Post and Il Fatto Quotidiano for cross-checking only |
+| `sport` | La Gazzetta dello Sport, Corriere dello Sport, Tuttosport, Sky Sport, Sport Mediaset, RaiSport, OA Sport, ANSA Sport, L'Ultimo Uomo, Sportface |
+| `culture` | Corriere della Sera – Cultura (La Lettura), la Repubblica – Cultura (Robinson), Domenica (Il Sole 24 Ore), Internazionale, Il Libraio, Artribune, Finestre sull'Arte, Focus, Wired Italia, Doppiozero |
+| `entertainment` | ANSA Cinema e Spettacolo, Comingsoon.it, Ciak, BadTaste.it, Movieplayer, TV Sorrisi e Canzoni, TvBlog, DavideMaggio.it, Variety, Deadline |
+| `music` | Rolling Stone Italia, All Music Italia, OndaRock, Rumore, Soundsblog, SentireAscoltare, Rockon, Loudwire, Pitchfork, NME |
+| `lifestyle` | Vanity Fair Italia, GQ Italia, Vogue Italia, Elle Italia, Grazia, Cosmopolitan Italia, Gambero Rosso, Dissapore, Dove Viaggi (Corriere), How to Spend It (Il Sole 24 Ore) |
+| `good-news` ("Giovedì buone notizie") | Italia che Cambia, Vita.it, Good News Network, Reasons to be Cheerful, Fix the News, The Guardian – The Upside, Good Good Good, The Optimist Daily, YES! Magazine, Our World in Data (for checking numbers) |
+| `satire` (inspiration only) | Lercio, Il Vernacoliere, The Onion, The Daily Mash, NewsThump, The Hard Times, The Beaverton, The Shovel, Le Gorafi, Reductress |
 
 Notes:
-- Il Milanese Imbruttito, The Jackal and Il Terzo Segreto di Satira live mostly on social media and
-  YouTube, with little or no RSS; they are read only partially.
+- Only sources with a working RSS feed are used, so everything is read automatically (Marco,
+  2026-11-26: no manual sources). `config/sources.yaml` holds the feeds and publishing groups;
+  `podcat sources check` verifies them.
 - Il Post and Il Fatto Quotidiano are used only to cross-check, never as starting sources.
+- Italian satire lives mostly on social media; only Lercio and Il Vernacoliere have feeds, so the
+  category is completed with English and French satire sites (inspiration only).
 
 ## Excluded sources
 
 | Source | Reason |
 | --- | --- |
 | Le Frasi di Osho | Satire too politically aligned (Marco) |
+| Fanpage, Reuters, Rockol, Billboard Italia, Positive News | Block automated readers from the cloud; not worked around |
+| La Lettura, Robinson (own feeds), National Geographic Italia, MYmovies, Rockit, Eurosport Italia, Condé Nast Traveller, Buone Notizie (Corriere), FIMI | No working feed (section feeds used where available) |
+| Spinoza.it, Il Milanese Imbruttito, Il Terzo Segreto di Satira, The Jackal, Kotiomkin | No feed or inactive feed; mostly on social media |
 | The Babylon Bee | Satire too politically aligned |

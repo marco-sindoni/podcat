@@ -4,6 +4,7 @@ Newest first. Rules that follow from a decision are also written into the consti
 
 | Date | Decision | Rationale |
 | --- | --- | --- |
+| 2026-11-26 | Only sources with a working RSS feed are used; no manual sources. Blocked or feedless sources replaced (Euronews Italiano, Open, Sportface, Doppiozero, Ciak, Soundsblog, SentireAscoltare, Rockon, NME, Dove Viaggi, The Optimist Daily, YES! Magazine); satire extended with The Hard Times, The Beaverton, The Shovel, Le Gorafi, Reductress. 84 sources, 10 per category (14 current affairs) | Keep it simple: everything read automatically from the cloud (Marco) |
 | 2026-11-26 | Daily work runs in Claude Code cloud sessions (repo cloned from GitHub, results pushed); the daily news run starts automatically at 07:00 Europe/Rome; Marco reviews from the Claude phone app. Constitution v1.3.0 | Works with Marco's computer off; brings B-008 forward to phase 1 |
 | 2026-11-26 | Spec 001 (news gathering) approved: weekly shortlist on Saturday for Sunday publication; shortlists delivered as commentable documents; candidates ordered by importance with comic potential shown | Marco's answers to the spec questions |
 | 2026-11-25 | News sources approved: 10 per category (current affairs, sport, culture, entertainment, music, lifestyle, good news, satire as inspiration only); two-source rule; no crime news or tragedies; non-partisan politics | Verified, high-traffic sources; satire never as fact source |
