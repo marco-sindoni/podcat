@@ -2,13 +2,16 @@
 
 from __future__ import annotations
 
+import asyncio
 from datetime import date
 from typing import Optional
 
 import typer
+import yaml
 
-from podcat.settings import load_settings, today_rome
-from podcat.tracking.costs import Ledger, load_prices
+from podcat.settings import Settings, load_settings, today_rome
+from podcat.tracking import frontmatter
+from podcat.tracking.costs import BudgetExceeded, Ledger, load_prices
 
 EXIT_USER_ERROR = 1
 EXIT_BUDGET = 2
@@ -22,6 +25,194 @@ app.add_typer(sources_app, name="sources")
 app.add_typer(news_app, name="news")
 app.add_typer(costs_app, name="costs")
 
+DateOpt = typer.Option(None, "--date", help="Data AAAA-MM-GG (predefinita: oggi, ora italiana).")
+KindOpt = typer.Option("daily", "--kind", help="daily oppure weekly.")
+
+
+def _fail(message: str, code: int = EXIT_USER_ERROR) -> None:
+    typer.echo(message, err=True)
+    raise typer.Exit(code)
+
+
+def _day(value: Optional[str]) -> date:
+    if not value:
+        return today_rome()
+    try:
+        return date.fromisoformat(value)
+    except ValueError:
+        _fail(f"Data non valida: {value!r}. Usa il formato AAAA-MM-GG.")
+
+
+def _kind(value: str) -> str:
+    if value not in ("daily", "weekly"):
+        _fail("--kind deve essere daily oppure weekly.")
+    return value
+
+
+def news_model_factory(settings: Settings):
+    from podcat.llm.anthropic_model import AnthropicModel
+
+    pricing = yaml.safe_load((settings.config_dir / "pricing.yaml").read_text(encoding="utf-8"))
+    model_id = pricing["news_model"]
+
+    def factory(ledger: Ledger, day: date):
+        return AnthropicModel(model_id, ledger, day, "news", api_key=settings.anthropic_api_key)
+
+    return factory
+
+
+# sources ----------------------------------------------------------------------
+
+
+@sources_app.command("check")
+def sources_check(write: bool = typer.Option(False, "--write", help="Aggiorna config/sources.yaml.")) -> None:
+    """Controlla i feed di tutte le fonti e cerca quelli mancanti."""
+    from podcat.news.sources import apply_check, check_sources, load_sources, save_sources
+
+    settings = load_settings()
+    sources = load_sources(settings.config_dir)
+    results = asyncio.run(check_sources(sources))
+    labels = {"ok": "ok", "discovered": "trovato", "manual": "solo a mano"}
+    for r in results:
+        feed = r.working[0] if r.working else "-"
+        typer.echo(f"{labels[r.status]:<12} {r.source.id:<22} {feed}")
+    counts = {k: sum(1 for r in results if r.status == k) for k in labels}
+    typer.echo(f"\nFunzionanti {counts['ok']}, trovati {counts['discovered']}, solo a mano {counts['manual']}.")
+    if write:
+        save_sources(settings.config_dir, apply_check(results, today_rome().isoformat()))
+        typer.echo("config/sources.yaml aggiornato.")
+
+
+# news -------------------------------------------------------------------------
+
+
+def _store(settings: Settings):
+    from podcat.news.store import NewsStore
+
+    return NewsStore(settings.tracking_dir, settings.cache_dir)
+
+
+def _print_shortlist(path) -> None:
+    from pathlib import Path
+
+    doc = frontmatter.read(Path(path))
+    typer.echo(doc.body.replace(frontmatter.GENERATED_START, "").replace(frontmatter.GENERATED_END, "").strip())
+
+
+@news_app.command("gather")
+def news_gather(
+    date_: Optional[str] = DateOpt,
+    refresh: bool = typer.Option(False, "--refresh", help="Rifà la lista (ripaga i passi a pagamento)."),
+) -> None:
+    """Giro del giorno: raccoglie, verifica e propone 3-5 notizie."""
+    from podcat.news.pipeline import gather
+    from podcat.news.shortlist import ShortlistError
+
+    settings = load_settings()
+    day = _day(date_)
+    try:
+        result = gather(settings, day, news_model_factory(settings), refresh=refresh)
+    except BudgetExceeded as exc:
+        _fail(str(exc), EXIT_BUDGET)
+    except ShortlistError as exc:
+        _fail(str(exc))
+    _print_shortlist(result.path)
+    status = "Lista creata" if result.created else "Lista già pronta, nessun costo"
+    typer.echo(f"\n{status}: {result.path}")
+    if not result.meta.get("candidates"):
+        raise typer.Exit(EXIT_NO_DATA)
+
+
+@news_app.command("weekly")
+def news_weekly(
+    date_: Optional[str] = DateOpt,
+    refresh: bool = typer.Option(False, "--refresh", help="Rifà la lista (ripaga il passo a pagamento)."),
+) -> None:
+    """Lista del sabato per la puntata settimanale."""
+    from podcat.news.shortlist import ShortlistError
+    from podcat.news.weekly import weekly
+
+    settings = load_settings()
+    day = _day(date_)
+    try:
+        result = weekly(settings, day, news_model_factory(settings), refresh=refresh)
+    except BudgetExceeded as exc:
+        _fail(str(exc), EXIT_BUDGET)
+    except ShortlistError as exc:
+        _fail(str(exc))
+    _print_shortlist(result.path)
+    status = "Lista creata" if result.created else "Lista già pronta, nessun costo"
+    typer.echo(f"\n{status}: {result.path}")
+    if not result.meta.get("candidates"):
+        raise typer.Exit(EXIT_NO_DATA)
+
+
+@news_app.command("show")
+def news_show(date_: Optional[str] = DateOpt, kind: str = KindOpt) -> None:
+    """Mostra la lista."""
+    settings = load_settings()
+    store = _store(settings)
+    path = store.shortlist_path(_day(date_), _kind(kind))
+    if not path.exists():
+        _fail("Nessuna lista per questa data.", EXIT_NO_DATA)
+    _print_shortlist(path)
+
+
+@news_app.command("pick")
+def news_pick(number: int, date_: Optional[str] = DateOpt, kind: str = KindOpt) -> None:
+    """Sceglie la notizia numero N."""
+    from podcat.news.shortlist import ShortlistError, pick
+
+    settings = load_settings()
+    store = _store(settings)
+    try:
+        sid = pick(store, _day(date_), _kind(kind), number)
+    except ShortlistError as exc:
+        _fail(str(exc))
+    typer.echo(f"Scelta la notizia {number}: {store.read_story(sid)['title']}")
+
+
+@news_app.command("unpick")
+def news_unpick(date_: Optional[str] = DateOpt, kind: str = KindOpt) -> None:
+    """Annulla la scelta, se il copione non esiste ancora."""
+    from podcat.news.shortlist import ShortlistError, unpick
+
+    settings = load_settings()
+    try:
+        unpick(_store(settings), _day(date_), _kind(kind))
+    except ShortlistError as exc:
+        _fail(str(exc))
+    typer.echo("Scelta annullata.")
+
+
+@news_app.command("reject")
+def news_reject(date_: Optional[str] = DateOpt, kind: str = KindOpt) -> None:
+    """Scarta tutte le candidate; il prossimo giro con --refresh le esclude."""
+    from podcat.news.shortlist import ShortlistError, reject
+
+    settings = load_settings()
+    try:
+        ids = reject(_store(settings), _day(date_), _kind(kind))
+    except ShortlistError as exc:
+        _fail(str(exc))
+    typer.echo(f"Scartate {len(ids)} notizie. Per una nuova lista: podcat news gather --refresh")
+
+
+@news_app.command("link-doc")
+def news_link_doc(url: str, date_: Optional[str] = DateOpt, kind: str = KindOpt) -> None:
+    """Collega il documento da commentare alla lista."""
+    from podcat.news.shortlist import ShortlistError, link_doc
+
+    settings = load_settings()
+    try:
+        link_doc(_store(settings), _day(date_), _kind(kind), url)
+    except ShortlistError as exc:
+        _fail(str(exc))
+    typer.echo("Documento collegato.")
+
+
+# costs ------------------------------------------------------------------------
+
 
 def _parse_month(month: Optional[str]) -> date:
     if not month:
@@ -30,8 +221,7 @@ def _parse_month(month: Optional[str]) -> date:
         year, mon = month.split("-")
         return date(int(year), int(mon), 1)
     except ValueError:
-        typer.echo(f"Mese non valido: {month!r}. Usa il formato AAAA-MM.", err=True)
-        raise typer.Exit(EXIT_USER_ERROR)
+        _fail(f"Mese non valido: {month!r}. Usa il formato AAAA-MM.")
 
 
 @costs_app.command("show")

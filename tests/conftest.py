@@ -4,6 +4,7 @@ import shutil
 from pathlib import Path
 
 import pytest
+import yaml
 
 REPO = Path(__file__).resolve().parents[1]
 
@@ -15,6 +16,12 @@ def repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     root.mkdir()
     (root / "pyproject.toml").write_text("[project]\nname='podcat-test'\n")
     shutil.copytree(REPO / "config", root / "config")
+    # Tests use fixture feeds for every source, whatever the last real feed check said.
+    sources_file = root / "config" / "sources.yaml"
+    data = yaml.safe_load(sources_file.read_text(encoding="utf-8"))
+    for source in data["sources"]:
+        source["manual"] = False
+    sources_file.write_text(yaml.safe_dump(data, allow_unicode=True), encoding="utf-8")
     (root / "tracking").mkdir()
     assets = tmp_path / "assets"
     assets.mkdir()

@@ -1,0 +1,63 @@
+"""Deterministic verification: the two-groups rule (research R4, FR-004, FR-009)."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+from podcat.news.models import FeedItem, Source, TriageGroup
+
+
+@dataclass
+class Verdict:
+    group: TriageGroup
+    items: list[FeedItem]
+    effective_groups: list[str]
+    verified: bool
+    reason: str | None = None  # Italian reason when not verified
+
+
+def effective_group(item: FeedItem, source: Source) -> str:
+    """An item crediting an agency counts as that agency, whatever outlet published it.
+
+    Agency ids in config/agencies.yaml match the `group` of the agencies' own sources
+    (ansa, agi, adnkronos, reuters), so an ANSA item and an ANSA wire count once.
+    """
+    return item.agency or source.group
+
+
+def verify_group(
+    group: TriageGroup,
+    items: dict[str, FeedItem],
+    sources: dict[str, Source],
+    thursday: bool = False,
+) -> Verdict:
+    members = [items[i] for i in group.item_ids if i in items]
+    counted = [m for m in members if sources[m.source_id].effective_role != "inspiration-only"]
+    groups = sorted({effective_group(m, sources[m.source_id]) for m in counted})
+
+    def fail(reason: str) -> Verdict:
+        return Verdict(group, members, groups, False, reason)
+
+    if group.excluded:
+        return fail(f"argomento escluso ({group.excluded}): {group.excluded_reason or ''}".strip())
+    if not counted:
+        return fail("solo fonti satiriche")
+    if len(groups) < 2:
+        return fail("una sola fonte (o la stessa agenzia ripresa da più testate)")
+    if not any(sources[m.source_id].effective_role == "starting" for m in counted):
+        return fail("solo fonti di conferma, nessuna fonte di partenza")
+    if thursday:
+        if not group.positive:
+            return fail("giovedì: non è una buona notizia")
+        if not any(sources[m.source_id].category != "good-news" for m in counted):
+            return fail("giovedì: manca una conferma fuori dai siti di buone notizie")
+    return Verdict(group, members, groups, True)
+
+
+def verify_all(
+    groups: list[TriageGroup],
+    items: dict[str, FeedItem],
+    sources: dict[str, Source],
+    thursday: bool = False,
+) -> list[Verdict]:
+    return [verify_group(g, items, sources, thursday) for g in groups]

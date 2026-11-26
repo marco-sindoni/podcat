@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>corriere</title><link>https://example.org/corriere</link>
+<description>fixture</description>
+  <item><title>Treni, sciopero di 24 ore: cosa sapere</title><link>https://example.org/corriere/0</link>
+    <description>Fasce di garanzia dalle 6 alle 9.</description><pubDate>Thu, 26 Nov 2026 18:00:00 +0100</pubDate></item>
+  <item><title>Rapina in banca a Milano, arrestati due uomini</title><link>https://example.org/corriere/1</link>
+    <description>I due erano armati.</description><pubDate>Thu, 26 Nov 2026 18:00:00 +0100</pubDate></item>
+  <item><title>Biblioteca di quartiere riaperta grazie ai volontari</title><link>https://example.org/corriere/2</link>
+    <description>Trenta volontari hanno sistemato gli scaffali.</description><pubDate>Thu, 26 Nov 2026 18:00:00 +0100</pubDate></item>
+  <item><title>Vecchia notizia sul meteo</title><link>https://example.org/corriere/3</link>
+    <description>Pioggia al nord.</description><pubDate>Fri, 20 Nov 2026 09:00:00 +0100</pubDate></item>
+</channel></rss>

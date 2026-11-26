@@ -58,24 +58,24 @@ own.
 
 ### Tests for US1
 
-- [ ] T014 [P] [US1] Save fixture feeds in `tests/fixtures/feeds/` (at least 6 outlets from 4 groups, an agency wire republished by two outlets, a satire item, a crime item, a clickbait headline, an item outside the 24 h window)
-- [ ] T015 [P] [US1] Write verification rule tests in `tests/unit/test_verify.py`: two groups needed, same agency counts once, satire never counts, confirmation-only sources cannot be the only starting source (data-model.md Source.role, Story.effective_groups)
-- [ ] T016 [P] [US1] Write prefilter tests in `tests/unit/test_prefilter.py`: duplicate URLs, clickbait word list, time window in Europe/Rome
-- [ ] T017 [P] [US1] Write end-to-end test in `tests/integration/test_gather.py`: gather with fixture feeds and `FakeModel` creates shortlist, stories, run log and one cost row; a second run changes nothing and adds no cost row
+- [X] T014 [P] [US1] Save fixture feeds in `tests/fixtures/feeds/` (at least 6 outlets from 4 groups, an agency wire republished by two outlets, a satire item, a crime item, a clickbait headline, an item outside the 24 h window)
+- [X] T015 [P] [US1] Write verification rule tests in `tests/unit/test_verify.py`: two groups needed, same agency counts once, satire never counts, confirmation-only sources cannot be the only starting source (data-model.md Source.role, Story.effective_groups)
+- [X] T016 [P] [US1] Write prefilter tests in `tests/unit/test_prefilter.py`: duplicate URLs, clickbait word list, time window in Europe/Rome
+- [X] T017 [P] [US1] Write end-to-end test in `tests/integration/test_gather.py`: gather with fixture feeds and `FakeModel` creates shortlist, stories, run log and one cost row; a second run changes nothing and adds no cost row
 
 ### Implementation for US1
 
-- [ ] T018 [US1] Implement source loading in `src/podcat/news/sources.py` (validate `config/sources.yaml` against data-model.md Source fields)
-- [ ] T019 [US1] Implement `podcat sources check [--write]` in `src/podcat/news/sources.py` and `cli.py`: fetch each feed, autodiscover from the home page when broken, set `manual`, `last_check` (research R1)
-- [ ] T020 [US1] Implement concurrent fetch in `src/podcat/news/fetch.py` (httpx + feedparser, 10 s timeout per feed, failures collected, window filter, agency detection from `config/agencies.yaml`); items cached as data-model.md Feed item
-- [ ] T021 [P] [US1] Implement `src/podcat/news/prefilter.py` (duplicates, clickbait list)
-- [ ] T022 [US1] Implement triage call in `src/podcat/news/triage.py`: Pydantic schema data-model.md Model outputs / Triage, Italian prompt with the excluded topics from docs/news-sources.md, output cached
-- [ ] T023 [US1] Implement verification in `src/podcat/news/verify.py` (research R4) making T015 pass
-- [ ] T024 [US1] Implement editorial call in `src/podcat/news/editorial.py`: schema data-model.md Model outputs / Editorial (Story.title, Story.summary, Story.importance, Story.comic_potential, Story.flags, Story.follow_up_of), recent used stories passed in for follow-up and duplicate detection, neutral politics instruction
-- [ ] T025 [US1] Implement storage in `src/podcat/news/store.py`: write Story, Shortlist and Run log files (data-model.md Story, Shortlist, Run log) with the Italian table body; read existing ones
-- [ ] T026 [US1] Implement selection in `src/podcat/news/shortlist.py`: 3–5 candidates ordered by importance with category balance (FR-008), warning when fewer than 3 (Shortlist.warning)
-- [ ] T027 [US1] Implement `podcat news gather [--date] [--refresh]` and `podcat news show` in `src/podcat/cli.py`, idempotent per FR-012, printing the shortlist path at the end
-- [ ] T028 [US1] On Marco's machine or in the cloud with network: run `podcat sources check --write`, fix or mark `manual` the failing sources, commit `config/sources.yaml`
+- [X] T018 [US1] Implement source loading in `src/podcat/news/sources.py` (validate `config/sources.yaml` against data-model.md Source fields)
+- [X] T019 [US1] Implement `podcat sources check [--write]` in `src/podcat/news/sources.py` and `cli.py`: fetch each feed, autodiscover from the home page when broken, set `manual`, `last_check` (research R1)
+- [X] T020 [US1] Implement concurrent fetch in `src/podcat/news/fetch.py` (httpx + feedparser, 10 s timeout per feed, failures collected, window filter, agency detection from `config/agencies.yaml`); items cached as data-model.md Feed item
+- [X] T021 [P] [US1] Implement `src/podcat/news/prefilter.py` (duplicates, clickbait list)
+- [X] T022 [US1] Implement triage call in `src/podcat/news/triage.py`: Pydantic schema data-model.md Model outputs / Triage, Italian prompt with the excluded topics from docs/news-sources.md, output cached
+- [X] T023 [US1] Implement verification in `src/podcat/news/verify.py` (research R4) making T015 pass
+- [X] T024 [US1] Implement editorial call in `src/podcat/news/editorial.py`: schema data-model.md Model outputs / Editorial (Story.title, Story.summary, Story.importance, Story.comic_potential, Story.flags, Story.follow_up_of), recent used stories passed in for follow-up and duplicate detection, neutral politics instruction
+- [X] T025 [US1] Implement storage in `src/podcat/news/store.py`: write Story, Shortlist and Run log files (data-model.md Story, Shortlist, Run log) with the Italian table body; read existing ones
+- [X] T026 [US1] Implement selection in `src/podcat/news/shortlist.py`: 3–5 candidates ordered by importance with category balance (FR-008), warning when fewer than 3 (Shortlist.warning)
+- [X] T027 [US1] Implement `podcat news gather [--date] [--refresh]` and `podcat news show` in `src/podcat/cli.py`, idempotent per FR-012, printing the shortlist path at the end
+- [X] T028 [US1] On Marco's machine or in the cloud with network: run `podcat sources check --write`, fix or mark `manual` the failing sources, commit `config/sources.yaml`
 - [ ] T029 [US1] First real run: `podcat news gather`; Marco checks the shortlist against SC-002 and SC-003
 
 **Checkpoint**: MVP. The daily shortlist works end to end.

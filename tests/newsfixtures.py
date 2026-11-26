@@ -1,0 +1,90 @@
+"""Shared helpers for news tests: mocked HTTP for fixture feeds and a scripted fake model."""
+
+from __future__ import annotations
+
+import re
+from datetime import datetime
+from pathlib import Path
+
+import httpx
+
+from fakes import FakeModel
+from podcat.news.sources import load_sources
+from podcat.settings import ROME
+
+FEEDS = Path(__file__).parent / "fixtures" / "feeds"
+FRIDAY_7AM = datetime(2026, 11, 27, 7, 0, tzinfo=ROME)
+THURSDAY_7AM = datetime(2026, 11, 26, 21, 0, tzinfo=ROME)
+
+# keyword -> (story key, category, excluded, positive)
+STORIES = {
+    "treni": ("A", "current-affairs", None, False),
+    "vinil": ("B", "music", None, False),
+    "rapina": ("C", "current-affairs", "crime", False),
+    "sinner": ("F", "sport", None, False),
+    "bibliotec": ("H", "good-news", None, True),
+    "caravaggio": ("I", "culture", None, False),
+}
+EDITORIAL = {
+    "A": ("Sciopero dei treni di 24 ore", 5, 4),
+    "B": ("Il vinile supera il cd", 3, 4),
+    "F": ("Sinner vince le Finals", 4, 3),
+    "H": ("Volontari riaprono una biblioteca", 3, 3),
+    "I": ("Caravaggio in mostra a Roma", 3, 2),
+}
+
+
+def mock_client(config_dir: Path) -> httpx.AsyncClient:
+    by_url = {}
+    for source in load_sources(config_dir):
+        path = FEEDS / f"{source.id}.xml"
+        for url in source.feeds:
+            by_url[url] = path
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        path = by_url.get(str(request.url))
+        if path and path.exists():
+            return httpx.Response(200, content=path.read_bytes())
+        return httpx.Response(404)
+
+    return httpx.AsyncClient(transport=httpx.MockTransport(handler))
+
+
+def triage_answer(user: str) -> dict:
+    groups: dict[str, dict] = {}
+    for line in user.splitlines():
+        parts = [p.strip() for p in line.split("|")]
+        if len(parts) < 3:
+            continue
+        item_id, _, title = parts[0], parts[1], parts[2].lower()
+        for keyword, (key, category, excluded, positive) in STORIES.items():
+            if keyword in title:
+                g = groups.setdefault(
+                    key,
+                    {"item_ids": [], "category": category, "excluded": excluded,
+                     "excluded_reason": "cronaca nera" if excluded else None, "positive": positive},
+                )
+                g["item_ids"].append(item_id)
+    return {"groups": list(groups.values())}
+
+
+def editorial_answer(user: str) -> dict:
+    stories = []
+    for match in re.finditer(r"\[(\d+)\][^\[]*", user):
+        block = match.group(0).lower()
+        for keyword, (key, *_rest) in STORIES.items():
+            if keyword in block and key in EDITORIAL:
+                title, importance, comic = EDITORIAL[key]
+                stories.append({
+                    "group_index": int(match.group(1)), "title": title,
+                    "summary": f"{title}: riassunto neutro di prova.", "importance": importance,
+                    "importance_reason": "molto ripresa", "comic_potential": comic,
+                    "comic_reason": "si presta a battute", "flags": [], "follow_up_of": None,
+                    "already_covered": False,
+                })
+                break
+    return {"stories": stories}
+
+
+def fake_model() -> FakeModel:
+    return FakeModel({"TriageResult": triage_answer, "EditorialResult": editorial_answer})

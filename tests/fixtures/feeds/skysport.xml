@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>skysport</title><link>https://example.org/skysport</link>
+<description>fixture</description>
+  <item><title>Finals, Sinner campione</title><link>https://example.org/skysport/0</link>
+    <description>Secondo titolo di fila.</description><pubDate>Thu, 26 Nov 2026 18:00:00 +0100</pubDate></item>
+</channel></rss>

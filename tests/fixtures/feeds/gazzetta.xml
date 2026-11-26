@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>gazzetta</title><link>https://example.org/gazzetta</link>
+<description>fixture</description>
+  <item><title>Sinner vince le Finals di Torino</title><link>https://example.org/gazzetta/0</link>
+    <description>Battuto Alcaraz in due set.</description><pubDate>Thu, 26 Nov 2026 18:00:00 +0100</pubDate></item>
+</channel></rss>

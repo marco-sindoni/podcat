@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>repubblica</title><link>https://example.org/repubblica</link>
+<description>fixture</description>
+  <item><title>Vinili, vendite record in Italia</title><link>https://example.org/repubblica/0</link>
+    <description>(ANSA) - I vinili superano i cd per la prima volta.</description><pubDate>Thu, 26 Nov 2026 18:00:00 +0100</pubDate></item>
+  <item><title>Caravaggio, a Roma la grande mostra</title><link>https://example.org/repubblica/1</link>
+    <description>Quaranta opere a Palazzo Barberini.</description><pubDate>Thu, 26 Nov 2026 18:00:00 +0100</pubDate></item>
+</channel></rss>
