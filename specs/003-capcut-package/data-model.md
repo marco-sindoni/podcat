@@ -35,6 +35,7 @@ approved script version adds a version and sets `ready` again.
 | `blocks` | list[SceneBlock] | one per script scene, in order |
 | `clips` | list[ClipUnit] | |
 | `voices` | list[VoiceLine] | every line in order |
+| `subtitles` | SubtitlePlan | style, colors, chunks, words to check |
 | `sound` | SoundPlan | |
 | `publishing` | PublishingKit | |
 | `people` | list[str] | real people named in the story (for the prompt check) |
@@ -61,6 +62,10 @@ the bible list).
 **VoiceLine**: `n`, `cat`, `voice` (CapCut voice or null), `voice_profile`, `text`,
 `voice_text` (null when equal to text).
 
+**SubtitlePlan**: `style` (from `bible/subtitles.md`), `colors` (cat → hex), `chunks` (line,
+cat, text, color; at most 2 lines × `max_chars`), `check_words` (word, why: `cat-name`, `person`,
+`place`, `foreign`, `voice-differs`, line).
+
 **SoundPlan**: `theme` (name or "da scegliere"), `ambience`, `effects` (list of `effect`, `scene`,
 `moment`).
 
@@ -86,4 +91,4 @@ Last use of a clip = the newest package version whose `clips` names its `asset_i
 - Script index and approved version (spec 002 data model).
 - Story record (spec 001): title, summary, sources, tone, flags.
 - Bible: character sheets (`capcut_voice`, `voice_profile`, `subtitle_color`, look), `shots.md`,
-  `prompts/` (style block, negative hints, mode templates, clip template), `sound.md`.
+  `prompts/` (style block, negative hints, mode templates, clip template), `sound.md`, `subtitles.md`.

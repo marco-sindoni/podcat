@@ -10,8 +10,8 @@
 
 A new `podcat package` command group turns an approved script into the CapCut package. Most of the
 package is assembled by plain code from the approved script version, the story, the bible and the
-asset records: scene blocks with start times, cats on screen per shot, reactions, captions with each
-cat's color, the asset list, the clip plan with the 30% reuse cap, the sound plan, the final
+asset records: scene blocks with start times, cats on screen per shot, reactions, the subtitle section
+(style, colors, caption chunks, words to check; research R14), the asset list, the clip plan with the 30% reuse cap, the sound plan, the final
 checklist. One cheap model call (Haiku 5.5, configurable) writes the creative parts: the two Fotor
 prompts for the news image, the CapCut image-to-video prompt for each new clip, the expression of
 each cat on screen mapped to the bible's list, the spoken form of numbers and names for the voices,
@@ -87,6 +87,7 @@ config/
 └── package.yaml         # reuse cap, shot → cats map, expression list, title/hashtag limits, fixed hashtag
 bible/
 ├── sound.md             # new: theme tune, ambience, sound effect list (TBD until B-012)
+├── subtitles.md         # new: caption style (font, size, outline, safe-area position, 2 × 32 chars)
 └── prompts/             # read: style block, negative hints, mode templates, clip template
 src/podcat/
 ├── cli.py               # + `package` command group
@@ -97,6 +98,7 @@ src/podcat/
     ├── layout.py        # scene blocks: start times, cats on screen from shot + seating, reactions, captions
     ├── clips.py         # merge same-shot runs, pick reused clips (LRU, ≤30%), list new clips
     ├── sound.py         # ambience, theme under first/last scene, effects
+    ├── subtitles.py     # caption chunks, colors, words to check
     ├── prompts.py       # system and user prompts for the creative call and the revision
     ├── creative.py      # the one paid call (+ fix)
     ├── checks.py        # coverage, mode, reuse cap, limits, sources, names in prompts

@@ -164,7 +164,38 @@ those two parts changed and that each comment gets a short answer.
 
 ---
 
-### User Story 6 - Weekly episode and Thursday slot (Priority: P3)
+### User Story 6 - Subtitles that are always right (Priority: P1)
+
+Subtitles are always on (constitution). In phase 1 Marco generates CapCut's auto-captions from the
+finished voice track, so they are always in time with the voices. The package gives him a subtitle
+section with: the fixed caption style (font, size, outline, position inside the Shorts safe area,
+at most two lines per caption), the color of each cat, the reference text of every line split into
+caption chunks as they should appear, and a short list of the words to check, because recognition
+gets them wrong: the cats' names, people, places, foreign words, and every line whose voice text
+differs from the written text ("novantaquattro" must read "'94").
+
+**Why this priority**: Most viewers watch Shorts without sound; wrong or unreadable captions make
+the video unwatchable, and a misspelled name looks careless.
+
+**Independent Test**: Build the package for the fridge script; check that the subtitle section has
+the style, the four colors, every line split into chunks of at most two lines within the character
+limit, and a words-to-check list that contains Flanella, Fuzz, Tolmino, Salvini and line 5 ('94).
+
+**Acceptance Scenarios**:
+
+1. **Given** any approved script, **When** the package is built, **Then** the subtitle section
+   lists every line in order, with speaker color and chunks within the limits in
+   `config/package.yaml`.
+2. **Given** a line whose voice text differs from the written text, **When** the package is built,
+   **Then** that line is in the words-to-check list with the text the caption must show.
+3. **Given** a line names a cat, a person or a place, **When** the package is built, **Then** that
+   name is in the words-to-check list with its exact spelling.
+4. **Given** the caption style is changed in the bible, **When** the next package is built,
+   **Then** it shows the new style.
+
+---
+
+### User Story 7 - Weekly episode and Thursday slot (Priority: P3)
 
 The same package works for the Sunday weekly episode (about 2 minutes, all four cats) and for the
 Thursday "Giovedì buone notizie" reel, which opens with the gnocchi sting: the package gives the
@@ -213,7 +244,7 @@ Thursday package starts with the sting block and its title styling.
   subtitle colors; shot list; prompt library) and the asset library records as its only inputs.
 - **FR-002**: The package MUST contain, in this order: a header (story, date, kind, tone, Thursday
   flag, estimated duration, news image mode, version), the asset list (FR-006), the news image
-  (FR-004), the scene blocks (FR-003), the voice sheet (FR-005), the publishing kit (FR-008) and the
+  (FR-004), the scene blocks (FR-003), the voice sheet (FR-005), the subtitle section (FR-007), the publishing kit (FR-008) and the
   final checklist (FR-009).
 - **FR-003**: Each scene of the script MUST become one block with: scene number; estimated start
   time and duration; shot (name from the shot list); the cats on screen, derived from the shot and
@@ -233,9 +264,14 @@ Thursday package starts with the sting block and its title styling.
   "già pronto" (approved in the library, with file name) or "da creare" (with the ready-to-paste
   prompt from `bible/prompts/`, the tool, and the reference image to start from). Expressions not in
   the bible's list MUST be mapped to the closest listed one, showing the original direction.
-- **FR-007**: Captions MUST be given per line in the written form, with the speaker's subtitle color
-  from the bible, as the reference to check and correct CapCut's auto-captions (names of the cats,
-  people and places).
+- **FR-007**: The package MUST contain a subtitle section (User Story 6): the caption style from
+  the bible (font, size, outline, position inside the YouTube Shorts safe area, at most two lines
+  and a maximum number of characters per line); each cat's subtitle color; every line in order in
+  its written form, split into caption chunks within those limits, one speaker per chunk; and a
+  words-to-check list with the exact spelling of the cats' names, people, places and foreign words
+  in the lines and of every line whose voice text differs from the written text. In phase 1
+  captions are CapCut auto-captions generated from the finished voice track and corrected against
+  this section; no subtitle file is produced (phase 2, B-004).
 - **FR-008**: The publishing kit MUST contain, in Italian: three title options of at most 70
   characters; a description of at most 5 lines in the cats' tone that credits every source outlet
   with its link; 3–6 hashtags including a fixed channel hashtag; the reminder to set the "AI use"
@@ -308,6 +344,8 @@ Thursday package starts with the sting block and its title styling.
 - **SC-006**: A package costs under 0.03 USD and each comment round under 0.02 USD; packages stay
   under 2 USD a month.
 - **SC-007**: In 100% of packages reused clips cover at most 30% of the duration.
+- **SC-008**: Over the first 4 weeks, 0 published videos have a misspelled cat, person or place name
+  or a caption that does not match the line, as checked by Marco.
 
 ## Decisions (Marco, 2026-11-28)
 
@@ -316,6 +354,9 @@ Thursday package starts with the sting block and its title styling.
   this episode (FR-018).
 - **Q2 – Sound**: tavern ambience under the whole video, one or two suggested sound effects, and a
   fixed short theme tune for opening and closing, chosen once and recorded in the bible (FR-019).
+- **Subtitles** (Marco, 2026-11-28, after the first review): a dedicated story (User Story 6) and
+  FR-007 rewritten: CapCut auto-captions from the voice track, with style, colors, caption chunks
+  and words to check given by the package. [Method pending Marco's confirmation.]
 - **Q3 – Platforms**: YouTube only (Shorts for the daily reel, the Sunday episode) (FR-020).
 
 ## Assumptions
@@ -328,8 +369,10 @@ Thursday package starts with the sting block and its title styling.
 - Prompts for Fotor and CapCut stay in English (the bible's rule); everything else in the package
   is Italian.
 - Marco can work in CapCut on his phone or on the computer; the package does not depend on either.
-  Captions come from CapCut auto-captions in phase 1; the package gives the correct text to check
-  them, not a subtitle file.
+- The caption style is defined once in the bible (`bible/subtitles.md`) and tried in the visual
+  test session (B-012, step 7.3); starting proposal: bold rounded sans-serif, each cat's color with a
+  dark outline, centred in the lower-middle part of the frame above YouTube's buttons, at most 2
+  lines of 32 characters.
 - Estimated times use the script's per-cat speaking rates; real voice lengths are calibrated after
   the first recordings.
 - Most of the package is assembled without paid calls; a cheap model writes the news image prompts,

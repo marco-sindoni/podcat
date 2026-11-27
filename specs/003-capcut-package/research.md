@@ -122,3 +122,17 @@ Decisions taken while planning spec 003. Format: decision, rationale, alternativ
 - **Decision**: Claude publishes `podcat package show` as a Claude Doc titled
   `Podcat – Pacchetto CapCut <giorno> <data>`; prompts in code blocks (one tap to copy on the
   phone), each spoken line in its own paragraph, short tables only for the asset list and the plan.
+
+## R14 – Subtitles (added after Marco's question, 2026-11-28)
+
+- **Decision**: CapCut auto-captions generated from the finished voice track (always in time; the
+  synthetic voices are clean, so recognition is reliable), corrected against the package's subtitle
+  section. The style lives in a new `bible/subtitles.md` (font, size, outline, position in the
+  Shorts safe area, max 2 lines × 32 characters), tried in B-012 step 7.3. Code splits each line
+  into chunks at punctuation, then at word boundaries, within the limits, one speaker per chunk.
+  The words-to-check list is built by code (cat names; capitalised words in the lines; lines whose
+  voice text differs) plus the model's list of people, places and foreign words.
+- **Alternatives**: typing each line as a text clip and using it for text-to-speech, keeping the
+  text as caption (exact text, manual timing); an SRT with estimated timings imported in CapCut
+  (timings drift from the real voices; import is mainly a desktop feature). Kept as options for
+  Marco; SRT export stays in phase 2 (B-004).
