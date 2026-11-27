@@ -117,6 +117,40 @@ tests/
 - FR-018 and SC-007: automatic daily start at 07:00 in the cloud (Marco, 2026-11-26; backlog B-008
   brought forward). Constitution amended to v1.3.0 (runs in the cloud).
 
+## Amendment A1 (2026-11-27): comedy-first selection
+
+Spec A1 approved by Marco on 2026-11-27. Research R12–R18, data model "Amendment A1", quickstart
+scenarios 7–10.
+
+**Summary**: the same pipeline, with three changes. (1) Triage keeps single-article groups in light
+categories and excludes harm to real people; verification accepts one starting source for light
+categories. (2) The editorial call rates every verified story (cap 60) as a comedy author, adding
+clarity and a `sensitive` net. (3) The shortlist drops stories under the floors, caps politics at
+one, and orders by comic + clarity; Thursday and weekly use the same order. A new `oddities`
+category brings 10 sources, pending Marco's approval of the list in R17.
+
+**Code touched**: `news/models.py` (categories, excluded, editorial fields), `news/triage.py`
+(prompt), `news/verify.py` (light-category rule), `news/editorial.py` (prompt, cap, fields),
+`news/shortlist.py` (floors, order, politics cap, no padding, table column), `news/pipeline.py`
+(single-source sensitive check, discard reasons, story fields), `news/weekly.py` (prompt, clarity),
+`config/sources.yaml` and `docs/news-sources.md` (oddities, verification rule 6), tests and fixtures.
+
+**Technical context changes**: cost estimate per daily run rises from ~0.02 to ~0.03 USD (R15, R16),
+still under SC-005. Sources go from 84 to 94; run time stays under 5 minutes (fetch is concurrent).
+
+**Constitution check (A1)**:
+
+| Principle | How A1 complies | Status |
+| --- | --- | --- |
+| I. Editorial value | Order by comic potential and clarity: stories the cats can actually use | pass |
+| III. Content safety | One source only for light, non-sensitive stories; two sources for anything political, legal, health or financial; harm to real people excluded; rumour and clickbait filters unchanged | pass |
+| V. Cost | ~0.03 USD per run, cap and ledger unchanged | pass |
+| VI. Simplicity | No new step or call; deterministic ordering | pass |
+| Settings | `docs/news-sources.md` verification rules change: needs a decision entry in `docs/decisions.md` and the constitution's news-sources rule (two-groups) gets the light-category exception | pass with amendment |
+
+Post-design re-check: pass. The constitution and `docs/news-sources.md` get the light-category
+exception in the same change (tasks).
+
 ## Complexity Tracking
 
 No constitution violations.
