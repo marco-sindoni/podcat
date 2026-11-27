@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain (three questions Q1–Q3 open for Marco)
+- [x] No [NEEDS CLARIFICATION] markers remain (Q1–Q3 answered by Marco on 2026-11-28)
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -33,4 +33,4 @@
 
 - Fotor, CapCut and YouTube are named because they are fixed by the constitution, not as design
   choices.
-- Q1–Q3 are in the review document; the spec is updated with Marco's answers before `/speckit-plan`.
+- Q1–Q3 answered by Marco on 2026-11-28 and written into the spec (FR-018 to FR-020).

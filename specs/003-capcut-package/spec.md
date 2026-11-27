@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-28
 
-**Status**: Draft, waiting for Marco's review (questions Q1–Q3)
+**Status**: Approved by Marco on 2026-11-28 (answers: Q1 B with at most 30% reused clips per video, Q2 B, Q3 A)
 
 **Input**: User description: "Spec 003: the package Marco needs to edit each episode by hand in
 CapCut (phase 1). It covers the news image, the script and subtitles, which cats are on screen and
@@ -94,8 +94,9 @@ Thursdays, the news image), marking for each one whether it already exists in th
 (with its file name) or still has to be made, in which case it gives the ready-to-paste prompt
 (Fotor for images, CapCut image-to-video for clips) from the bible's prompt library.
 
-**Why this priority**: Marco should reuse the library whenever possible (cheaper, more consistent),
-and the library is still empty today, so the first packages must tell him what to create.
+**Why this priority**: Reference images are always reused (consistency), but clips are mostly new
+each episode so videos do not look alike (at most 30% of the duration from reused clips, FR-018);
+the library is still empty today, so the first packages must tell him what to create.
 
 **Independent Test**: Build a package with an empty asset library; check that every asset is marked
 "da creare" with its prompt. Mark some library assets as approved; build again; check that those
@@ -105,8 +106,9 @@ are marked "già pronto" with their file name and no prompt.
 
 1. **Given** no approved reference asset exists yet, **When** the package is built, **Then** every
    needed asset is listed as "da creare", with its prompt and the reference image to start from.
-2. **Given** the library has an approved "Fuzz outraged" clip, **When** a scene needs Fuzz outraged,
-   **Then** the package points to that clip and gives no prompt for it.
+2. **Given** the library has an approved "Fuzz outraged" clip and reused clips still cover less
+   than 30% of the video, **When** a scene needs Fuzz outraged, **Then** the package may point to
+   that clip and gives no prompt for it; once the 30% is reached, it gives a new clip prompt instead.
 3. **Given** a scene needs an expression or action not in the bible's expression list, **When** the
    package is built, **Then** it maps it to the closest existing expression and shows the script's
    original direction next to it, so Marco can decide.
@@ -262,6 +264,20 @@ Thursday package starts with the sting block and its title styling.
   refuse to start one once the 50 USD cap would be exceeded.
 - **FR-017**: The package MUST be built and delivered right after the approval, in the same cloud
   flow as spec 002, without Marco's computer.
+- **FR-018**: Clips reused from earlier episodes or from the library MUST cover at most 30% of the
+  video's estimated duration; every other scene MUST get a new clip made for this episode, with a
+  ready-to-paste CapCut image-to-video prompt in English that starts from an approved reference
+  image (or from the episode's news image) and describes the scene's action and expressions. One
+  new clip MAY cover consecutive scenes with the same shot. The package MUST show the reused share
+  (percent of duration) and the number and total seconds of new clips, and the automatic check MUST
+  fail a package over 30%. Reused clips MUST be the least recently used ones that fit.
+- **FR-019**: The package MUST give the sound plan: tavern ambience under the whole video, one or
+  two sound effects tied to a scene (e.g. on Fuzz's escalation or the punchline), and the fixed
+  theme tune at the opening and the closing, laid under the first and last scene so the video does
+  not get longer. All music and effects come from sources licensed for YouTube monetisation; the
+  theme tune, the ambience and their sources are recorded once in the bible.
+- **FR-020**: The publishing kit is for YouTube only: Shorts for the daily reel, a regular video
+  for the Sunday episode.
 
 ### Key Entities
 
@@ -291,38 +307,16 @@ Thursday package starts with the sting block and its title styling.
 - **SC-005**: 0 packages contain prompts with real people's faces, logos or brand names.
 - **SC-006**: A package costs under 0.03 USD and each comment round under 0.02 USD; packages stay
   under 2 USD a month.
+- **SC-007**: In 100% of packages reused clips cover at most 30% of the duration.
 
-## Questions for Marco
+## Decisions (Marco, 2026-11-28)
 
-### Q1 – Clips for each episode
-
-**Context**: Each scene needs moving cats. CapCut AI video uses credits, and the bible plans a
-reusable clip library (talking, listening, laughing, eye roll... per cat), not made yet (B-012).
-
-| Option | Answer | Implications |
-| --- | --- | --- |
-| A | Library only: every scene uses library clips; only the news image is new | Cheapest and fastest; scenes look alike between episodes |
-| B (recommended) | Library plus at most 2 new clips per episode for the key moments (e.g. Fuzz's escalation, the punchline), with their prompt in the package | Small credit cost, each episode has something of its own |
-| C | A new clip for every scene | Most varied; many credits and much longer editing |
-
-### Q2 – Music and sound effects
-
-**Context**: The script has no music. CapCut's music library is not always licensed for YouTube.
-
-| Option | Answer | Implications |
-| --- | --- | --- |
-| A (recommended) | Only tavern ambience (fire, murmur) under the whole video, plus one or two sound effects suggested by the package (e.g. "record scratch" on the punchline) | Simple, no rights risk if taken from YouTube's Audio Library or CapCut items marked for commercial use |
-| B | Also a fixed short theme tune for opening and closing, chosen once | More recognisable; to be chosen once and recorded in the bible |
-| C | No music or effects | Fastest; flatter result |
-
-### Q3 – Where the videos are published
-
-**Context**: The publishing kit is written for YouTube Shorts and the Sunday episode.
-
-| Option | Answer | Implications |
-| --- | --- | --- |
-| A (recommended) | YouTube only | One title, description and hashtags set |
-| B | YouTube plus Instagram Reels and TikTok | Also a caption for each platform; more to copy at upload |
+- **Q1 – Clips**: each episode gets mostly new clips. Clips taken from earlier episodes or from the
+  reusable library may cover at most 30% of the video's duration; the rest is new clips made for
+  this episode (FR-018).
+- **Q2 – Sound**: tavern ambience under the whole video, one or two suggested sound effects, and a
+  fixed short theme tune for opening and closing, chosen once and recorded in the bible (FR-019).
+- **Q3 – Platforms**: YouTube only (Shorts for the daily reel, the Sunday episode) (FR-020).
 
 ## Assumptions
 
@@ -340,4 +334,9 @@ reusable clip library (talking, listening, laughing, eye roll... per cat), not m
   the first recordings.
 - Most of the package is assembled without paid calls; a cheap model writes the news image prompts,
   the voice text fixes and the publishing kit.
+- New clips use CapCut AI video credits from Marco's CapCut plan, not paid per call by the
+  software; the visual test session (B-012, step 6.4) measures credits per clip, and the plan checks
+  that about 7 new clips per reel and 25 per weekly episode fit the plan and the 50 USD cap.
+- The theme tune is chosen once by Marco (B-012) from YouTube's Audio Library or another source
+  licensed for monetisation; until then the package says "sigla da scegliere".
 - The first real input is the approved fridge script of 2026-11-27 (mode A, version 4).
