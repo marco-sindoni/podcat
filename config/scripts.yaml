@@ -1,9 +1,9 @@
 # Script writing settings (spec 002, research R4, R8, R9). Edit freely; read on every run.
 words:
-  daily: {min: 70, max: 90}
+  daily: {min: 110, max: 135}
   weekly: {min: 280, max: 320}
 # Weekly: 280-320 words at about 3 words/s is 95-125 s, "about 2 minutes".
-target_s: {daily: 30, weekly: 110}
+target_s: {daily: 45, weekly: 110}
 tolerance_s: {daily: 5, weekly: 15}
 # Spoken words per second for each cat's CapCut voice; calibrate after the B-012 recordings.
 # Start values: 70-90 words must fit about 30 s (constitution), so about 3 words/s on average.

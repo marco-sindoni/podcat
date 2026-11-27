@@ -4,6 +4,7 @@ Newest first. Rules that follow from a decision are also written into the consti
 
 | Date | Decision | Rationale |
 | --- | --- | --- |
+| 2026-11-28 | Daily reel becomes ~45 s (110–135 words, target 45 s ± 5); head writer and revisions move to Opus 5.5 at medium effort (`config/pricing.yaml`), with a stricter craft prompt (one comic premise, each line answers the previous, callback ending). Constitution v1.5.0 | Trial on the fridge story: Opus at 45 s gave the most connected script; about 7.5 USD a month for scripts, well under the cap (Marco) |
 | 2026-11-28 | Script speaking rates start at about 3 words/s (Flanella 3.0, Fuzz 3.4, Vinile 2.9, Feedback 2.5); weekly target 110 s ± 15; thinking effort per script step in `config/pricing.yaml` (`script_effort`) | 70-90 words must fit 30 s and 280-320 words then give 95-125 s; with default thinking the models spent the whole output budget thinking |
 | 2026-11-27 | Spec 002 plan: writers' room on Haiku 5.5, head writer and revisions on Sonnet 5.5, set in `config/pricing.yaml` (`script_models`) so they change without code; Thursday formula "Giovedì buone notizie! Buoni gli gnocchi, buone le notizie." | About 3 USD a month for scripts; easy to move to Opus later (Marco) |
 | 2026-11-27 | Thursday logo and sting: the words "Giovedì" and "gnocchi" in red or another standout color, so the title reads "giovedì gnocchi" at a glance | With the steaming plate it recalls the saying "giovedì gnocchi" (Marco) |

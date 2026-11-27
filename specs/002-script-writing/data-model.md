@@ -62,7 +62,7 @@ Body: the Italian rendering (see `contracts/tracking-files.md`), regenerated fro
 
 ## Configuration (`config/scripts.yaml`)
 
-`words` (daily 70–90, weekly 280–320), `target_s` (30, 120), `tolerance_s` (5, 15),
+`words` (daily 110–135, weekly 280–320), `target_s` (45, 110), `tolerance_s` (5, 15),
 `words_per_second` per cat, `pause_s` (0.3), fixed shot durations (`news-cutin` 2.5, `sting-gnocchi`
 3), `thursday_formula`, `repeat_window` (7), `tics` (list per cat for R8).
 

@@ -5,7 +5,7 @@ Offline tests: `uv run pytest`.
 
 1. **First real script** (story picked on 2026-11-27, comico):
    `uv run podcat script write --date 2026-11-27` → `tracking/scripts/2026-11-27-daily-…md` and
-   `…/v1.md`; check 70–90 words, Flanella first and last, Feedback second-to-last, one news image
+   `…/v1.md`; check 110–135 words, Flanella first and last, Feedback second-to-last, one news image
    with a mode, reactions for any silent cat, cost under 0.05 USD in `podcat costs show`.
 2. **Idempotency**: run the same command again → same script shown, no new ledger entry.
 3. **Document**: `uv run podcat script show --date 2026-11-27`, publish as Claude Doc, then

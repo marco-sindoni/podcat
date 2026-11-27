@@ -6,6 +6,8 @@
 
 **Status**: Approved by Marco on 2026-11-27 (answers: Q1 B, Q2 B with silent reactions, Q3 A)
 
+**Amendment A1 (2026-11-28)**: the daily reel is now about 45 s (110–135 words), per constitution v1.5.0; the input below is kept as written.
+
 **Input**: User description: "Script writing for Podcat (spec 002): from the story Marco picked (daily) or the weekly picks, write an Italian comedy script for the four cats (Flanella host, sarcastic, opens and has the last word; Fuzz hothead escalating to the absurd; Feedback slow philosopher with the final punchline; Vinile grumpy 90s nostalgic, culture/entertainment expert), as a seasoned comedy writer, then a second "head writer" review pass; daily reel ~30 s (70-90 words), weekly episode ~2 min (280-320 words, Saturday list, Sunday publication), "Giovedì buone notizie" warm tone on Thursdays; split into scenes (who speaks, shot, news image staging mode rotating A/B/C never repeated between consecutive videos); deliver as commentable document Marco approves via comments, revisions until approval; recorded in tracking/ as Markdown. CapCut package (spec 003) out of scope. Low cost first."
 
 Covers requirements RF-03, RF-04 and RF-05 of `docs/analisi-requisiti.md`. Input comes from spec 001
@@ -17,8 +19,8 @@ visual prompts and the Fotor prompt for the news image, YouTube title, descripti
 
 ### User Story 1 - Daily reel script from the picked story (Priority: P1)
 
-As soon as Marco picks the day's story, he receives a ready-to-read Italian script for a 30-second
-reel: the four cats' lines in order, each tagged with the speaker, 70–90 spoken words in total.
+As soon as Marco picks the day's story, he receives a ready-to-read Italian script for a 45-second
+reel: the four cats' lines in order, each tagged with the speaker, 110–135 spoken words in total.
 Flanella opens and closes, Fuzz escalates the story to the absurd, Feedback lands the unexpected
 punchline, Vinile brings the nineties comparison (and leads when the story is culture,
 entertainment or music). The script has been written by a "comedy writer" pass and then reworked
@@ -28,14 +30,14 @@ by a "head writer" pass that sharpens jokes, cuts flat lines and checks length, 
 news item into Podcat content. With only this story Marco can already record the reel in CapCut.
 
 **Independent Test**: With a picked story in `tracking/news/`, ask for the script; check that a
-script file appears under `tracking/scripts/` with 70–90 spoken words, Flanella's line first and
+script file appears under `tracking/scripts/` with 110–135 spoken words, Flanella's line first and
 last, a Feedback punchline just before Flanella's closing line, every line attributed to one of
 the four cats, and the head writer's notes listing what was changed.
 
 **Acceptance Scenarios**:
 
 1. **Given** Marco has picked a story in today's daily shortlist, **When** the script step runs,
-   **Then** a script is created with 70–90 spoken words, lines only from the four cats, Flanella
+   **Then** a script is created with 110–135 spoken words, lines only from the four cats, Flanella
    first and last, and Feedback's punchline as the second-to-last line.
 2. **Given** the picked story has a sensitivity flag (politics, health, legal, finance), **When**
    the script is written, **Then** no cat gives advice or takes a party's side, and the satire
@@ -43,7 +45,7 @@ the four cats, and the head writer's notes listing what was changed.
 3. **Given** a script for that story already exists, **When** the step runs again, **Then**
    nothing is regenerated or paid for and the existing script is shown, unless Marco explicitly
    asks for a new draft.
-4. **Given** the comedy writer's draft is outside 70–90 words or breaks a character rule, **When**
+4. **Given** the comedy writer's draft is outside 110–135 words or breaks a character rule, **When**
    the head writer pass runs, **Then** the final draft respects the limits, and the notes say what
    was fixed.
 
@@ -128,7 +130,7 @@ in the story.
 
 1. **Given** the picked story comes from a Thursday shortlist, **When** the script is written,
    **Then** it starts with Flanella's slot formula, the first scene is the gnocchi sting, and the
-   word count (excluding the sting) stays within 70–90 words.
+   word count (excluding the sting) stays within 110–135 words.
 2. **Given** a draft line mocks a person in the positive story, **When** the head writer pass
    runs, **Then** that line is rewritten and the change is listed in the notes.
 
@@ -221,7 +223,7 @@ staging mode different from the last daily reel's.
   structure: Flanella has the first and the last line; Feedback has the punchline immediately
   before Flanella's last line; Fuzz escalates at least once; Vinile has at least one nineties
   comparison and leads on culture, entertainment and music stories.
-- **FR-004**: A daily reel script MUST contain 70–90 spoken words (about 30 s); a weekly script MUST
+- **FR-004**: A daily reel script MUST contain 110–135 spoken words (about 45 s); a weekly script MUST
   contain 280–320 spoken words (about 2 min) with at least two lines per cat. Stage directions and
   the Thursday sting are not counted.
 - **FR-005**: Each script MUST be split into scenes, each with: number, speaker(s), shot from a

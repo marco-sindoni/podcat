@@ -37,13 +37,13 @@ LIBRARY = {**FRIDGE, "id": "2026-11-26-volontari-riaprono-una-biblioteca", "titl
 
 # A reel that passes every check: 7 lines, all four cats, mode B in scene 3.
 LINES = [
-    (1, "flanella", "Allora, in Slovenia degli hacker hanno fatto impazzire i frigoriferi di un salumificio."),
+    (1, "flanella", "Allora, gattini: in Slovenia degli hacker hanno fatto impazzire i frigoriferi di un salumificio. Dentro, salami e prosciutti in fila."),
     (2, "fuzz", "No, no, no, fermi tutti! Prima i frigoriferi, poi i tostapane, poi ci attaccano la lavatrice!"),
-    (3, "vinile", "Nel novantaquattro il frigo faceva solo una cosa: il freddo. E la faceva benissimo."),
-    (4, "flanella", "E sullo schermo è comparsa la foto di un vicepremier."),
+    (3, "vinile", "Nel novantaquattro il frigo faceva solo una cosa: il freddo. E la faceva benissimo, senza chiedere niente a nessuno, con le calamite delle vacanze sopra."),
+    (4, "flanella", "E sullo schermo del sistema, mentre tutto si scaldava, è comparsa la foto di un vicepremier."),
     (5, "fuzz", "Un salame con il ponte sullo Stretto incorporato!"),
     (6, "feedback", "Mmh. Se il frigo si scalda, almeno uno in Italia ha la febbre."),
-    (7, "flanella", "Ricordatevi di spegnere il salame prima di uscire."),
+    (7, "flanella", "Ricordatevi di spegnere il salame prima di uscire, gattini. E Fuzz, tu non toccare la lavatrice."),
 ]
 
 

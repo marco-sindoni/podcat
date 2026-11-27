@@ -25,7 +25,7 @@ def test_write_creates_checked_script(settings):
     meta = store.read(result.script_id)
     assert meta["status"] == "draft" and meta["news_image_mode"] == "B" and meta["tone"] == "comico"
     v = store.read_version(result.script_id)
-    assert 70 <= v.words <= 90 and all(s.duration_s for s in v.scenes)
+    assert 110 <= v.words <= 135 and all(s.duration_s for s in v.scenes)
     news = NewsStore(settings.tracking_dir, settings.cache_dir)
     assert news.read_story(FRIDGE["id"])["script"] == result.script_id
     text = show(settings, FRIDAY, "daily")

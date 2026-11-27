@@ -4,6 +4,8 @@
 
 **Input**: Feature specification from `specs/002-script-writing/spec.md` (approved 2026-11-27)
 
+**Update 2026-11-28**: head writer and revisions moved to Opus 5.5 (effort medium) and the daily reel to ~45 s after a trial; see `docs/decisions.md`.
+
 **Plan status**: questions answered by Marco on 2026-11-27 (head writer Sonnet 5.5 as a config
 parameter; Thursday formula approved)
 

@@ -35,7 +35,7 @@
 
 - **Decision**: `checks.py` verifies, without a model: lines only from the four cats; Flanella first
   and last; Feedback second-to-last; Fuzz and Vinile present when they have lines; word count
-  (70–90 reel, 280–320 weekly, at least two lines per cat weekly); every silent cat has at least one
+  (110–135 reel, 280–320 weekly, at least two lines per cat weekly); every silent cat has at least one
   reaction in the scenes (FR-018); exactly one news image with a valid mode different from the
   previous script; Thursday opens with the slot formula and the sting scene; durations within
   tolerance; endings respect the same structure. On failure, one "fix" call to the head writer model
@@ -49,9 +49,9 @@
 
 - **Decision**: duration of a line = words / speaking rate of the cat + 0.3 s pause; rates in
   `config/scripts.yaml` (start: Flanella 3.0, Fuzz 3.4, Vinile 2.9, Feedback 2.5 words/s, so that
-  70–90 words fit about 30 s as the constitution says). Scene
+  110–135 words fit about 45 s as the constitution says). Scene
   duration = sum of its lines, or the fixed duration of a silent shot (B cut-in 2.5 s, Thursday sting
-  3 s). Durations are computed by code, never by the model. Tolerance: ±5 s reel (target 30 s, sting
+  3 s). Durations are computed by code, never by the model. Tolerance: ±5 s reel (target 45 s, sting
   excluded), ±15 s weekly (target 110 s: 280–320 words at about 3 words/s is 95–125 s, still "about
   2 minutes"; the constitution's 120 s and 280–320 words do not fit the same speaking rate).
 - **Rationale**: deterministic and calibratable after B-012 recordings by editing the config.

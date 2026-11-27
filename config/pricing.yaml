@@ -7,10 +7,10 @@ models:
 # Model per script step (spec 002). Change one line to switch model; read on every run.
 script_models:
   room: claude-haiku-5-5
-  head_writer: claude-sonnet-5-5
-  revision: claude-sonnet-5-5
+  head_writer: claude-opus-5-5
+  revision: claude-opus-5-5
 # Thinking effort per script step: off (no thinking, cheapest), low, medium, high.
 script_effort:
   room: "off"
-  head_writer: low
-  revision: low
+  head_writer: medium
+  revision: medium
