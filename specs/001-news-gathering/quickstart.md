@@ -77,6 +77,10 @@ code 2, a clear message, no new cost row. Restore the cap afterwards.
 - **Scenario 7 – comedy-first order**: with the fixture of rated stories, run the shortlist step
   offline. Expected: no candidate with comic < 3, clarity < 3 or importance < 2; at most one
   politics story; order by comic + clarity; the run log lists each discarded story with its reason.
+- **Scenario 7b – pungente slot**: fixture with one story rated satirical 4, clarity 4, importance 4,
+  comic 2, and five comic stories. Expected: one pungente candidate (marked, tone recorded) and four
+  comic ones; on a Thursday fixture, no pungente slot; with no qualifying story, five comic
+  candidates and the note "nessuna notizia pungente adatta".
 - **Scenario 8 – one source for light stories**: fixture with one entertainment item from a single
   starting source and one current-affairs item from a single source. Expected: the first can be a
   candidate, the second is discarded ("una sola fonte").

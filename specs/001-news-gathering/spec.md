@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-25
 
-**Status**: Approved by Marco on 2026-11-26; amendment A1 (selection strategy) approved on 2026-11-27, revised the same evening (two tones, pending review)
+**Status**: Approved by Marco on 2026-11-26; amendment A1 (selection strategy) approved on 2026-11-27, revised the same evening (two tones, approved)
 
 **Input**: User description: "Daily news gathering and verification for Podcat: fetch the approved RSS feeds in docs/news-sources.md, filter out excluded topics, cross-check each story on at least two sources from different groups, and propose 3-5 candidate stories per day (positive story on Thursdays) for Marco to pick, recorded in tracking/ as Markdown with YAML front matter."
 

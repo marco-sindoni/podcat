@@ -119,14 +119,16 @@ tests/
 
 ## Amendment A1 (2026-11-27): comedy-first selection
 
-Spec A1 approved by Marco on 2026-11-27. **To be revised**: the same evening Marco added the pungente tone (FR-024); R13, R12 and tasks will be updated after his review of the spec. Research R12–R18, data model "Amendment A1", quickstart
+Spec A1 approved by Marco on 2026-11-27, with the pungente tone (FR-024) added and approved the same evening. Research R12–R19. Research R12–R18, data model "Amendment A1", quickstart
 scenarios 7–10.
 
 **Summary**: the same pipeline, with three changes. (1) Triage keeps single-article groups in light
 categories and excludes harm to real people; verification accepts one starting source for light
 categories. (2) The editorial call rates every verified story (cap 60) as a comedy author, adding
-clarity and a `sensitive` net. (3) The shortlist drops stories under the floors, caps politics at
-one, and orders by comic + clarity; Thursday and weekly use the same order. A new `oddities`
+clarity, satirical potential and a `sensitive` net. (3) The shortlist fills one pungente slot
+(satirical + clarity, floors 3/3/3) and up to four comic slots (comic + clarity, floors), caps
+politics at one and records each story's tone; Thursday stays good news only; weekly includes one
+pungente story when the week has one. A new `oddities`
 category brings 10 sources, pending Marco's approval of the list in R17.
 
 **Code touched**: `news/models.py` (categories, excluded, editorial fields), `news/triage.py`
@@ -142,7 +144,7 @@ still under SC-005. Sources go from 84 to 94; run time stays under 5 minutes (fe
 
 | Principle | How A1 complies | Status |
 | --- | --- | --- |
-| I. Editorial value | Order by comic potential and clarity: stories the cats can actually use | pass |
+| I. Editorial value | Comic stories ordered by comic potential and clarity, plus one pungente story for satire and reflection: a mix, not only jokes | pass |
 | III. Content safety | One source only for light, non-sensitive stories; two sources for anything political, legal, health or financial; harm to real people excluded; rumour and clickbait filters unchanged | pass |
 | V. Cost | ~0.03 USD per run, cap and ledger unchanged | pass |
 | VI. Simplicity | No new step or call; deterministic ordering | pass |

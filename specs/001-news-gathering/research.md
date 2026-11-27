@@ -166,9 +166,9 @@ with the A1 rules and gave 4 usable candidates against 1–2 in the original lis
 
 - **Decision**: new `clarity` 1–5 with `clarity_reason`, rated in the same editorial call. Anchors in
   the prompt: 5 = anyone gets it in a few seconds with no background; 1 = needs names, acronyms,
-  procedures or earlier events. The editorial prompt is rewritten from "editor-in-chief" to "comedy
-  author of a 30-second reel for the general Italian public", with the comic anchors used in the
-  trial (5 = the story is already funny on its own).
+  procedures or earlier events. The editorial prompt becomes "editor-in-chief and author" of a
+  30-second reel for the general Italian public, with two eyes: comic (anchors from the trial, 5 =
+  the story is already funny on its own) and satirical (R19).
 - **Rationale**: one call, a few hundred extra output tokens (trial: ~8k output for 28 stories).
 - **Alternatives**: separate clarity call (double cost, no gain).
 
@@ -241,3 +241,20 @@ with the A1 rules and gave 4 usable candidates against 1–2 in the original lis
   "n/d", ranked as clarity 3.
 - **Rationale**: one ordering rule everywhere; the weekly pool is already made of A1 candidates
   after the first week.
+
+## R19. Two tones: comico and pungente (FR-024, A1 revision)
+
+- **Decision**: the editorial call adds `satirical_potential` 1–5 and `satirical_reason`. Anchors:
+  5 = a clear, pointed observation on power, contradiction, hypocrisy or society that stays with the
+  viewer; 1 = nothing to say beyond the fact; never at the expense of victims. `shortlist.select`
+  first fills the pungente slot: best story by `satirical + clarity`, then importance, among those
+  with satirical ≥ 3, clarity ≥ 3, importance ≥ 3, not sensitive. It then fills up to four comic
+  slots with the comic rules (R12), skipping the story already used. The politics cap (one) and the
+  category cap (two) apply to the whole list. Each story file records `tone: comico | pungente`.
+  Thursday skips the pungente slot. The weekly prompt is asked for one pungente story among its
+  picks and receives the tone and satirical rating of each story.
+- **Rationale**: a fixed slot gives about 20% of the offer every day (one in five) with a simple,
+  testable rule; Marco's picks decide the final share. The same call rates both tones, so no extra
+  cost beyond a few output tokens per story.
+- **Alternatives**: a monthly quota that tracks Marco's picks (more state, and it would push stories
+  on days when none is good); letting the model choose the tone (not testable).
