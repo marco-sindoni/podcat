@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-25
 
-**Status**: Approved by Marco on 2026-11-26; amendment A1 (selection strategy) approved on 2026-11-27
+**Status**: Approved by Marco on 2026-11-26; amendment A1 (selection strategy) approved on 2026-11-27, revised the same evening (two tones, pending review)
 
 **Input**: User description: "Daily news gathering and verification for Podcat: fetch the approved RSS feeds in docs/news-sources.md, filter out excluded topics, cross-check each story on at least two sources from different groups, and propose 3-5 candidate stories per day (positive story on Thursdays) for Marco to pick, recorded in tracking/ as Markdown with YAML front matter."
 
@@ -13,7 +13,10 @@ a comedy reel (hard politics that the general public does not follow, violence, 
 A trial on the 2026-11-27 stories showed why: ordering by importance pushed out the stories the
 model itself rated funniest, only the 20 most covered stories were rated, and single-source light
 stories never reached verification. A1 changes the selection strategy: FR-004, FR-005, FR-007 and
-FR-008 are amended; FR-019 to FR-023 and SC-008 are new.
+FR-008 are amended; FR-019 to FR-024 and SC-008 are new.
+*A1 revision (2026-11-27, Marco)*: Podcat must not become only a comedy format. About one story in
+five should be "pungente": a sharper or more serious story treated with satire, a pointed remark or
+something that makes people think, rather than plain jokes. The rest stays comic or good news.
 
 Covers requirements RF-01 and RF-02 of `docs/analisi-requisiti.md` and backlog item B-010
 ("Giovedì buone notizie"). Script writing (RF-03 onwards) is a separate feature.
@@ -57,6 +60,8 @@ confirming sources from different groups, and that every link opens the cited ar
    the shortlist is built, **Then** it is not a candidate and the run log says why.
 7. *(A1)* **Given** three eligible stories flagged politics, **When** the shortlist is built,
    **Then** only the best-ranked one is a candidate.
+9. *(A1)* **Given** a weekday with a story rated satirical 4, clarity 4, importance 4 and comic 2,
+   **When** the shortlist is built, **Then** it is the pungente candidate and the others are comic.
 8. *(A1)* **Given** a widely covered but unfunny story and a less covered story rated comic 4 and
    clarity 5, **When** the shortlist is ordered, **Then** the second one comes first.
 5. **Given** today's shortlist already exists, **When** Marco runs the command again, **Then**
@@ -185,16 +190,27 @@ already used in a daily reel.
   *(A1)* It MUST also record a clarity rating (1–5) with a one-line reason: 5 means anyone
   understands the story in a few seconds without background; 1 means it needs names, acronyms,
   procedures or earlier events to make sense.
-- **FR-008** *(amended by A1)*: The system MUST produce 3–5 candidates per daily run, ordered by
-  comic potential plus clarity (equal weight), then by comic potential, then by importance. All
-  three ratings are shown for each candidate. Categories stay balanced: at most two candidates from
-  the same category when other categories have eligible stories.
+  *(A1)* It MUST also record a satirical potential rating (1–5) with a one-line reason: how much the
+  story offers a pointed observation on power, contradictions, hypocrisy or society, or a thought
+  that stays with the viewer, without making fun of victims.
+- **FR-008** *(amended by A1)*: The system MUST produce 3–5 candidates per daily run in two tones
+  (FR-024). Comic candidates are ordered by comic potential plus clarity (equal weight), then comic
+  potential, then importance. The pungente candidate is ordered by satirical potential plus
+  clarity, then importance. All ratings and the tone are shown for each candidate. Categories stay
+  balanced: at most two candidates from the same category when other categories have eligible
+  stories.
+- **FR-024** *(A1)*: Each daily shortlist MUST include one "pungente" candidate (about one in five)
+  when a story qualifies: satirical potential at least 3, clarity at least 3 and importance at least
+  3 (a serious story must matter). The other candidates are comic. Without a qualifying story the
+  list is all comic and says so. Each story records its tone (`comico` or `pungente`) so the script
+  feature writes it in the right register: satire, pointed remarks or reflection for pungente,
+  jokes for comico. Thursday lists stay good news only, with no pungente slot.
 - **FR-019** *(A1)*: The system MUST support a new category "curiosità e stranezze" (oddities:
   bizarre facts, absurd records, animals, gaffes, everyday habits everyone recognises), with its own
   approved sources added to `docs/news-sources.md` and the source configuration. It counts as a
   light category for FR-004.
-- **FR-020** *(A1)*: A story MUST NOT become a candidate when its comic potential is below 3, its
-  clarity is below 3 or its importance is below 2. Discarded stories are recorded in the run log
+- **FR-020** *(A1)*: A story MUST NOT become a comic candidate when its comic potential is below 3,
+  its clarity is below 3 or its importance is below 2 (pungente floors: FR-024). Discarded stories are recorded in the run log
   with the reason ("comicità sotto 3", "poco comprensibile", "poco rilevante").
 - **FR-021** *(A1)*: A shortlist MUST contain at most one story flagged politics.
 - **FR-022** *(A1)*: The rating step MUST consider every verified story of the run, not only the
@@ -235,7 +251,8 @@ already used in a daily reel.
 - **Source**: an approved outlet. Name, category, publishing group, feed address (or "manual
   only"), role (starting source, confirmation only, inspiration only).
 - **Story**: one news event confirmed by several sources. Title, summary, category, confirming
-  sources, first seen time, sensitivity flags, importance, comic potential, clarity (A1), status (candidate, chosen,
+  sources, first seen time, sensitivity flags, importance, comic potential, clarity, satirical
+  potential and tone (A1), status (candidate, chosen,
   rejected, used, follow-up), episode that used it.
 - **Shortlist**: the list of candidates for one date and output type (daily or weekly), with the
   Thursday flag, Marco's pick, the link to its commentable document and the link to the run log.
@@ -259,8 +276,8 @@ already used in a daily reel.
 - **SC-007**: On at least 6 days out of 7, the shortlist document is ready by 07:30 without anyone
   starting it.
 - **SC-008** *(A1)*: Over the first 2 weeks after A1, at least 4 days out of 5 have at least one
-  candidate Marco rates "easy to use" for a reel, and no candidate is about illness, injury or
-  violence of real people.
+  candidate Marco rates "easy to use" for a reel, at least 3 weekdays out of 5 (Thursday excluded)
+  offer a pungente candidate, and no candidate is about illness, injury or violence of real people.
 - **SC-006**: Re-running the command for a date that already has a shortlist costs nothing and
   changes nothing.
 
@@ -277,7 +294,12 @@ already used in a daily reel.
 - The commentable document is created from the project chat with Claude, the same way scripts will
   be reviewed; the plan decides the exact mechanism.
 - *(A1)* The weekly run (FR-015) uses the same floors, exclusions and ordering as the daily run,
-  so the weekly episode also gets stories that are funny and easy to follow.
+  and includes one pungente story among its 3–5 when the week has one.
+- *(A1)* The mix is offered, not imposed: Marco still picks one story a day, so the real share of
+  pungente reels depends on his picks. About 20% over a month is the target he set.
+- *(A1)* Pungente stories still follow the exclusions (crime, tragedy, harm to real people) and the
+  politics limit of FR-021: a serious story is about power, society, economy, environment,
+  technology or customs, not about victims.
 - *(A1)* Thursday ("Giovedì buone notizie") keeps its own rules in FR-009, plus the clarity floor
   of FR-020 and the exclusions of FR-005. Its order becomes comic potential plus clarity, as in
   FR-008.

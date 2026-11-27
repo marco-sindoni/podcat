@@ -119,7 +119,7 @@ tests/
 
 ## Amendment A1 (2026-11-27): comedy-first selection
 
-Spec A1 approved by Marco on 2026-11-27. Research R12–R18, data model "Amendment A1", quickstart
+Spec A1 approved by Marco on 2026-11-27. **To be revised**: the same evening Marco added the pungente tone (FR-024); R13, R12 and tasks will be updated after his review of the spec. Research R12–R18, data model "Amendment A1", quickstart
 scenarios 7–10.
 
 **Summary**: the same pipeline, with three changes. (1) Triage keeps single-article groups in light
