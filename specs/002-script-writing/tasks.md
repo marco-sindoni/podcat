@@ -90,8 +90,8 @@ outputs, no paid calls. The checks (structure, words, reactions, rotation) are t
 
 **Independent Test**: quickstart step 10.
 
-- [ ] T025 [US5] Add the `comico` and `pungente` register blocks to the writers' room, head writer and revision prompts in `src/podcat/scripts/prompts.py`; record `tone` and allow `--tone` on `revise` (data-model.md Script index.tone)
-- [ ] T026 [US5] Test in `tests/integration/test_script_write.py`: the prompt sent for a pungente story contains the pungente block; `revise --tone comico` updates the index
+- [X] T025 [US5] Add the `comico` and `pungente` register blocks to the writers' room, head writer and revision prompts in `src/podcat/scripts/prompts.py`; record `tone` and allow `--tone` on `revise` (data-model.md Script index.tone)
+- [X] T026 [US5] Test in `tests/integration/test_script_write.py`: the prompt sent for a pungente story contains the pungente block; `revise --tone comico` updates the index
 
 ---
 
@@ -101,8 +101,8 @@ outputs, no paid calls. The checks (structure, words, reactions, rotation) are t
 
 **Independent Test**: quickstart step 7.
 
-- [ ] T027 [US3] Extend `checks.py` and its tests for shot ids from `bible/shots.md`, mode C held by the speaking cat, adjacent seats in two-shots, tolerance of scene durations (data-model.md Script version.news_image.held_by, .subject)
-- [ ] T028 [US3] Handle a comment asking for a different mode in `revise.py`: allowed only if it still differs from the previous script, otherwise the answer explains why; test in `tests/integration/test_script_review.py`
+- [X] T027 [US3] Extend `checks.py` and its tests for shot ids from `bible/shots.md`, mode C held by the speaking cat, adjacent seats in two-shots, tolerance of scene durations (data-model.md Script version.news_image.held_by, .subject)
+- [X] T028 [US3] Handle a comment asking for a different mode in `revise.py`: allowed only if it still differs from the previous script, otherwise the answer explains why; test in `tests/integration/test_script_review.py`
 
 ---
 
@@ -112,7 +112,7 @@ outputs, no paid calls. The checks (structure, words, reactions, rotation) are t
 
 **Independent Test**: quickstart step 9.
 
-- [ ] T029 [US4] Add the Thursday block to the prompts and the `sting-gnocchi` first scene plus the formula check to `checks.py` (data-model.md Script index.good_news_thursday); tests with the Thursday fixture
+- [X] T029 [US4] Add the Thursday block to the prompts and the `sting-gnocchi` first scene plus the formula check to `checks.py` (data-model.md Script index.good_news_thursday); tests with the Thursday fixture
 
 ---
 
@@ -122,15 +122,15 @@ outputs, no paid calls. The checks (structure, words, reactions, rotation) are t
 
 **Independent Test**: quickstart step 11.
 
-- [ ] T030 [US6] Support `--kind weekly` in `pipeline.py` and the prompts (280–320 words, at least two lines per cat, cold open, the reel's lines passed when the story was used in a reel; research R12); tests in `tests/integration/test_script_write.py`
-- [ ] T031 [US6] Add the Saturday step to `docs/routines/script-review.md` (weekly pick → weekly script the same day)
+- [X] T030 [US6] Support `--kind weekly` in `pipeline.py` and the prompts (280–320 words, at least two lines per cat, cold open, the reel's lines passed when the story was used in a reel; research R12); tests in `tests/integration/test_script_write.py`
+- [X] T031 [US6] Add the Saturday step to `docs/routines/script-review.md` (weekly pick → weekly script the same day)
 
 ---
 
 ## Phase 9: Polish
 
-- [ ] T032 [P] Update `specs/001-news-gathering/contracts/cli.md` (pick change) and `specs/001-news-gathering/data-model.md` (story `script` field)
-- [ ] T033 [P] Update `BACKLOG.md` (B-014 done when quickstart passes) and `docs/decisions.md` if implementation changes a choice
+- [X] T032 [P] Update `specs/001-news-gathering/contracts/cli.md` (pick change) and `specs/001-news-gathering/data-model.md` (story `script` field)
+- [X] T033 [P] Update `BACKLOG.md` (B-014 done when quickstart passes) and `docs/decisions.md` if implementation changes a choice
 - [ ] T034 Run the whole quickstart with the real API on the 2026-11-27 fridge story; record words, duration, cost and Marco's verdict in `specs/002-script-writing/quickstart.md`
 
 ---

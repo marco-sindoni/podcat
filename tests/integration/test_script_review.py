@@ -109,3 +109,34 @@ def test_approve_refused_with_problems(env):
     assert result.problems and current(env)[0]["problems"]
     with pytest.raises(ScriptError):
         pipeline.approve(env, FRIDAY, D)
+
+
+def test_tone_change_on_revise(env):
+    model = revision_model([{"n": 6, "cat": "feedback", "text": "Mmh. Se il frigo si scalda, almeno uno in Italia ha la febbre."}])
+    pipeline.revise(env, FRIDAY, D, "- text: più pungente\n", factory_for(model), tone="pungente")
+    assert current(env)[0]["tone"] == "pungente"
+    assert "Registro: PUNGENTE" in model.calls[0][1]
+
+
+def test_mode_change_to_previous_mode_goes_through_fix(repo):
+    s = setup_repo(repo)
+    pick_story(s, FRIDGE)
+    pipeline.write(s, FRIDAY, D, factory_for(fake()))  # mode B
+    pipeline.approve(s, FRIDAY, D)
+    nxt = FRIDAY.replace(day=28)
+    pick_story(s, {**STRIKE, "id": "2026-11-28-sciopero", "status": "chosen"}, day=nxt)
+    tv = head_result(news_image={"mode": "A", "scene": 3, "comment_line": 4, "held_by": None, "subject": "x"})
+    tv["scenes"][2]["shot"] = "news-tv"
+    tv["scenes"][2]["lines"] = []
+    pipeline.write(s, nxt, D, factory_for(fake(head=tv)))
+    bad = {"mode": "B", "scene": 3, "comment_line": 4, "held_by": None, "subject": "x"}
+    scenes = [dict(x) for x in tv["scenes"]]
+    scenes[2] = {**scenes[2], "shot": "news-cutin"}
+    model = FakeModel({"RevisionResult": {"changes": [], "answers": [{"comment": "modo B", "answer": "ok"}],
+                                          "news_image": bad, "scenes": scenes},
+                       "FixResult": tv})
+    pipeline.revise(s, nxt, D, "- text: metti l'immagine a tutto schermo\n", factory_for(model))
+    assert [c[0] for c in model.calls] == ["RevisionResult", "FixResult"]
+    assert "uguale al video precedente" in model.calls[1][1]
+    meta = ScriptStore(s.tracking_dir).find("2026-11-28-sciopero", D)
+    assert meta["news_image_mode"] == "A"

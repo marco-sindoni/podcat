@@ -52,7 +52,8 @@
   70–90 words fit about 30 s as the constitution says). Scene
   duration = sum of its lines, or the fixed duration of a silent shot (B cut-in 2.5 s, Thursday sting
   3 s). Durations are computed by code, never by the model. Tolerance: ±5 s reel (target 30 s, sting
-  excluded), ±15 s weekly (target 120 s).
+  excluded), ±15 s weekly (target 110 s: 280–320 words at about 3 words/s is 95–125 s, still "about
+  2 minutes"; the constitution's 120 s and 280–320 words do not fit the same speaking rate).
 - **Rationale**: deterministic and calibratable after B-012 recordings by editing the config.
 
 ## R5. Storage: index plus one file per version

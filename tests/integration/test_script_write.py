@@ -99,3 +99,42 @@ def test_thursday_prompt(repo):
     model = fake()
     write(s, THURSDAY, "daily", factory_for(model))
     assert "Giovedì buone notizie" in model.calls[0][1] and "sting-gnocchi" in model.calls[0][1]
+
+
+def weekly_result():
+    lines = [
+        (1, "flanella", "Allora, gattini, la notizia della settimana: hacker sloveni hanno fatto impazzire i frigoriferi di un salumificio."),
+        (2, "fuzz", "No, no, no, fermi tutti! Lo sapevo: prima i frigoriferi, poi i tostapane, poi ci rubano anche la lavatrice!"),
+        (3, "vinile", "Ai miei tempi il frigorifero faceva una cosa sola: il freddo. E la faceva benissimo, senza internet."),
+        (4, "feedback", "Mmh. E se il frigo avesse solo voluto un po' di caldo, come tutti noi d'inverno?"),
+        (5, "flanella", "E sullo schermo, invece della temperatura, è comparsa la foto di un vicepremier sorridente."),
+        (6, "fuzz", "Questo è uno scandalo! Un salame con il ponte sullo Stretto incorporato! Le mortadelle protestano in piazza!"),
+        (7, "vinile", "Nel novantaquattro gli hacker al massimo ti cambiavano la suoneria del cercapersone. Che tempi, che classe."),
+        (8, "flanella", "Vinile, il cercapersone lo avevi solo tu, e nessuno ti chiamava mai."),
+        (9, "fuzz", "Io da stasera dormo con il frigo staccato e il formaggio sotto il cuscino, per sicurezza nazionale."),
+        (10, "vinile", "Il formaggio sotto il cuscino è una vecchia tradizione di famiglia, ragazzo. Funziona anche contro i vampiri."),
+        (11, "flanella", "Ricapitoliamo: frigoriferi caldi, salumi sudati, un vicepremier in cella frigorifera e Fuzz con il formaggio a letto."),
+        (12, "fuzz", "E quando i salami chiederanno il voto, non dite che non vi avevo avvertiti!"),
+        (13, "feedback", "Mmh. Forse il vero virus è che vogliamo tutto connesso, anche il prosciutto. Il prosciutto non ha mai chiesto il wifi."),
+        (14, "flanella", "Spegnete il frigo prima di uscire, e magari anche il telefono. Ci vediamo domenica prossima, gattini."),
+    ]
+    h = head_result()
+    pad = " E questo, credetemi, non è affatto normale."
+    h["lines"] = [{"n": n, "cat": c, "text": t + (pad if 2 <= n <= 12 else "")} for n, c, t in lines]
+    h["scenes"] = [{"n": i, "shot": "wide", "lines": [i], "reactions": []} for i in range(1, 15)]
+    h["scenes"].insert(4, {"n": 0, "shot": "news-cutin", "lines": [], "reactions": []})
+    for i, sc in enumerate(h["scenes"], 1):
+        sc["n"] = i
+    h["news_image"] = {"mode": "B", "scene": 5, "comment_line": 5, "held_by": None, "subject": "frigoriferi fumanti"}
+    return h
+
+
+def test_weekly_script(repo):
+    s = setup_repo(repo)
+    pick_story(s, {**FRIDGE, "status": "used"}, day=FRIDAY.replace(day=28), kind="weekly")
+    model = fake(head=weekly_result())
+    result = write(s, FRIDAY.replace(day=28), "weekly", factory_for(model))
+    assert "Puntata settimanale" in model.calls[0][1]
+    v = ScriptStore(s.tracking_dir).read_version(result.script_id)
+    assert result.problems == [], result.problems
+    assert 280 <= v.words <= 320

@@ -22,3 +22,9 @@ Output is short Italian text for Marco; logs and file contents stay in English f
 
 No new commands or exit codes. `podcat news show` adds the "Comprensibilità" column and line (data
 model A1). `podcat news gather` may print a shortlist with 1–2 candidates and a warning (FR-023).
+
+## Spec 002 (2026-11-28)
+
+`podcat news pick N` on another candidate discards a `draft` or `review` script of the previously
+picked story (daily and weekly lists); an approved script still blocks the change. Script commands:
+`specs/002-script-writing/contracts/cli.md`.

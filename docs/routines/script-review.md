@@ -22,6 +22,11 @@ thinking effort per step are in `config/pricing.yaml` (`script_models`, `script_
 5. Commit and push `tracking/`: `git add tracking/ && git commit -m "Script <date>" && git push`.
 6. Tell Marco in one or two Italian sentences, with the link: words, duration, image mode, cost.
 
+## Saturday
+
+After the weekly pick (`podcat news pick N --kind weekly`), run the same steps with `--kind weekly`
+the same day, so Marco can approve on Saturday evening or Sunday morning and publish on Sunday.
+
 ## When Marco comments
 
 Read the new comments on the document and act on keywords first:
