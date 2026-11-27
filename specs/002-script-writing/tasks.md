@@ -73,12 +73,12 @@ outputs, no paid calls. The checks (structure, words, reactions, rotation) are t
 
 **Independent Test**: quickstart steps 3–6, 8.
 
-- [ ] T019 [US2] Implement `src/podcat/scripts/revise.py`: apply `RevisionResult` (only commented lines plus listed coherence changes), keep `manual` lines, refuse comments files already applied, `ending N` swap, `edit-line` (data-model.md Script version.answers, .coherence_changes, .lines.manual)
-- [ ] T020 [US2] Add the revision prompt to `src/podcat/scripts/prompts.py` and the call (step `revision`, model from `script_models.revision`); rerun checks after the revision
-- [ ] T021 [US2] Add `link-doc`, `revise`, `ending`, `edit-line`, `approve`, `reopen`, `discard` to `src/podcat/cli.py` and `pipeline.py` (data-model.md Script index.doc_url, .approved_at, .approved_version; approved scripts refuse changes until `reopen`)
-- [ ] T022 [US2] Change `src/podcat/news/shortlist.py` pick: a `draft` or `review` script of the old story is discarded and the story set back to `candidate`; an approved one still blocks (plan.md "Changes to spec 001"); extend `tests/unit/test_pick.py`
-- [ ] T023 [US2] Write `tests/integration/test_script_review.py`: two anchored comments change only those lines, rewrite with `--new-draft`, ending swap at no cost, manual edit kept, approve → story `used`, revise refused until reopen
-- [ ] T024 [US2] Write the routine `docs/routines/script-review.md` (after a pick run `script write`, publish the Claude Doc, store the link, read comments into the YAML file, keywords "approvato", "finale N", "rifalla da capo", "più leggera/pungente", commit and push tracking files) and link it from `docs/routines/daily-news.md` step 7
+- [X] T019 [US2] Implement `src/podcat/scripts/revise.py`: apply `RevisionResult` (only commented lines plus listed coherence changes), keep `manual` lines, refuse comments files already applied, `ending N` swap, `edit-line` (data-model.md Script version.answers, .coherence_changes, .lines.manual)
+- [X] T020 [US2] Add the revision prompt to `src/podcat/scripts/prompts.py` and the call (step `revision`, model from `script_models.revision`); rerun checks after the revision
+- [X] T021 [US2] Add `link-doc`, `revise`, `ending`, `edit-line`, `approve`, `reopen`, `discard` to `src/podcat/cli.py` and `pipeline.py` (data-model.md Script index.doc_url, .approved_at, .approved_version; approved scripts refuse changes until `reopen`)
+- [X] T022 [US2] Change `src/podcat/news/shortlist.py` pick: a `draft` or `review` script of the old story is discarded and the story set back to `candidate`; an approved one still blocks (plan.md "Changes to spec 001"); extend `tests/unit/test_pick.py`
+- [X] T023 [US2] Write `tests/integration/test_script_review.py`: two anchored comments change only those lines, rewrite with `--new-draft`, ending swap at no cost, manual edit kept, approve → story `used`, revise refused until reopen
+- [X] T024 [US2] Write the routine `docs/routines/script-review.md` (after a pick run `script write`, publish the Claude Doc, store the link, read comments into the YAML file, keywords "approvato", "finale N", "rifalla da capo", "più leggera/pungente", commit and push tracking files) and link it from `docs/routines/daily-news.md` step 7
 
 **Checkpoint**: Marco can review a full script from his phone.
 

@@ -188,3 +188,158 @@ def listing(settings: Settings, last: int = 10) -> list[dict]:
     store = ScriptStore(settings.tracking_dir)
     items = sorted(store.all(), key=lambda m: (str(m.get("date")), m.get("id")), reverse=True)
     return items[:last]
+
+
+# review (User Story 2) --------------------------------------------------------
+
+
+@dataclass
+class Loaded:
+    ctx: Context
+    shortlist: dict
+    story: dict
+    meta: dict
+    version: Version
+
+
+def load(settings: Settings, day: date, kind: str) -> Loaded:
+    ctx = context(settings)
+    shortlist, story = picked_story(ctx, day, kind)
+    meta = ctx.scripts.find(story["id"], kind)
+    if not meta:
+        raise ScriptError("Per questa notizia non c'è ancora un copione.")
+    return Loaded(ctx, shortlist, story, meta, ctx.scripts.read_version(meta["id"]))
+
+
+def _editable(l: Loaded) -> None:
+    if l.meta["status"] == "approved":
+        raise ScriptError("Il copione è approvato: per cambiarlo scrivi prima «riapri».")
+
+
+def _brief_and_checks(l: Loaded, tone: str | None = None) -> tuple[Brief, checks.CheckContext, bool]:
+    ctx, meta, story = l.ctx, l.meta, l.story
+    thursday = bool(meta.get("good_news_thursday"))
+    previous = rotation.previous_script(ctx.scripts, meta, exclude=meta["id"])
+    allowed = rotation.allowed_modes(previous)
+    recent, texts = recent_lines(ctx, meta["id"], meta)
+    brief = Brief(kind=meta["kind"], story=story, thursday=thursday, tone=tone or meta.get("tone") or "comico",
+                  allowed_modes=allowed, recent=recent,
+                  reel_lines=reel_lines_for(ctx, story["id"]) if meta["kind"] == "weekly" else [])
+    return brief, check_context(ctx, meta["kind"], thursday, story, allowed, recent, texts), thursday
+
+
+def _save(l: Loaded, result: HeadWriterResult, cause: str, cost: float, problems_from: checks.CheckContext,
+          thursday: bool, **extra) -> WriteResult:
+    ctx, meta = l.ctx, dict(l.meta)
+    number = int(meta["current_version"]) + 1
+    version = build_version(number, result, ctx, thursday, **extra)
+    problems = run_checks(version, problems_from)
+    meta.update(status="review" if meta.get("doc_url") else "draft", problems=problems,
+                news_image_mode=version.news_image.mode)
+    body = render_version(meta, l.story, version, ctx.bible.shots)
+    meta = ctx.scripts.add_version(meta, version, body, cause, cost, "")
+    ctx.scripts.set(meta["id"], summary=render_index(meta, l.story))
+    return WriteResult(meta["id"], ctx.scripts.index_path(meta["id"]), True, problems, cost)
+
+
+def revise(settings: Settings, day: date, kind: str, comments_text: str, factory: ModelFactory,
+           tone: str | None = None) -> WriteResult:
+    from podcat.scripts import revise as rv
+
+    l = load(settings, day, kind)
+    _editable(l)
+    comments = rv.load_comments(comments_text)
+    digest = rv.comments_digest(comments, int(l.meta["current_version"]))
+    applied = l.meta.get("applied_comments") or []
+    if digest in applied or rv.comments_digest(comments, int(l.meta["current_version"]) - 1) in applied:
+        return WriteResult(l.meta["id"], l.ctx.scripts.index_path(l.meta["id"]), False, l.meta.get("problems") or [])
+    brief, cctx, thursday = _brief_and_checks(l, tone)
+    ledger, spent = l.ctx.ledger, l.ctx.ledger.total(day)
+    rev = rv.ask_revision(factory(ledger, day, "revision"), l.ctx.bible, brief, l.version, comments)
+    result, warnings = rv.apply_revision(l.version, rev)
+    new_tone = tone or rev.tone or l.meta.get("tone")
+    if new_tone != brief.tone:
+        brief.tone = new_tone
+    probe = build_version(0, result, l.ctx, thursday)
+    problems = run_checks(probe, cctx)
+    if problems:
+        result = headwriter.fix(factory(ledger, day, "fix"), l.ctx.bible, brief, result, problems)
+        # Marco's manual lines win over the fix
+        manual = {x.n: x for x in l.version.lines if x.manual}
+        result.lines = [manual[x.n] if x.n in manual and manual[x.n].cat == x.cat else x for x in result.lines]
+    cost = round(ledger.total(day) - spent, 6)
+    l.meta = {**l.meta, "tone": new_tone, "applied_comments": applied + [digest]}
+    return _save(l, result, "revise", cost, cctx, thursday, answers=rv.answers_for(rev, warnings),
+                 coherence_changes=rev.coherence_changes)
+
+
+def ending(settings: Settings, day: date, kind: str, number: int) -> WriteResult:
+    from podcat.scripts import revise as rv
+
+    l = load(settings, day, kind)
+    _editable(l)
+    _, cctx, thursday = _brief_and_checks(l)
+    return _save(l, rv.swap_ending(l.version, number), "ending", 0.0, cctx, thursday)
+
+
+def edit_line(settings: Settings, day: date, kind: str, n: int, text: str) -> WriteResult:
+    from podcat.scripts import revise as rv
+
+    l = load(settings, day, kind)
+    _editable(l)
+    current = next((x for x in l.version.lines if x.n == n), None)
+    if current is not None and current.text.strip() == text.strip() and current.manual:
+        return WriteResult(l.meta["id"], l.ctx.scripts.index_path(l.meta["id"]), False, l.meta.get("problems") or [])
+    _, cctx, thursday = _brief_and_checks(l)
+    return _save(l, rv.edit_line(l.version, n, text), "edit-line", 0.0, cctx, thursday)
+
+
+def link_doc(settings: Settings, day: date, kind: str, url: str) -> dict:
+    if not url.startswith("https://"):
+        raise ScriptError("Il link del documento deve iniziare con https://")
+    l = load(settings, day, kind)
+    status = l.meta["status"] if l.meta["status"] == "approved" else "review"
+    meta = {**l.meta, "doc_url": url, "status": status}
+    return l.ctx.scripts.set(meta["id"], summary=render_index(meta, l.story), doc_url=url, status=status)
+
+
+def approve(settings: Settings, day: date, kind: str) -> dict:
+    l = load(settings, day, kind)
+    if l.meta["status"] == "approved":
+        return l.meta
+    if l.meta.get("problems"):
+        raise ScriptError("Il copione non passa i controlli: correggilo prima di approvarlo.")
+    fields = {"status": "approved", "approved_at": now_iso(), "approved_version": int(l.meta["current_version"])}
+    meta = {**l.meta, **fields}
+    meta = l.ctx.scripts.set(meta["id"], summary=render_index(meta, l.story), **fields)
+    if kind == "daily":
+        l.ctx.news.set_story(l.story["id"], status="used", episode=meta["id"], script=meta["id"])
+    else:
+        l.ctx.news.set_story(l.story["id"], weekly_episode=meta["id"])
+    return meta
+
+
+def reopen(settings: Settings, day: date, kind: str) -> dict:
+    l = load(settings, day, kind)
+    if l.meta["status"] != "approved":
+        return l.meta
+    meta = {**l.meta, "status": "review"}
+    meta = l.ctx.scripts.set(meta["id"], summary=render_index(meta, l.story), status="review")
+    if kind == "daily":
+        l.ctx.news.set_story(l.story["id"], status="chosen", episode=None)
+    return meta
+
+
+def discard_script(ctx: Context, meta: dict, story: dict) -> dict:
+    if meta["status"] == "approved":
+        raise ScriptError("Il copione è approvato: non si può scartare.")
+    meta = {**meta, "status": "discarded"}
+    meta = ctx.scripts.set(meta["id"], summary=render_index(meta, story), status="discarded")
+    if meta["kind"] == "daily":
+        ctx.news.set_story(story["id"], script=None, status="candidate")
+    return meta
+
+
+def discard(settings: Settings, day: date, kind: str) -> dict:
+    l = load(settings, day, kind)
+    return discard_script(l.ctx, l.meta, l.story)

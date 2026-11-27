@@ -37,6 +37,7 @@ Followed by Claude every morning (scheduled task at 06:33 Europe/Rome, so the do
    `uv run podcat news pick <N>` (add `--date` / `--kind` if it is not today's daily list), commit
    and push, answer in the comment thread or chat with the chosen title. "Nessuna" means
    `uv run podcat news reject` followed by `uv run podcat news gather --refresh` and steps 4–6 again.
+8. After a pick, write the script: follow [script-review.md](script-review.md).
 
 ## Notes
 

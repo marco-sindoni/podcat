@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 from datetime import date
+from pathlib import Path
 from typing import Optional
 
 import typer
@@ -326,6 +327,96 @@ def script_list(last: int = typer.Option(10, "--last", help="Quanti copioni most
             f"{m['date']} {m['kind']:<6} {m['status']:<9} modo {m.get('news_image_mode')} "
             f"{m.get('tone', ''):<8} v{m.get('current_version')} {float(m.get('cost_usd') or 0):.4f} USD  {m['id']}"
         )
+
+
+def _script_out(result, done: str) -> None:
+    if not result.created:
+        typer.echo("Niente da fare: nessuna modifica e nessuna spesa.")
+    else:
+        typer.echo(f"{done} Costo {result.cost_usd:.4f} USD.")
+    typer.echo(str(result.path))
+    if result.problems:
+        typer.echo("Il copione non passa i controlli:", err=True)
+        for p in result.problems:
+            typer.echo(f"- {p}", err=True)
+        raise typer.Exit(EXIT_SCRIPT_CHECKS)
+
+
+@script_app.command("link-doc")
+@_script_errors
+def script_link_doc(url: str, date_: Optional[str] = DateOpt, kind: str = KindOpt) -> None:
+    """Salva il link del documento commentabile (il copione passa in revisione)."""
+    from podcat.scripts.pipeline import link_doc
+
+    meta = link_doc(load_settings(), _day(date_), _kind(kind), url)
+    typer.echo(f"Link salvato, stato: {meta['status']}.")
+
+
+@script_app.command("revise")
+@_script_errors
+def script_revise(
+    comments: Path = typer.Option(..., "--comments", help="File YAML con i commenti di Marco."),
+    tone: Optional[str] = typer.Option(None, "--tone", help="comico oppure pungente."),
+    date_: Optional[str] = DateOpt,
+    kind: str = KindOpt,
+) -> None:
+    """Applica i commenti di Marco come nuova versione."""
+    from podcat.scripts.pipeline import revise
+
+    if tone not in (None, "comico", "pungente"):
+        _fail("--tone deve essere comico oppure pungente.")
+    settings = load_settings()
+    result = revise(settings, _day(date_), _kind(kind), comments.read_text(encoding="utf-8"),
+                    script_model_factory(settings), tone=tone)
+    _script_out(result, "Nuova versione scritta.")
+
+
+@script_app.command("ending")
+@_script_errors
+def script_ending(number: int, date_: Optional[str] = DateOpt, kind: str = KindOpt) -> None:
+    """Mette il finale alternativo N (1 o 2), senza costi."""
+    from podcat.scripts.pipeline import ending
+
+    _script_out(ending(load_settings(), _day(date_), _kind(kind), number), f"Finale {number} messo.")
+
+
+@script_app.command("edit-line")
+@_script_errors
+def script_edit_line(number: int, text: str, date_: Optional[str] = DateOpt, kind: str = KindOpt) -> None:
+    """Registra una correzione a mano di Marco sulla battuta N."""
+    from podcat.scripts.pipeline import edit_line
+
+    _script_out(edit_line(load_settings(), _day(date_), _kind(kind), number, text), f"Battuta {number} aggiornata.")
+
+
+@script_app.command("approve")
+@_script_errors
+def script_approve(date_: Optional[str] = DateOpt, kind: str = KindOpt) -> None:
+    """Approva il copione: la versione attuale viene bloccata."""
+    from podcat.scripts.pipeline import approve
+
+    meta = approve(load_settings(), _day(date_), _kind(kind))
+    typer.echo(f"Copione approvato (versione {meta['approved_version']}).")
+
+
+@script_app.command("reopen")
+@_script_errors
+def script_reopen(date_: Optional[str] = DateOpt, kind: str = KindOpt) -> None:
+    """Riapre un copione approvato."""
+    from podcat.scripts.pipeline import reopen
+
+    meta = reopen(load_settings(), _day(date_), _kind(kind))
+    typer.echo(f"Stato: {meta['status']}.")
+
+
+@script_app.command("discard")
+@_script_errors
+def script_discard(date_: Optional[str] = DateOpt, kind: str = KindOpt) -> None:
+    """Scarta il copione; la notizia torna tra le candidate."""
+    from podcat.scripts.pipeline import discard
+
+    discard(load_settings(), _day(date_), _kind(kind))
+    typer.echo("Copione scartato.")
 
 
 if __name__ == "__main__":  # pragma: no cover
