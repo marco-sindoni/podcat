@@ -26,6 +26,16 @@ CAST_RULES = """Regole fisse del cast:
   vicine o primo piano di reazione.
 - I tic verbali si usano con parsimonia, non in ogni copione."""
 
+CRAFT = """Mestiere comico (la cosa più importante):
+- UNA sola premessa comica per copione, scelta dal dettaglio più assurdo della notizia. Niente elenco
+  di battute staccate: ogni battuta risponde a quella prima ("sì, e allora...") e alza la posta.
+- Arco: Flanella presenta il fatto con il dettaglio giusto; Fuzz lo porta all'assurdo; gli altri
+  rilanciano o smontano la stessa idea; Feedback spiazza con una conclusione che sembra fuori tema e
+  invece chiude il cerchio; Flanella chiude con una frase secca che riprende un'immagine dell'inizio
+  (callback).
+- Battute concrete e visive, con parole che si possono immaginare; niente giochi di parole deboli,
+  niente battute spiegate. Meglio una battuta forte che tre medie."""
+
 CONTENT_RULES = """Regole sui contenuti (non negoziabili):
 - Si commentano i fatti del riassunto, senza inventare fatti nuovi e senza copiare testi di giornali.
 - Satira sui fatti e sui potenti, mai su gruppi deboli, vittime, malati o persone comuni.
@@ -94,7 +104,8 @@ def _limits(bible: Bible, kind: str) -> str:
                 "Vinile, battuta di Feedback, saluto di Flanella.")
     return (f"Reel di circa {t} secondi: tra {w['min']} e {w['max']} parole dette in tutto (conta bene: "
             "sono poche, ogni parola deve servire). Punta a circa "
-            f"{(w['min'] + w['max']) // 2} parole: 7-8 battute brevi, quasi tutte sotto le 12 parole. Ritmo serrato.")
+            f"{(w['min'] + w['max']) // 2} parole: circa {round((w['min'] + w['max']) / 22)} battute brevi, quasi tutte "
+            "sotto le 14 parole. Ritmo serrato.")
 
 
 def system_prompt(bible: Bible, role: str) -> str:
@@ -105,7 +116,7 @@ def system_prompt(bible: Bible, role: str) -> str:
         "revision": "Sei il capo autore di uno show satirico italiano e applichi le note del produttore.",
     }
     return "\n\n".join([
-        roles[role], SHOW, "## I quattro gatti\n\n" + cast, CAST_RULES, CONTENT_RULES,
+        roles[role], SHOW, "## I quattro gatti\n\n" + cast, CAST_RULES, CRAFT, CONTENT_RULES,
         "## Inquadrature\n" + bible.shot_list_text(), FORMAT,
     ])
 
@@ -151,8 +162,9 @@ def head_user(bible: Bible, b: Brief, drafts_yaml: str) -> str:
 {drafts_yaml}
 
 ## Compito
-Scegli la bozza più forte o fondi il meglio delle due, poi riscrivila da capo autore: taglia le
-battute piatte, rendi più affilate le battute, controlla che ogni gatto suoni come se stesso, rispetta
+Scegli la bozza con la premessa comica più forte (fondi solo se resta UNA premessa), poi riscrivila
+da capo autore: ogni battuta deve legarsi alla precedente, taglia quelle che non servono all'arco,
+rendi più affilate le battute, controlla che ogni gatto suoni come se stesso, rispetta
 il numero di parole e tutte le regole. Poi scrivi 2 finali alternativi (endings), ognuno con una
 penultima battuta di Feedback e un'ultima di Flanella diverse da quelle del copione.
 In notes (in italiano, brevi): cosa hai cambiato e perché, quale angolo hai scelto, chi resta zitto
