@@ -31,7 +31,7 @@ tone: comico
 positive: false
 flags: []
 follow_up_of: null
-status: candidate
+status: chosen
 episode: null
 ---
 
