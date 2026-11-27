@@ -8,3 +8,5 @@ Armchairs from left to right (Fuzz and Vinile sit at opposite ends because they 
 | 2 | [Flanella](flanella.md) | F | The host | #FF8A3D |
 | 3 | [Vinile](vinile.md) | M | The grumpy nostalgic | #F2D16B |
 | 4 | [Feedback](feedback.md) | M | The slow philosopher | #7FB2FF |
+
+Shots used in scene directions: [shots.md](../shots.md).

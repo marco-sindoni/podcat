@@ -14,4 +14,7 @@ Variants to try:
 - a cat paw entering the frame holding a fork;
 - Feedback waking up suddenly, sniffing the steam.
 
-Title "Giovedì buone notizie" is added in CapCut with a warm retro lettering, not generated.
+Title "Giovedì buone notizie" is added in CapCut with a warm retro lettering, not generated. The
+words "Giovedì" and "gnocchi" (title and spoken formula) stand out in red or another strong color
+that differs from the other words, so a glance reads "giovedì gnocchi": together with the steaming
+plate it recalls the saying the slot is based on (Marco, 2026-11-27).

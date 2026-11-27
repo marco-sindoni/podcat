@@ -48,6 +48,7 @@ title and description.
 | `follow_up_of` | story-id or null | set when it develops an already used story |
 | `status` | enum | see transitions |
 | `episode` | episode id or null | set by the script/episode features |
+| `script` | script id or null | spec 002: set while a daily script exists, cleared when it is discarded; `episode` and `status: used` are set on approval |
 
 Status transitions:
 

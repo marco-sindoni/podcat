@@ -31,8 +31,9 @@ tone: comico
 positive: false
 flags: []
 follow_up_of: null
-status: chosen
-episode: null
+status: used
+episode: 2026-11-27-daily-hacker-fanno-impazzire-i-frigoriferi-in
+script: 2026-11-27-daily-hacker-fanno-impazzire-i-frigoriferi-in
 ---
 
 <!-- podcat:generated:start -->

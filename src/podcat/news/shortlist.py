@@ -171,8 +171,11 @@ def pick(store: NewsStore, day: date, kind: str, number: int) -> str:
     if kind == "daily":  # the weekly list reuses stories: their daily status stays as it is
         if old and old != new:
             _ensure_no_script(store, old)
+            _discard_open_script(store, old, kind)
             store.set_story(old, status="candidate")
         store.set_story(new, status="chosen")
+    elif old and old != new:
+        _discard_open_script(store, old, kind)
     meta.update(picked=new, status="picked")
     store.write_shortlist(meta)
     return new
@@ -213,6 +216,20 @@ def link_doc(store: NewsStore, day: date, kind: str, url: str) -> None:
     meta = _require(store, day, kind)
     meta["doc_url"] = url
     store.write_shortlist(meta)
+
+
+def _discard_open_script(store: NewsStore, story_id: str, kind: str) -> None:
+    """A script still in draft or review for the old pick is discarded (spec 002, US2 scenario 4)."""
+    from podcat.scripts.store import ScriptStore
+
+    scripts = ScriptStore(store.root.parent)
+    meta = scripts.find(story_id, kind)
+    if meta is None:
+        return
+    if meta["status"] == "approved":
+        raise ShortlistError("Il copione di questa notizia è approvato: la scelta non si può più cambiare.")
+    scripts.set(meta["id"], status="discarded")
+    store.set_story(story_id, script=None)
 
 
 def _ensure_no_script(store: NewsStore, story_id: str) -> None:
