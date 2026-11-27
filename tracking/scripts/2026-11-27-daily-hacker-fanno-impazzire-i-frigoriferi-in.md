@@ -5,8 +5,8 @@ kind: daily
 date: '2026-11-27'
 good_news_thursday: false
 doc_url: https://claude.ai/artifact/WAQc2nmhSqEwkcCEhtCnWB
-approved_at: null
-approved_version: null
+approved_at: 2026-11-28T00:35+01:00
+approved_version: 4
 versions:
 - version: 1
   created_at: 2026-11-28T00:08+01:00
@@ -37,7 +37,7 @@ versions:
   cost_usd: 0.0
   path: tracking/scripts/2026-11-27-daily-hacker-fanno-impazzire-i-frigoriferi-in/v4.md
 tone: comico
-status: review
+status: approved
 problems: []
 news_image_mode: A
 previous_script: null
@@ -48,7 +48,7 @@ cost_usd: 0.230703
 <!-- podcat:generated:start -->
 # Copione: Hacker fanno impazzire i frigoriferi in Slovenia
 
-Stato: review · versione attuale 4 · costo 0.2307 USD
+Stato: approved · versione attuale 4 · costo 0.2307 USD
 
 Testo: [2026-11-27-daily-hacker-fanno-impazzire-i-frigoriferi-in/v4.md](2026-11-27-daily-hacker-fanno-impazzire-i-frigoriferi-in/v4.md)
 

@@ -131,7 +131,7 @@ outputs, no paid calls. The checks (structure, words, reactions, rotation) are t
 
 - [X] T032 [P] Update `specs/001-news-gathering/contracts/cli.md` (pick change) and `specs/001-news-gathering/data-model.md` (story `script` field)
 - [X] T033 [P] Update `BACKLOG.md` (B-014 done when quickstart passes) and `docs/decisions.md` if implementation changes a choice
-- [ ] T034 Run the whole quickstart with the real API on the 2026-11-27 fridge story; record words, duration, cost and Marco's verdict in `specs/002-script-writing/quickstart.md`
+- [X] T034 Run the whole quickstart with the real API on the 2026-11-27 fridge story; record words, duration, cost and Marco's verdict in `specs/002-script-writing/quickstart.md`
 
 ---
 

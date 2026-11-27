@@ -25,3 +25,14 @@ Offline tests: `uv run pytest`.
     remark.
 11. **Weekly**: Saturday pick → `podcat script write --kind weekly` → 280–320 words, all four cats
     with at least two lines.
+
+## Real run, 2026-11-27 (fridge story)
+
+- v1 (Sonnet head writer, 30 s): 99 words, failed the word check; v2 after fix: 89 words, 31 s.
+  Marco: "moderatamente divertente, battute slegate".
+- Trials after the craft prompt: Sonnet 30 s (85 words, 0.057 USD), Opus 30 s (86 words,
+  0.116 USD), Opus 45 s (126 words, 43 s, 0.146 USD). Marco chose Opus at 45 s.
+- v3 = Opus 45 s trial; v4 = ending 1 swapped in (`podcat script ending 1`, no cost):
+  121 words, 41 s. Approved by Marco on 2026-11-28 with no line comments.
+- Steps run for real: 1–3, 5, 6. Step 4 (revision) was not needed on this script; it is covered by
+  the integration tests and will run live on the first script Marco comments.
