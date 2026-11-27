@@ -259,3 +259,17 @@ with the A1 rules and gave 4 usable candidates against 1–2 in the original lis
   cost beyond a few output tokens per story.
 - **Alternatives**: a monthly quota that tracks Marco's picks (more state, and it would push stories
   on days when none is good); letting the model choose the tone (not testable).
+
+## R20. Triage in chunks with a merge call (A1 follow-up, 2026-11-27)
+
+- **Decision**: on weekdays, when more than 350 items are in the window, triage runs on chunks of at
+  most 350 items ordered by source category (current affairs, culture, good news, sport,
+  entertainment, music, lifestyle, oddities), then one small merge call joins groups that tell the
+  same fact across chunks (input: group index, category, up to three titles). Thursday chunks
+  (600 items) use the same merge call. Politics cap: one comic political story plus the pungente
+  one (FR-021 revised).
+- **Rationale**: the first A1 run had 959 items in one call and found 25 groups instead of 38;
+  the FdI chatbot and Antonelli stories were missing. Chunking by category keeps most confirming
+  outlets in the same chunk; the merge call fixes the rest. Extra cost about 0.005–0.01 USD per run.
+- **Known limit**: a fact reported once in a non-light chunk and once in another chunk is lost,
+  because single-item non-light groups are dropped before the merge.

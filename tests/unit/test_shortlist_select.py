@@ -83,10 +83,12 @@ def test_funnier_than_sharp_stays_comic():
     assert result.chosen[0]["tone"] == "comico" and result.no_pungente
 
 
-def test_pungente_counts_for_politics_cap():
+def test_politics_cap_is_per_tone():
     sharp = s("sharp", comic=2, satire=5, importance=4, flags=["politics"])
-    result = choose([sharp, s("p-comic", comic=5, flags=["politics"]), s("c", category="music")])
-    assert ids(result) == ["c", "sharp"]
+    p2 = s("p2-comic", comic=4, flags=["politics"], category="lifestyle")
+    result = choose([sharp, s("p-comic", comic=5, flags=["politics"]), p2, s("c", category="music")])
+    assert ids(result) == ["p-comic", "c", "sharp"]
+    assert {"title": "p2-comic", "reason": "già una notizia politica"} in result.discarded
 
 
 def test_no_pungente_on_thursday():

@@ -58,8 +58,8 @@ confirming sources from different groups, and that every link opens the cited ar
    injured people, **When** the shortlist is built, **Then** it is discarded with its reason.
 6. *(A1)* **Given** a story rated comic potential 2 or clarity 2, however widely covered, **When**
    the shortlist is built, **Then** it is not a candidate and the run log says why.
-7. *(A1)* **Given** three eligible stories flagged politics, **When** the shortlist is built,
-   **Then** only the best-ranked one is a candidate.
+7. *(A1)* **Given** three eligible comic stories flagged politics, **When** the shortlist is built,
+   **Then** only the best-ranked one is a comic candidate (the pungente candidate may also be political).
 9. *(A1)* **Given** a weekday with a story rated satirical 4, clarity 4, importance 4 and comic 2,
    **When** the shortlist is built, **Then** it is the pungente candidate and the others are comic.
 8. *(A1)* **Given** a widely covered but unfunny story and a less covered story rated comic 4 and
@@ -212,7 +212,8 @@ already used in a daily reel.
 - **FR-020** *(A1)*: A story MUST NOT become a comic candidate when its comic potential is below 3,
   its clarity is below 3 or its importance is below 2 (pungente floors: FR-024). Discarded stories are recorded in the run log
   with the reason ("comicità sotto 3", "poco comprensibile", "poco rilevante").
-- **FR-021** *(A1)*: A shortlist MUST contain at most one story flagged politics.
+- **FR-021** *(A1)*: A shortlist MUST contain at most one comic story flagged politics, plus at most
+  the pungente one (Marco, 2026-11-27: a funny political story must not be lost to the pungente slot).
 - **FR-022** *(A1)*: The rating step MUST consider every verified story of the run, not only the
   most covered ones. A cap is allowed only to protect the budget and MUST be recorded in the run log
   with the number of stories left out.

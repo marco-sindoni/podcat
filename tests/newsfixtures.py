@@ -94,4 +94,4 @@ def editorial_answer(user: str) -> dict:
 
 
 def fake_model() -> FakeModel:
-    return FakeModel({"TriageResult": triage_answer, "EditorialResult": editorial_answer})
+    return FakeModel({"TriageResult": triage_answer, "EditorialResult": editorial_answer, "MergeResult": {"merges": []}})

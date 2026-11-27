@@ -21,7 +21,7 @@ COMIC_FLOOR = 3
 CLARITY_FLOOR = 3
 IMPORTANCE_FLOOR = 2
 PUNGENTE_FLOOR = 3  # satirical potential, clarity and importance of the pungente candidate
-MAX_POLITICS = 1
+MAX_POLITICS = 1  # per tone: one comic and one pungente political story at most (Marco, 2026-11-27)
 
 
 @dataclass
@@ -96,7 +96,6 @@ def choose(stories: list[dict], limit: int = MAX_CANDIDATES, thursday: bool = Fa
     comic: list[dict] = []
     if pungente:
         per_category[pungente["category"]] = 1
-        politics = int(_politics(pungente))
     slots = limit - (1 if pungente else 0)
 
     eligible = []
