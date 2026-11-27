@@ -19,7 +19,8 @@
   Month: 30 reels (1.35) + 4 weekly (0.44) + ~40 revisions (1.05) ≈ 2.9 USD, under SC-005.
 - **Alternatives**: Sonnet for both passes (~0.07 per reel, above SC-005); Opus 5.5 as head
   writer (~0.08 per reel, about 4.5 USD/month, best comedy quality); Haiku for everything (~0.005,
-  weakest jokes). Open question for Marco in the review document.
+  weakest jokes). Marco chose Sonnet on 2026-11-27 and asked that the model stay a parameter that is
+  easy to change: one line per step in `config/pricing.yaml`, read on every run.
 
 ## R2. Writers' room: two angles, then the head writer
 
@@ -103,7 +104,7 @@
   of the facts, Feedback's reflection with an ironic twist, Flanella's pointed close), Thursday
   (warm, jokes on themselves and the situation, never on the people in the story). The slot formula
   is fixed in `config/scripts.yaml`: "Giovedì buone notizie! Buoni gli gnocchi, buone le notizie."
-  (proposal, editable).
+  (approved by Marco on 2026-11-27, editable in the config).
 - **Sensitivity flags**: `politics` adds "satira sui fatti e sui potenti, mai di parte"; `health`,
   `legal`, `finance` add "nessun consiglio". Real people: only public figures of the story, never
   realistic descriptions beyond their public role.

@@ -4,6 +4,9 @@
 
 **Input**: Feature specification from `specs/002-script-writing/spec.md` (approved 2026-11-27)
 
+**Plan status**: questions answered by Marco on 2026-11-27 (head writer Sonnet 5.5 as a config
+parameter; Thursday formula approved)
+
 ## Summary
 
 A new `podcat script` command group turns the story Marco picked into an Italian script for the
