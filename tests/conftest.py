@@ -27,5 +27,6 @@ def repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     assets.mkdir()
     monkeypatch.setenv("PODCAT_ASSETS_DIR", str(assets))
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("PODCAT_ANTHROPIC_API_KEY", raising=False)
     monkeypatch.chdir(root)
     return root

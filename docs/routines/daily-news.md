@@ -6,7 +6,9 @@ Followed by Claude every morning (scheduled task at 06:33 Europe/Rome, so the do
 ## Requirements of the cloud environment
 
 - Network access to the feed hosts (currently "unrestricted").
-- `ANTHROPIC_API_KEY` as an environment variable, entered by Marco in the environment settings.
+- `PODCAT_ANTHROPIC_API_KEY` as an environment variable, entered by Marco in the environment settings.
+  Claude Code cloud sessions do not pass `ANTHROPIC_API_KEY` to commands, so the code reads
+  `PODCAT_ANTHROPIC_API_KEY` first (on Marco's machine `.env` may keep `ANTHROPIC_API_KEY`).
 - `uv` (preinstalled in Claude Code cloud containers; otherwise `curl -LsSf https://astral.sh/uv/install.sh | sh`).
 - No setup script is needed: step 1 runs `uv sync`, which is fast and idempotent.
 
