@@ -356,7 +356,7 @@ Thursday package starts with the sting block and its title styling.
   fixed short theme tune for opening and closing, chosen once and recorded in the bible (FR-019).
 - **Subtitles** (Marco, 2026-11-28, after the first review): a dedicated story (User Story 6) and
   FR-007 rewritten: CapCut auto-captions from the voice track, with style, colors, caption chunks
-  and words to check given by the package. [Method pending Marco's confirmation.]
+  and words to check given by the package. Method confirmed by Marco on 2026-11-28 (auto-captions plus correction).
 - **Q3 – Platforms**: YouTube only (Shorts for the daily reel, the Sunday episode) (FR-020).
 
 ## Assumptions
