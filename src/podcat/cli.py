@@ -16,14 +16,17 @@ from podcat.tracking.costs import BudgetExceeded, Ledger, load_prices
 EXIT_USER_ERROR = 1
 EXIT_BUDGET = 2
 EXIT_NO_DATA = 3
+EXIT_SCRIPT_CHECKS = 4
 
 app = typer.Typer(help="Podcat: preparazione delle puntate.", no_args_is_help=True)
 sources_app = typer.Typer(help="Fonti delle notizie.", no_args_is_help=True)
 news_app = typer.Typer(help="Raccolta e scelta delle notizie.", no_args_is_help=True)
 costs_app = typer.Typer(help="Costi e tetto mensile.", no_args_is_help=True)
+script_app = typer.Typer(help="Copioni dei quattro gatti.", no_args_is_help=True)
 app.add_typer(sources_app, name="sources")
 app.add_typer(news_app, name="news")
 app.add_typer(costs_app, name="costs")
+app.add_typer(script_app, name="script")
 
 DateOpt = typer.Option(None, "--date", help="Data AAAA-MM-GG (predefinita: oggi, ora italiana).")
 KindOpt = typer.Option("daily", "--kind", help="daily oppure weekly.")
@@ -232,6 +235,95 @@ def costs_show(month: Optional[str] = typer.Option(None, help="Mese, formato AAA
     day = _parse_month(month)
     total, cap = ledger.total(day), ledger.cap(day)
     typer.echo(f"{day:%Y-%m}: spesi {total:.4f} USD su {cap:.2f} USD, restano {cap - total:.4f} USD.")
+
+
+# script (spec 002) -----------------------------------------------------------
+
+SCRIPT_STEP_KEY = {"room": "room", "head-writer": "head_writer", "fix": "head_writer", "revision": "revision"}
+
+
+def script_model_factory(settings: Settings):
+    """Model per step from `script_models` in config/pricing.yaml (one line to change a model)."""
+    from podcat.llm.anthropic_model import AnthropicModel
+
+    pricing = yaml.safe_load((settings.config_dir / "pricing.yaml").read_text(encoding="utf-8"))
+    models = pricing["script_models"]
+
+    def factory(ledger: Ledger, day: date, step: str):
+        model_id = models[SCRIPT_STEP_KEY[step]]
+        return AnthropicModel(model_id, ledger, day, "script", api_key=settings.anthropic_api_key).for_step(step)
+
+    return factory
+
+
+def _script_errors(func):
+    from functools import wraps
+
+    from podcat.scripts.store import ScriptError
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except ScriptError as exc:
+            _fail(str(exc))
+        except BudgetExceeded as exc:
+            _fail(str(exc), EXIT_BUDGET)
+
+    return wrapper
+
+
+@script_app.command("write")
+@_script_errors
+def script_write(
+    date_: Optional[str] = DateOpt,
+    kind: str = KindOpt,
+    new_draft: bool = typer.Option(False, "--new-draft", help="Riscrive il copione da capo, come nuova versione."),
+) -> None:
+    """Scrive il copione della notizia scelta (stanza degli autori + capo autore)."""
+    from podcat.scripts.pipeline import write
+
+    settings = load_settings()
+    result = write(settings, _day(date_), _kind(kind), script_model_factory(settings), new_draft=new_draft)
+    if not result.created:
+        typer.echo("Il copione esiste già: nessuna nuova spesa.")
+    else:
+        typer.echo(f"Copione scritto, costo {result.cost_usd:.4f} USD.")
+    typer.echo(str(result.path))
+    if result.problems:
+        typer.echo("Il copione non passa i controlli:", err=True)
+        for p in result.problems:
+            typer.echo(f"- {p}", err=True)
+        raise typer.Exit(EXIT_SCRIPT_CHECKS)
+
+
+@script_app.command("show")
+@_script_errors
+def script_show(
+    date_: Optional[str] = DateOpt,
+    kind: str = KindOpt,
+    version: Optional[int] = typer.Option(None, "--version", help="Versione da mostrare (predefinita: l'ultima)."),
+) -> None:
+    """Mostra il testo del documento del copione."""
+    from podcat.scripts.pipeline import show
+
+    typer.echo(show(load_settings(), _day(date_), _kind(kind), version))
+
+
+@script_app.command("list")
+def script_list(last: int = typer.Option(10, "--last", help="Quanti copioni mostrare.")) -> None:
+    """Elenca gli ultimi copioni."""
+    from podcat.scripts.pipeline import listing
+
+    items = listing(load_settings(), last)
+    if not items:
+        typer.echo("Nessun copione.")
+        return
+    for m in items:
+        typer.echo(
+            f"{m['date']} {m['kind']:<6} {m['status']:<9} modo {m.get('news_image_mode')} "
+            f"{m.get('tone', ''):<8} v{m.get('current_version')} {float(m.get('cost_usd') or 0):.4f} USD  {m['id']}"
+        )
 
 
 if __name__ == "__main__":  # pragma: no cover

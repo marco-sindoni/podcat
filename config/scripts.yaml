@@ -1,0 +1,29 @@
+# Script writing settings (spec 002, research R4, R8, R9). Edit freely; read on every run.
+words:
+  daily: {min: 70, max: 90}
+  weekly: {min: 280, max: 320}
+target_s: {daily: 30, weekly: 120}
+tolerance_s: {daily: 5, weekly: 15}
+# Spoken words per second for each cat's CapCut voice; calibrate after the B-012 recordings.
+# Start values: 70-90 words must fit about 30 s (constitution), so about 3 words/s on average.
+words_per_second:
+  flanella: 3.0
+  fuzz: 3.4
+  vinile: 2.9
+  feedback: 2.5
+pause_s: 0.2
+# Duration of a shot with no lines (seconds); other silent shots use `silent_default_s`.
+fixed_shot_s:
+  news-cutin: 2.5
+  sting-gnocchi: 3.0
+silent_default_s: 1.5
+thursday_formula: "Giovedì buone notizie! Buoni gli gnocchi, buone le notizie."
+repeat_window: 7
+# Verbal tics checked for repetition: not in three scripts in a row.
+tics:
+  flanella: ["Allora, gattini", "Ricapitoliamo"]
+  fuzz: ["No, no, no, fermi tutti", "Questo è uno scandalo"]
+  vinile: ["Ai miei tempi", "Nel '94"]
+  feedback: ["E quindi?"]
+# Categories where Vinile must speak.
+vinile_categories: [culture, entertainment, music]
