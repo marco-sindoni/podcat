@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 from podcat.llm.base import TextModel, Usage
-from podcat.news.models import FeedItem, Source, TriageResult
+from podcat.news.models import LIGHT_CATEGORIES, FeedItem, Source, TriageResult
 
-MAX_TOKENS = 16_000
+MAX_TOKENS = 20_000  # below the SDK limit for non-streaming calls
 THURSDAY_CHUNK = 600  # items per call on Thursdays, when the window is 7 days
 
 SYSTEM = """Sei la redazione di "Podcat", una trasmissione satirica italiana che commenta le notizie.
@@ -14,12 +14,18 @@ Ricevi un elenco di articoli, uno per riga: id | testata | titolo | anteprima.
 Compito:
 1. Raggruppa gli articoli che raccontano lo STESSO fatto (stesso evento, stesse persone, stesso momento).
    Non unire fatti diversi solo perché hanno lo stesso tema.
-2. Restituisci SOLO i gruppi con almeno due articoli di testate diverse.
+2. Restituisci i gruppi con almeno due articoli di testate diverse. Restituisci anche i gruppi di
+   un solo articolo quando la categoria è entertainment, music, lifestyle oppure oddities.
 3. Per ogni gruppo indica la categoria: current-affairs, sport, culture, entertainment, music,
-   lifestyle, good-news (solo per fatti positivi: progresso, speranza, gentilezza).
+   lifestyle, oddities (curiosità e stranezze: fatti bizzarri, record assurdi, animali, gaffe,
+   abitudini in cui tutti si riconoscono), good-news (solo per fatti positivi: progresso, speranza,
+   gentilezza).
 4. Segna come escluso (campo excluded) ogni gruppo che è:
    - crime: cronaca nera (omicidi, violenze, rapine, femminicidi, abusi);
    - tragedy: tragedie, incidenti mortali, disastri con vittime, malattie gravi di persone;
+   - harm: notizie che ruotano su malattie, ferite, infortuni o violenze subite da persone reali,
+     anche famose (scontri con feriti, una persona famosa ricoverata, un atleta infortunato).
+     Una scelta di carriera come un ritiro NON è harm, anche se tra i motivi c'è la salute;
    - clickbait: titolo acchiappaclic senza un fatto;
    - rumour: indiscrezioni, voci non confermate, gossip senza fonte;
    - sponsored: contenuto sponsorizzato o promozionale;
@@ -57,8 +63,9 @@ def triage(
 ) -> tuple[TriageResult, Usage]:
     """Run the triage call on non-satire items. Unknown ids in the answer are dropped.
 
-    Weekdays: one call, groups of at least two items. Thursdays: the 7-day window is split
-    into chunks, and single-item positive groups are kept (one reliable source is enough).
+    Weekdays: one call, groups of at least two items, or one item in a light category
+    (spec 001 A1). Thursdays: the 7-day window is split into chunks, and single-item positive
+    groups are kept (one reliable source is enough).
     """
     eligible = [i for i in items if sources[i.source_id].effective_role != "inspiration-only"]
     if not eligible:
@@ -78,6 +85,8 @@ def triage(
         known = {i.item_id for i in chunk}
         for group in result.groups:
             group.item_ids = [i for i in dict.fromkeys(group.item_ids) if i in known]
-        minimum = 1 if thursday else 2
-        groups += [g for g in result.groups if len(g.item_ids) >= minimum and (g.positive or not thursday)]
+        for g in result.groups:
+            minimum = 1 if thursday or g.category in LIGHT_CATEGORIES else 2
+            if len(g.item_ids) >= minimum and (g.positive or not thursday):
+                groups.append(g)
     return TriageResult(groups=groups), total

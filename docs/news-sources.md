@@ -17,6 +17,12 @@ feature is planned; a source without a working feed gets a replacement or is rea
    still applies on every other day. Positive outcomes of mourning, deaths, violence or crimes
    against people are excluded on Thursdays, and candidates are ranked by importance plus comic
    potential.
+6. Light-category exception (decided 2026-11-27, spec 001 amendment A1): stories in
+   `entertainment`, `music`, `lifestyle` and `oddities` need one approved, non-satire starting
+   source. Any story touching politics, justice, health or money keeps rule 1, as do current
+   affairs, sport and culture. Clickbait and rumour exclusions still apply.
+7. Never candidates (A1): stories centred on illness, injury or violence suffered by real people,
+   famous people included. A career choice such as a retirement is fine.
 
 ## Topics
 
@@ -34,6 +40,7 @@ feature is planned; a source without a working feed gets a replacement or is rea
 | `music` | Rolling Stone Italia, All Music Italia, OndaRock, Rumore, Soundsblog, SentireAscoltare, Rockon, Loudwire, Pitchfork, NME |
 | `lifestyle` | Vanity Fair Italia, GQ Italia, Vogue Italia, Elle Italia, Grazia, Cosmopolitan Italia, Gambero Rosso, Dissapore, Dove Viaggi (Corriere), How to Spend It (Il Sole 24 Ore) |
 | `good-news` ("Giovedì buone notizie") | Italia che Cambia, Vita.it, Good News Network, Reasons to be Cheerful, Fix the News, The Guardian – The Upside, Good Good Good, The Optimist Daily, YES! Magazine, Our World in Data (for checking numbers) |
+| `oddities` ("curiosità e stranezze", added 2026-11-27) | Leggo, Geopop, GreenMe, Corriere della Sera – Animali, La Nazione, UPI Odd News, Sky News – Strange, Metro – Weird, Mirror – Weird News; Il Post – Animali for cross-checking only |
 | `satire` (inspiration only) | Lercio, Il Vernacoliere, The Onion, The Daily Mash, NewsThump, The Hard Times, The Beaverton, The Shovel, Le Gorafi, Reductress |
 
 Notes:
@@ -53,3 +60,5 @@ Notes:
 | La Lettura, Robinson (own feeds), National Geographic Italia, MYmovies, Rockit, Eurosport Italia, Condé Nast Traveller, Buone Notizie (Corriere), FIMI | No working feed (section feeds used where available) |
 | Spinoza.it, Il Milanese Imbruttito, Il Terzo Segreto di Satira, The Jackal, Kotiomkin | No feed or inactive feed; mostly on social media |
 | The Babylon Bee | Satire too politically aligned |
+| ANSA, Il Messaggero, Tgcom24, Il Fatto Quotidiano (curiosity sections), Oddity Central, The Independent (weird news) | No working feed for the section (checked 2026-11-27) |
+| Today.it, Notizie.it, Virgilio | Block automated readers (checked 2026-11-27) |

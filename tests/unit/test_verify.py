@@ -77,3 +77,37 @@ def test_thursday_needs_positive_and_one_reliable_source():
 
 def test_agency_own_item_and_its_wire_count_once():
     assert not check(item("ansa"), item("repubblica", agency="ansa")).verified
+
+
+# Amendment A1: one starting source is enough for light categories (FR-004, quickstart scenario 8)
+
+LIGHT = dict(SOURCES)
+LIGHT["comingsoon"] = Source(id="comingsoon", name="Comingsoon", category="entertainment", group="comingsoon")
+LIGHT["upi"] = Source(id="upi", name="UPI Odd News", category="oddities", group="upi")
+
+
+def check_light(*items, **group):
+    by_id = {i.item_id: i for i in items}
+    g = TriageGroup(item_ids=list(by_id), category=group.pop("category"), **group)
+    return verify_group(g, by_id, LIGHT)
+
+
+def test_single_source_ok_for_light_categories():
+    for category in ("entertainment", "music", "lifestyle", "oddities"):
+        assert check_light(item("comingsoon"), category=category).verified
+
+
+def test_single_source_not_enough_for_other_categories():
+    for category in ("current-affairs", "sport", "culture"):
+        v = check_light(item("corriere"), category=category)
+        assert not v.verified and "una sola fonte" in v.reason
+
+
+def test_light_category_still_needs_a_starting_non_satire_source():
+    assert not check_light(item("ilpost"), category="oddities").verified
+    assert not check_light(item("lercio"), category="oddities").verified
+
+
+def test_light_category_exclusions_still_apply():
+    v = check_light(item("upi"), category="oddities", excluded="harm", excluded_reason="ferito")
+    assert not v.verified and "harm" in v.reason

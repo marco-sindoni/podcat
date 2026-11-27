@@ -1,14 +1,16 @@
 """Deterministic verification: the two-groups rule (research R4, FR-004) and the Thursday rule (FR-009).
 
 On Thursdays ("Giovedì buone notizie") one approved, non-satire starting source is enough,
-because the story only has to be a real positive fact, not breaking news.
+because the story only has to be a real positive fact, not breaking news. The same holds every day
+for light categories (spec 001 A1, research R15); a light story flagged politics, legal, health or
+finance is sent back to the two-groups rule after the editorial pass (pipeline).
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 
-from podcat.news.models import FeedItem, Source, TriageGroup
+from podcat.news.models import LIGHT_CATEGORIES, FeedItem, Source, TriageGroup
 
 
 @dataclass
@@ -48,7 +50,8 @@ def verify_group(
         return fail("solo fonti satiriche")
     if thursday and not group.positive:
         return fail("giovedì: non è una buona notizia")
-    if len(groups) < 2 and not thursday:
+    one_source_ok = thursday or group.category in LIGHT_CATEGORIES
+    if len(groups) < 2 and not one_source_ok:
         return fail("una sola fonte (o la stessa agenzia ripresa da più testate)")
     if not any(sources[m.source_id].effective_role == "starting" for m in counted):
         return fail("solo fonti di conferma, nessuna fonte di partenza")

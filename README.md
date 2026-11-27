@@ -26,7 +26,7 @@ uv run pytest          # offline, no paid calls
 | Command | Does |
 | --- | --- |
 | `podcat sources check [--write]` | Check every source feed, autodiscover missing ones, update `config/sources.yaml` |
-| `podcat news gather [--date D] [--refresh]` | Daily shortlist of 3–5 verified stories (Thursday: good news only) |
+| `podcat news gather [--date D] [--refresh]` | Daily shortlist of 3–5 verified stories: comic ones plus one "pungente" (Thursday: good news only) |
 | `podcat news weekly [--date D] [--refresh]` | Saturday shortlist for the Sunday episode |
 | `podcat news show / pick N / unpick / reject / link-doc URL` | Read the list, pick a story, undo, reject all, attach the review document |
 | `podcat costs show [--month YYYY-MM]` | Month spend against the 50 USD cap |

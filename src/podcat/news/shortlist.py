@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass, field
 from datetime import date
 
 from podcat.news.store import NewsStore
@@ -15,45 +16,142 @@ class ShortlistError(ValueError):
     """A user error on a shortlist command (wrong number, missing list, script already written)."""
 
 
+# Floors (spec 001 A1, FR-020 and FR-024).
+COMIC_FLOOR = 3
+CLARITY_FLOOR = 3
+IMPORTANCE_FLOOR = 2
+PUNGENTE_FLOOR = 3  # satirical potential, clarity and importance of the pungente candidate
+MAX_POLITICS = 1
+
+
+@dataclass
+class Selection:
+    chosen: list[dict]  # in shortlist order; each dict gets a "tone" key
+    discarded: list[dict] = field(default_factory=list)  # {"title", "reason"}
+    no_pungente: bool = False  # weekday without a qualifying pungente story
+
+
+def _clarity(story: dict) -> int:
+    return story.get("clarity") or 3  # stories created before A1 have no clarity
+
+
+def _satire(story: dict) -> int:
+    return story.get("satirical_potential") or 1
+
+
 def rank_key(story: dict, thursday: bool = False) -> tuple:
-    """Importance first, comic potential as tie-break. On Thursdays the two weigh the same,
-    because the good-news reel needs a story the cats can joke about (decided 2026-11-26)."""
-    if thursday:
-        return (-(story["importance"] + story["comic_potential"]), -story["comic_potential"], story["id"])
-    return (-story["importance"], -story["comic_potential"], story["id"])
+    """Comic candidates: comic potential plus clarity, then comic potential, then importance
+    (research R12). Thursday uses the same order (R18)."""
+    comic, clarity = story["comic_potential"], _clarity(story)
+    return (-(comic + clarity), -comic, -story["importance"], story["id"])
+
+
+def pungente_key(story: dict) -> tuple:
+    """The pungente candidate: satirical potential plus clarity, then importance (R19)."""
+    satire, clarity = _satire(story), _clarity(story)
+    return (-(satire + clarity), -story["importance"], -satire, story["id"])
+
+
+def _floor_reason(story: dict) -> str | None:
+    if story["importance"] < IMPORTANCE_FLOOR:
+        return "poco rilevante"
+    if _clarity(story) < CLARITY_FLOOR:
+        return "poco comprensibile"
+    if story["comic_potential"] < COMIC_FLOOR:
+        return "comicità sotto 3"
+    return None
+
+
+def _pungente_ok(story: dict) -> bool:
+    # A story funnier than it is sharp stays comic (R19).
+    return (
+        _satire(story) >= PUNGENTE_FLOOR
+        and _clarity(story) >= PUNGENTE_FLOOR
+        and story["importance"] >= PUNGENTE_FLOOR
+        and _satire(story) >= story["comic_potential"]
+    )
+
+
+def _politics(story: dict) -> bool:
+    return "politics" in story.get("flags", [])
+
+
+def choose(stories: list[dict], limit: int = MAX_CANDIDATES, thursday: bool = False) -> Selection:
+    """Fill one pungente slot (not on Thursday), then the comic slots (FR-008, FR-020–FR-024)."""
+    discarded: list[dict] = []
+    pool = []
+    for s in stories:
+        if s.get("sensitive"):
+            discarded.append({"title": s["title"], "reason": "tema delicato"})
+        else:
+            pool.append(s)
+
+    pungente = None
+    if not thursday:
+        eligible = sorted((s for s in pool if _pungente_ok(s)), key=pungente_key)
+        pungente = eligible[0] if eligible else None
+
+    per_category: dict[str, int] = {}
+    politics = 0
+    comic: list[dict] = []
+    if pungente:
+        per_category[pungente["category"]] = 1
+        politics = int(_politics(pungente))
+    slots = limit - (1 if pungente else 0)
+
+    eligible = []
+    for s in pool:
+        if s is pungente:
+            continue
+        reason = _floor_reason(s)
+        if reason:
+            discarded.append({"title": s["title"], "reason": reason})
+        else:
+            eligible.append(s)
+    eligible.sort(key=lambda s: rank_key(s, thursday))
+
+    def take(respect_categories: bool) -> None:
+        nonlocal politics
+        for s in eligible:
+            if len(comic) == slots:
+                return
+            if s in comic:
+                continue
+            if _politics(s) and politics >= MAX_POLITICS:
+                continue
+            if respect_categories and per_category.get(s["category"], 0) >= MAX_PER_CATEGORY:
+                continue
+            comic.append(s)
+            politics += int(_politics(s))
+            per_category[s["category"]] = per_category.get(s["category"], 0) + 1
+
+    take(respect_categories=True)
+    take(respect_categories=False)  # not enough variety: allow a third story of a category
+    for s in eligible:
+        if s not in comic and _politics(s) and politics >= MAX_POLITICS:
+            discarded.append({"title": s["title"], "reason": "già una notizia politica"})
+
+    chosen = [dict(s, tone="comico") for s in sorted(comic, key=lambda s: rank_key(s, thursday))]
+    if pungente:
+        chosen.append(dict(pungente, tone="pungente"))
+    return Selection(chosen=chosen, discarded=discarded, no_pungente=not thursday and pungente is None)
 
 
 def select(stories: list[dict], limit: int = MAX_CANDIDATES, thursday: bool = False) -> list[dict]:
-    """Order stories (see rank_key) and keep categories balanced."""
-    ordered = sorted(stories, key=lambda s: rank_key(s, thursday))
-    chosen, per_category = [], {}
-    for s in ordered:
-        if per_category.get(s["category"], 0) >= MAX_PER_CATEGORY:
-            continue
-        chosen.append(s)
-        per_category[s["category"]] = per_category.get(s["category"], 0) + 1
-        if len(chosen) == limit:
-            break
-    if len(chosen) < limit:  # not enough variety: fill with the best remaining
-        for s in ordered:
-            if s not in chosen:
-                chosen.append(s)
-                if len(chosen) == limit:
-                    break
-    return sorted(chosen, key=lambda s: rank_key(s, thursday))
+    return choose(stories, limit, thursday).chosen
 
 
 def warning_for(count: int, thursday: bool = False) -> str | None:
     if thursday:
         if count == 0:
-            return "nessuna buona notizia trovata negli ultimi 7 giorni."
+            return "nessuna buona notizia adatta negli ultimi 7 giorni."
         if count < MIN_CANDIDATES:
-            return f"solo {count} buone notizie trovate negli ultimi 7 giorni."
+            return f"solo {count} buone notizie adatte negli ultimi 7 giorni."
         return None
     if count == 0:
-        return "nessuna notizia verificata su due fonti indipendenti."
+        return "nessuna notizia verificata e adatta al reel."
     if count < MIN_CANDIDATES:
-        return f"solo {count} notizie verificate su due fonti indipendenti."
+        return f"solo {count} notizie verificate e adatte al reel."
     return None
 
 

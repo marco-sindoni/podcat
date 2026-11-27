@@ -215,7 +215,7 @@ with the A1 rules and gave 4 usable candidates against 1–2 in the original lis
   | Source | Feed | Items | Group | Role | Note |
   | --- | --- | --- | --- | --- | --- |
   | Leggo | `https://www.leggo.it/rss/home.xml` | 20 | caltagirone | starting | popular daily, many offbeat stories (had the Salvini fridge hack) |
-  | Focus.it | `https://www.focus.it/rss` | 30 | mondadori | starting | science and curiosities |
+  | GreenMe | `https://www.greenme.it/feed/` | 30 | greenme | starting | everyday curiosities (replaces Focus.it, already a culture source) |
   | Geopop | `https://www.geopop.it/feed/` | 10 | geopop | starting | explainers and odd facts |
   | Corriere – Animali | `https://www.corriere.it/rss/animali.xml` | 49 | rcs | starting | animal stories |
   | Il Post – Animali | `https://www.ilpost.it/tag/animali/feed/` | 10 | ilpost | confirmation-only | same rule as Il Post |
@@ -249,7 +249,8 @@ with the A1 rules and gave 4 usable candidates against 1–2 in the original lis
   viewer; 1 = nothing to say beyond the fact; never at the expense of victims. `shortlist.select`
   first fills the pungente slot: best story by `satirical + clarity`, then importance, among those
   with satirical ≥ 3, clarity ≥ 3, importance ≥ 3, not sensitive. It then fills up to four comic
-  slots with the comic rules (R12), skipping the story already used. The politics cap (one) and the
+  slots with the comic rules (R12), skipping the story already used. A story whose comic potential is higher
+  than its satirical potential stays comic, so the pungente slot never takes the funniest story. The politics cap (one) and the
   category cap (two) apply to the whole list. Each story file records `tone: comico | pungente`.
   Thursday skips the pungente slot. The weekly prompt is asked for one pungente story among its
   picks and receives the tone and satirical rating of each story.

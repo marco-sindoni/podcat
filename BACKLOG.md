@@ -17,3 +17,4 @@ and link the spec folder here.
 | B-010 | "Giovedì buone notizie": every Thursday the daily reel covers one positive story (human progress, hope, heart-warming), from anywhere in the world, using the `good-news` source category (in the constitution since v1.1.0) | 1 | done | [001](specs/001-news-gathering/spec.md) |
 | B-011 | "Giovedì buone notizie" logo and 2–3 s opening sting: steaming plate of gnocchi al sugo on the tavern table, soft 3D cartoon style (Fotor image, animated in CapCut) | 1 | ready | |
 | B-012 | Visual test session in Fotor and CapCut following `docs/visual-test-plan.md`; approve reference assets and voices | 1 | ready | |
+| B-013 | Review spec 001 A1 after two weeks of runs (SC-008): at least one easy-to-use candidate 4 days out of 5, a pungente candidate 3 weekdays out of 5, no harm stories; tune floors and prompts | 1 | ready | [001](specs/001-news-gathering/spec.md) |
