@@ -1,9 +1,10 @@
 ---
-id: 2026-11-27-la-russa-attacca-la-consulta-sul-premier
-title: La Russa attacca la Consulta sul premier
-summary: Il presidente del Senato ha sostenuto che un eventuale intervento della Corte
-  costituzionale sull'indicazione del premier nella nuova legge elettorale sarebbe
-  un aiuto alla sinistra. Il Pd ha replicato definendo le parole inaccettabili.
+id: 2026-11-27-la-russa-contro-la-consulta-sulla-legge-elettorale
+title: La Russa contro la Consulta sulla legge elettorale
+summary: Il presidente del Senato ha affermato che un eventuale intervento della Corte
+  costituzionale che eliminasse l'indicazione del premier sulla scheda sarebbe un
+  aiuto alla sinistra. Il Pd ha definito le parole inaccettabili e ha parlato di minaccia
+  alle istituzioni.
 category: current-affairs
 sources:
 - source_id: adnkronos
@@ -27,26 +28,32 @@ sources:
   url: https://www.ilfattoquotidiano.it/2026/11/27/legge-elettorale-la-russa-consulta-polemiche-notizie/8586156/
   published_at: '2026-11-27T20:08:25+00:00'
 effective_groups: 3
-first_seen: 2026-11-27T22:27+01:00
+first_seen: 2026-11-27T23:10+01:00
 importance: 4
-importance_reason: Tema istituzionale centrale nel dibattito politico sulla legge
-  elettorale.
-comic_potential: 4
-comic_reason: Un'alta carica dello Stato che critica in anticipo la Corte offre spunti
-  ironici sulla politica.
+importance_reason: Riguarda una riforma elettorale importante per il futuro politico
+  italiano e il rapporto tra istituzioni.
+comic_potential: 2
+comic_reason: La frase sull'aiuto alla sinistra ha un tono paradossale che può prestarsi
+  a una battuta sulla politica.
+satirical_potential: 5
+satirical_reason: Il Presidente del Senato che anticipa le decisioni della Corte offre
+  uno spunto pungente su potere e contraddizioni istituzionali.
+clarity: 3
+clarity_reason: Il tema è chiaro, ma servono nozioni sulla legge elettorale e sul
+  ruolo della Consulta.
+tone: pungente
 positive: false
 flags:
 - politics
-- legal
 follow_up_of: null
 status: candidate
 episode: null
 ---
 
 <!-- podcat:generated:start -->
-# La Russa attacca la Consulta sul premier
+# La Russa contro la Consulta sulla legge elettorale
 
-Il presidente del Senato ha sostenuto che un eventuale intervento della Corte costituzionale sull'indicazione del premier nella nuova legge elettorale sarebbe un aiuto alla sinistra. Il Pd ha replicato definendo le parole inaccettabili.
+Il presidente del Senato ha affermato che un eventuale intervento della Corte costituzionale che eliminasse l'indicazione del premier sulla scheda sarebbe un aiuto alla sinistra. Il Pd ha definito le parole inaccettabili e ha parlato di minaccia alle istituzioni.
 
 ## Fonti
 
@@ -55,7 +62,7 @@ Il presidente del Senato ha sostenuto che un eventuale intervento della Corte co
 - [La Stampa](https://www.lastampa.it/politica/2026/11/27/news/legge-elettorale-la-russa-consulta-nome-premier-sinistra-15812047/)
 - [Il Fatto Quotidiano](https://www.ilfattoquotidiano.it/2026/11/27/legge-elettorale-la-russa-consulta-polemiche-notizie/8586156/)
 
-Importanza 4/5: Tema istituzionale centrale nel dibattito politico sulla legge elettorale.
+Importanza 4/5: Riguarda una riforma elettorale importante per il futuro politico italiano e il rapporto tra istituzioni.
 
-Potenziale comico 4/5: Un'alta carica dello Stato che critica in anticipo la Corte offre spunti ironici sulla politica.
+Potenziale comico 2/5: La frase sull'aiuto alla sinistra ha un tono paradossale che può prestarsi a una battuta sulla politica.
 <!-- podcat:generated:end -->
