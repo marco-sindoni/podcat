@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-26
 
-**Status**: Draft
+**Status**: Approved by Marco on 2026-11-27 (answers: Q1 B, Q2 B with silent reactions, Q3 A)
 
 **Input**: User description: "Script writing for Podcat (spec 002): from the story Marco picked (daily) or the weekly picks, write an Italian comedy script for the four cats (Flanella host, sarcastic, opens and has the last word; Fuzz hothead escalating to the absurd; Feedback slow philosopher with the final punchline; Vinile grumpy 90s nostalgic, culture/entertainment expert), as a seasoned comedy writer, then a second "head writer" review pass; daily reel ~30 s (70-90 words), weekly episode ~2 min (280-320 words, Saturday list, Sunday publication), "Giovedì buone notizie" warm tone on Thursdays; split into scenes (who speaks, shot, news image staging mode rotating A/B/C never repeated between consecutive videos); deliver as commentable document Marco approves via comments, revisions until approval; recorded in tracking/ as Markdown. CapCut package (spec 003) out of scope. Low cost first."
 
@@ -225,7 +225,8 @@ staging mode different from the last daily reel's.
   contain 280–320 spoken words (about 2 min) with at least two lines per cat. Stage directions and
   the Thursday sting are not counted.
 - **FR-005**: Each script MUST be split into scenes, each with: number, speaker(s), shot from a
-  fixed list, estimated duration in seconds, and the lines spoken in it. Durations MUST add up to
+  fixed list, estimated duration in seconds, the lines spoken in it, and the reactions (face or
+  gesture) of the listening cats visible in the shot. Durations MUST add up to
   the target length within ±5 s (reel) or ±15 s (weekly).
 - **FR-006**: Each script MUST place the news image exactly once, with its staging mode (A, B or C
   per `bible/prompts/news-image-modes.md`), the scene where it appears and the line that comments
@@ -263,16 +264,18 @@ staging mode different from the last daily reel's.
   write the script in the matching register: joke-driven for `comico` (and Thursday good news);
   satire, pointed remarks and a closing thought with an ironic twist for `pungente`. The tone MUST
   be recorded in the script file and shown in the document; Marco can change it with a comment.
-- **FR-017**: [NEEDS CLARIFICATION: Should the document also offer alternative punchlines? Option
-  A: one final version only (cheapest, simplest); option B: the final version plus 2 alternative
-  endings (Feedback's punchline + Flanella's close) that Marco can pick with a comment such as
-  "finale 2".]
-- **FR-018**: [NEEDS CLARIFICATION: Must every cat speak in every 30-second reel? Option A: yes,
-  all four always (consistent cast, but shorter lines); option B: at least Flanella, Feedback and
-  one of Fuzz or Vinile, chosen by the story (more room for the joke).]
-- **FR-019**: [NEEDS CLARIFICATION: What does the weekly episode cover? Option A: the one story
-  picked from the weekly shortlist, in depth; option B: the picked story plus a quick round-up of 2
-  more stories from the week (about 20 s each).]
+- **FR-017**: The document MUST show the final version plus 2 alternative endings (Feedback's
+  punchline and Flanella's close, each pair written for the same script); Marco picks one with a
+  comment such as "finale 2", and the picked ending replaces the final one in the next version.
+- **FR-018**: All four cats SHOULD speak in every reel. When the story works better with fewer
+  voices, the script MAY give lines only to Flanella, Feedback and one or both of Fuzz and Vinile
+  (Vinile always speaks on culture, entertainment and music stories); every cat without lines MUST
+  still appear: the scenes MUST include at least one reaction shot per silent cat, with a short
+  direction for the face or gesture it makes while another cat speaks (e.g. "Fuzz trattiene a
+  stento la rabbia", "Vinile alza gli occhi al cielo"). The weekly episode always gives lines to
+  all four (FR-004).
+- **FR-019**: The weekly episode MUST cover the single story Marco picked from the Saturday weekly
+  shortlist, in depth, with its own narrative arc (no round-up of other stories in phase 1).
 
 ### Key Entities
 

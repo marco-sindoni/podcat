@@ -4,6 +4,7 @@ Newest first. Rules that follow from a decision are also written into the consti
 
 | Date | Decision | Rationale |
 | --- | --- | --- |
+| 2026-11-27 | Spec 002 (script writing) approved: two passes (writer, head writer); comico or pungente register from the story's tone; final version plus 2 alternative endings; all four cats speak when possible, otherwise silent cats get reaction shots with faces or gestures; weekly episode covers one story in depth | Marco's answers to the spec questions |
 | 2026-11-26 | Only sources with a working RSS feed are used; no manual sources. Blocked or feedless sources replaced (Euronews Italiano, Open, Sportface, Doppiozero, Ciak, Soundsblog, SentireAscoltare, Rockon, NME, Dove Viaggi, The Optimist Daily, YES! Magazine); satire extended with The Hard Times, The Beaverton, The Shovel, Le Gorafi, Reductress. 84 sources, 10 per category (14 current affairs) | Keep it simple: everything read automatically from the cloud (Marco) |
 | 2026-11-26 | Daily work runs in Claude Code cloud sessions (repo cloned from GitHub, results pushed); the daily news run starts automatically at 07:00 Europe/Rome; Marco reviews from the Claude phone app. Constitution v1.3.0 | Works with Marco's computer off; brings B-008 forward to phase 1 |
 | 2026-11-27 | Politics cap per tone (one comic political story plus the pungente one); triage split in chunks by source category with a merge call | First A1 run lost the Salvini fridge story to the cap and found fewer groups with 959 items |
