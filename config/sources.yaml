@@ -79,6 +79,17 @@ sources:
   - {id: ourworldindata, name: Our World in Data, category: good-news, group: owid, role: confirmation-only, home: 'https://ourworldindata.org', feeds: ['https://ourworldindata.org/atom.xml'], last_check: '2026-11-26'}
   - {id: optimistdaily, name: The Optimist Daily, category: good-news, group: optimistdaily, home: 'https://www.optimistdaily.com', feeds: ['https://www.optimistdaily.com/feed/'], last_check: '2026-11-26'}
   - {id: yesmagazine, name: YES! Magazine, category: good-news, group: yesmagazine, home: 'https://www.yesmagazine.org', feeds: ['https://www.yesmagazine.org/feed'], last_check: '2026-11-26'}
+  # Oddities ("curiosità e stranezze"), added 2026-11-27 (spec 001 A1, research R17)
+  - {id: leggo, name: Leggo, category: oddities, group: caltagirone, home: 'https://www.leggo.it', feeds: ['https://www.leggo.it/rss/home.xml'], last_check: '2026-11-27'}
+  - {id: geopop, name: Geopop, category: oddities, group: geopop, home: 'https://www.geopop.it', feeds: ['https://www.geopop.it/feed/'], last_check: '2026-11-27'}
+  - {id: greenme, name: GreenMe, category: oddities, group: greenme, home: 'https://www.greenme.it', feeds: ['https://www.greenme.it/feed/'], last_check: '2026-11-27'}
+  - {id: corriere-animali, name: Corriere della Sera – Animali, category: oddities, group: rcs, home: 'https://www.corriere.it/animali/', feeds: ['https://www.corriere.it/rss/animali.xml'], last_check: '2026-11-27'}
+  - {id: ilpost-animali, name: Il Post – Animali, category: oddities, group: ilpost, role: confirmation-only, home: 'https://www.ilpost.it/tag/animali/', feeds: ['https://www.ilpost.it/tag/animali/feed/'], last_check: '2026-11-27'}
+  - {id: lanazione, name: La Nazione, category: oddities, group: qn, home: 'https://www.lanazione.it', feeds: ['https://www.lanazione.it/rss'], last_check: '2026-11-27'}
+  - {id: upi-odd, name: UPI Odd News, category: oddities, group: upi, home: 'https://www.upi.com/Odd_News/', feeds: ['https://rss.upi.com/news/odd_news.rss'], last_check: '2026-11-27'}
+  - {id: skynews-strange, name: Sky News – Strange, category: oddities, group: sky, home: 'https://news.sky.com/strange-news', feeds: ['https://feeds.skynews.com/feeds/rss/strange.xml'], last_check: '2026-11-27'}
+  - {id: metro-weird, name: Metro – Weird, category: oddities, group: dmg, home: 'https://metro.co.uk/news/weird/', feeds: ['https://www.metro.co.uk/news/weird/feed/'], last_check: '2026-11-27'}
+  - {id: mirror-weird, name: Mirror – Weird News, category: oddities, group: reach, home: 'https://www.mirror.co.uk/news/weird-news/', feeds: ['https://www.mirror.co.uk/news/weird-news/?service=rss'], last_check: '2026-11-27'}
   - {id: lercio, name: Lercio, category: satire, group: lercio, home: 'https://www.lercio.it', feeds: ['https://www.lercio.it/feed/'], last_check: '2026-11-26'}
   - {id: vernacoliere, name: Il Vernacoliere, category: satire, group: vernacoliere, home: 'https://www.vernacoliere.com', feeds: ['https://vernacoliere.com/feed/'], last_check: '2026-11-26'}
   - {id: dailymash, name: The Daily Mash, category: satire, group: dailymash, home: 'https://www.thedailymash.co.uk', feeds: ['https://www.thedailymash.co.uk/feed'], last_check: '2026-11-26'}

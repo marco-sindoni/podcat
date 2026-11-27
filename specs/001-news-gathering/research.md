@@ -140,3 +140,136 @@ Phase 0 of the plan. Each item: decision, rationale, alternatives considered.
   produces only text files, which all live in git.
 - **Alternatives**: GitHub Actions cron (no project chat or document publishing); a home server (new
   infrastructure, against constitution VI).
+
+---
+
+# Amendment A1 (2026-11-27): comedy-first selection
+
+Spec changes: FR-004, FR-005, FR-007, FR-008 amended; FR-019 to FR-023 and SC-008 new. Evidence: a
+one-off trial on the cached 2026-11-27 run (28 verified groups, 0.005 USD) re-rated every group
+with the A1 rules and gave 4 usable candidates against 1–2 in the original list.
+
+## R12. Ordering and floors
+
+- **Decision**: keep ratings in the editorial call and keep ordering deterministic in
+  `shortlist.select`: drop stories with comic < 3, clarity < 3 or importance < 2 (FR-020), then sort
+  by `comic + clarity` desc, `comic` desc, `importance` desc, id. Category cap stays 2; new cap of one
+  `politics`-flagged story (FR-021). The old "fill with the best remaining" step is removed: below 3
+  passing stories the list stays short with a warning (FR-023).
+- **Rationale**: the trial showed the model's comic ratings were already right (the Salvini fridge
+  hack had comic 5) but the importance-first sort pushed them out. Deterministic ordering stays
+  testable without paid calls.
+- **Alternatives**: let the model rank the list directly (not testable, less stable day to day);
+  weighted formula with importance (importance is mostly press coverage, which favours hard news).
+
+## R13. Clarity rating
+
+- **Decision**: new `clarity` 1–5 with `clarity_reason`, rated in the same editorial call. Anchors in
+  the prompt: 5 = anyone gets it in a few seconds with no background; 1 = needs names, acronyms,
+  procedures or earlier events. The editorial prompt becomes "editor-in-chief and author" of a
+  30-second reel for the general Italian public, with two eyes: comic (anchors from the trial, 5 =
+  the story is already funny on its own) and satirical (R19).
+- **Rationale**: one call, a few hundred extra output tokens (trial: ~8k output for 28 stories).
+- **Alternatives**: separate clarity call (double cost, no gain).
+
+## R14. Harm exclusion (FR-005 extension)
+
+- **Decision**: two nets. Triage gets a new excluded value `harm` (illness, injury, physical harm or
+  violence suffered by real people, famous people included). The editorial call returns
+  `sensitive: bool` as a second net on the fuller text; sensitive stories are discarded with reason
+  "tema delicato". Both prompts say explicitly that a career choice such as a retirement is not
+  sensitive even when health is one of its reasons (the trial wrongly flagged Márquez).
+- **Rationale**: triage sees only headlines and snippets and misses some cases (Ornella Muti passed
+  triage on 2026-11-27); the editorial pass catches them. A health *flag* (advice risk) stays
+  separate from the *exclusion* (harm to a person).
+- **Alternatives**: editorial only (triage would waste verification and rating tokens on them).
+
+## R15. One source for light categories (FR-004 exception)
+
+- **Decision**: light categories = `entertainment`, `music`, `lifestyle`, `oddities`. Triage step 2
+  becomes: return groups with two or more outlets, plus single-article groups whose category is a
+  light one. `verify_group` accepts one counted group for light categories when at least one member
+  is a `starting` source (same check as Thursday). After the editorial call, a single-source story
+  flagged `politics`, `legal`, `health` or `finance` is discarded ("una sola fonte per un tema
+  delicato"). The rumour exclusion still applies, so single-source gossip is still dropped.
+- **Rationale**: the trial found zero single-source groups because triage drops them before
+  verification; the exception must start at triage.
+- **Cost**: more groups out of triage (estimate +30–50% triage output, ~+0.005 USD per day) and more
+  stories to rate. Daily run estimate ~0.03 USD, within SC-005 (0.10 USD).
+- **Alternatives**: a separate single-source pass per light category (more calls, more code).
+
+## R16. Rating every verified story (FR-022)
+
+- **Decision**: `MAX_GROUPS` goes from 20 to 60 as a budget guard only; the existing order (most
+  confirmed first) decides what is left out above 60, and the run log records "N notizie non valutate
+  per limite di budget". Single-source light groups are rated too.
+- **Rationale**: 2026-11-27 had 28 verified groups; the Antonelli jet-ski story was one of the 8 never
+  rated. 60 stories ≈ 25k input + 18k output tokens ≈ 0.012 USD.
+
+## R17. Oddities sources (FR-019)
+
+- **Decision**: new source category `oddities` (Italian label "curiosità"). Proposed sources, feeds
+  checked on 2026-11-27 (items in the feed at check time), to be approved by Marco before they enter
+  `docs/news-sources.md` and `config/sources.yaml`:
+
+  | Source | Feed | Items | Group | Role | Note |
+  | --- | --- | --- | --- | --- | --- |
+  | Leggo | `https://www.leggo.it/rss/home.xml` | 20 | caltagirone | starting | popular daily, many offbeat stories (had the Salvini fridge hack) |
+  | GreenMe | `https://www.greenme.it/feed/` | 30 | greenme | starting | everyday curiosities (replaces Focus.it, already a culture source) |
+  | Geopop | `https://www.geopop.it/feed/` | 10 | geopop | starting | explainers and odd facts |
+  | Corriere – Animali | `https://www.corriere.it/rss/animali.xml` | 49 | rcs | starting | animal stories |
+  | Il Post – Animali | `https://www.ilpost.it/tag/animali/feed/` | 10 | ilpost | confirmation-only | same rule as Il Post |
+  | La Nazione | `https://www.lanazione.it/rss` | 100 | qn | starting | local oddities from central Italy |
+  | UPI Odd News | `https://rss.upi.com/news/odd_news.rss` | 25 | upi | starting | wire service, world oddities |
+  | Sky News – Strange | `https://feeds.skynews.com/feeds/rss/strange.xml` | 3 | sky | starting | few but well chosen |
+  | Metro – Weird | `https://www.metro.co.uk/news/weird/feed/` | 20 | dmg | starting | tabloid: clickbait filter applies |
+  | Mirror – Weird News | `https://www.mirror.co.uk/news/weird-news/?service=rss` | 25 | reach | starting | tabloid: clickbait filter applies |
+
+  Rejected at check: ANSA, Il Messaggero, Tgcom24 and Il Fatto curiosity feeds (404 or empty),
+  Today.it, Notizie.it and Virgilio (block automated readers), Oddity Central and The Independent
+  (empty feeds).
+- **Rationale**: Italian first (6 of 10), plus world oddities that the cats can retell. Tabloids are
+  acceptable because one source is enough only for light stories and the clickbait and rumour
+  exclusions still apply.
+
+## R18. Thursday and weekly under A1
+
+- **Decision**: Thursday keeps FR-009 (positive only, 7 days, one source) and adds the clarity floor,
+  the harm exclusion and the politics cap; its order becomes comic + clarity (the old importance +
+  comic order is dropped). The weekly prompt receives clarity next to comic and importance and is
+  asked to order by comic + clarity; stories created before A1 have no clarity and are shown as
+  "n/d", ranked as clarity 3.
+- **Rationale**: one ordering rule everywhere; the weekly pool is already made of A1 candidates
+  after the first week.
+
+## R19. Two tones: comico and pungente (FR-024, A1 revision)
+
+- **Decision**: the editorial call adds `satirical_potential` 1–5 and `satirical_reason`. Anchors:
+  5 = a clear, pointed observation on power, contradiction, hypocrisy or society that stays with the
+  viewer; 1 = nothing to say beyond the fact; never at the expense of victims. `shortlist.select`
+  first fills the pungente slot: best story by `satirical + clarity`, then importance, among those
+  with satirical ≥ 3, clarity ≥ 3, importance ≥ 3, not sensitive. It then fills up to four comic
+  slots with the comic rules (R12), skipping the story already used. A story whose comic potential is higher
+  than its satirical potential stays comic, so the pungente slot never takes the funniest story. The politics cap (one) and the
+  category cap (two) apply to the whole list. Each story file records `tone: comico | pungente`.
+  Thursday skips the pungente slot. The weekly prompt is asked for one pungente story among its
+  picks and receives the tone and satirical rating of each story.
+- **Rationale**: a fixed slot gives about 20% of the offer every day (one in five) with a simple,
+  testable rule; Marco's picks decide the final share. The same call rates both tones, so no extra
+  cost beyond a few output tokens per story.
+- **Alternatives**: a monthly quota that tracks Marco's picks (more state, and it would push stories
+  on days when none is good); letting the model choose the tone (not testable).
+
+## R20. Triage in chunks with a merge call (A1 follow-up, 2026-11-27)
+
+- **Decision**: on weekdays, when more than 350 items are in the window, triage runs on chunks of at
+  most 350 items ordered by source category (current affairs, culture, good news, sport,
+  entertainment, music, lifestyle, oddities), then one small merge call joins groups that tell the
+  same fact across chunks (input: group index, category, up to three titles). Thursday chunks
+  (600 items) use the same merge call. Politics cap: one comic political story plus the pungente
+  one (FR-021 revised).
+- **Rationale**: the first A1 run had 959 items in one call and found 25 groups instead of 38;
+  the FdI chatbot and Antonelli stories were missing. Chunking by category keeps most confirming
+  outlets in the same chunk; the merge call fixes the rest. Extra cost about 0.005–0.01 USD per run.
+- **Known limit**: a fact reported once in a non-light chunk and once in another chunk is lost,
+  because single-item non-light groups are dropped before the merge.

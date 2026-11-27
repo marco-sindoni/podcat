@@ -71,3 +71,20 @@ code 2, a clear message, no new cost row. Restore the cap afterwards.
    link with `podcat news link-doc`. Marco can also ask for it in the project chat at any time.
 2. On Marco's machine, `git pull` brings the same files.
 3. Marco comments the pick; Claude runs `podcat news pick N`. The chosen story feeds spec 002.
+
+## Amendment A1 scenarios (2026-11-27)
+
+- **Scenario 7 – comedy-first order**: with the fixture of rated stories, run the shortlist step
+  offline. Expected: no candidate with comic < 3, clarity < 3 or importance < 2; at most one
+  politics story; order by comic + clarity; the run log lists each discarded story with its reason.
+- **Scenario 7b – pungente slot**: fixture with one story rated satirical 4, clarity 4, importance 4,
+  comic 2, and five comic stories. Expected: one pungente candidate (marked, tone recorded) and four
+  comic ones; on a Thursday fixture, no pungente slot; with no qualifying story, five comic
+  candidates and the note "nessuna notizia pungente adatta".
+- **Scenario 8 – one source for light stories**: fixture with one entertainment item from a single
+  starting source and one current-affairs item from a single source. Expected: the first can be a
+  candidate, the second is discarded ("una sola fonte").
+- **Scenario 9 – harm**: fixture with a celebrity illness and a retirement for health reasons.
+  Expected: the first is discarded ("tema delicato"), the second is kept.
+- **Scenario 10 – first real run**: the first weekday automatic run after A1. Expected: Marco judges at least one candidate
+  "easy to use"; cost stays under 0.10 USD.

@@ -43,7 +43,7 @@ def test_discover_feeds_relative_links():
 
 def test_real_config_loads_and_roundtrips(repo):
     sources = load_sources(repo / "config")
-    assert len(sources) == 84
-    assert {s.category for s in sources} >= {"current-affairs", "good-news", "satire"}
+    assert len(sources) == 94
+    assert {s.category for s in sources} >= {"current-affairs", "good-news", "oddities", "satire"}
     save_sources(repo / "config", sources)
     assert [s.model_dump() for s in load_sources(repo / "config")] == [s.model_dump() for s in sources]

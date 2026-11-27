@@ -43,3 +43,11 @@
 - Verified 2026-11-26 on Marco's machine: FR-009 changed after the first real Thursday run (7-day
   window, one reliable source, no good endings of violence, importance + comic ranking). B-010 done;
   B-008 is closed after the first automatic cloud run.
+- Amendment A1 (2026-11-27, selection strategy) validated against this checklist: all items pass.
+  No [NEEDS CLARIFICATION] markers; open choices (weekly and Thursday ordering, oddities sources) are
+  recorded as assumptions for Marco's review. FR-020/FR-021/FR-023 are testable on fixed ratings;
+  SC-008 is checked by Marco over two weeks.
+- Implementation coverage A1 (2026-11-27): FR-004 exception verify.py + triage.py; FR-005 harm in triage.py and
+  `sensitive` in editorial.py/shortlist.choose; FR-007 clarity and satirical ratings in editorial.py and story files;
+  FR-008/FR-020/FR-021/FR-023/FR-024 shortlist.choose; FR-019 oddities sources; FR-022 editorial batches, cap 60.
+  SC-008 reviewed after two weeks (BACKLOG B-013).

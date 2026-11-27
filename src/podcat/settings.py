@@ -49,7 +49,7 @@ def load_settings(repo_root: Path | None = None) -> Settings:
     return Settings(
         repo_root=root,
         assets_dir=Path(assets).expanduser(),
-        anthropic_api_key=os.environ.get("ANTHROPIC_API_KEY") or None,
+        anthropic_api_key=os.environ.get("PODCAT_ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_API_KEY") or None,
     )
 
 

@@ -96,3 +96,20 @@ the same entries as a table, regenerated on each write. Entry fields: `date`, `f
   `clickbait`, `rumour`, `sponsored`, `social-only`), `excluded_reason`, `positive`.
 - **Editorial**: per verified group: `title`, `summary`, `importance`, `importance_reason`,
   `comic_potential`, `comic_reason`, `flags`, `follow_up_of`, `already_used` (bool).
+
+## Amendment A1 (2026-11-27)
+
+- **Source** `category`: new value `oddities` (Italian label "curiosità"); light categories for
+  the one-source rule are `entertainment`, `music`, `lifestyle`, `oddities`.
+- **Story**: new fields `clarity` (int 1–5), `clarity_reason` (Italian), `satirical_potential`
+  (int 1–5), `satirical_reason` (Italian) and `tone` (`comico` | `pungente`, set when the story
+  becomes a candidate; read by spec 002 to choose the register). Stories created before
+  A1 have neither; readers treat a missing clarity as 3 and show "n/d".
+- **Shortlist** body: the table gets a "Comprensibilità" column between "Potenziale comico" and
+  "Fonti", and a "Tono" column; details show "Comprensibilità N/5" and "Potenziale satirico N/5"
+  with reasons. The pungente candidate is listed last, marked "pungente". Order follows R12 and R19.
+- **Run log**: new discard reasons "comicità sotto 3", "poco comprensibile", "poco rilevante",
+  "tema delicato", "già una notizia politica", "nessuna notizia pungente adatta" (as a note), "una sola fonte per un tema delicato", and the line
+  "N notizie non valutate per limite di budget" when the R16 cap is hit.
+- **Model outputs**: Triage `category` accepts `oddities`; `excluded` accepts `harm`. Editorial adds
+  `clarity`, `clarity_reason`, `satirical_potential`, `satirical_reason`, `sensitive` (bool).

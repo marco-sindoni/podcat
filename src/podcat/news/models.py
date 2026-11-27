@@ -8,11 +8,18 @@ from typing import Literal, Optional
 from pydantic import BaseModel, Field
 
 Category = Literal[
-    "current-affairs", "sport", "culture", "entertainment", "music", "lifestyle", "good-news", "satire"
+    "current-affairs", "sport", "culture", "entertainment", "music", "lifestyle", "oddities", "good-news", "satire"
 ]
-StoryCategory = Literal["current-affairs", "sport", "culture", "entertainment", "music", "lifestyle", "good-news"]
+StoryCategory = Literal[
+    "current-affairs", "sport", "culture", "entertainment", "music", "lifestyle", "oddities", "good-news"
+]
+# Light categories: one approved starting source is enough (spec 001 A1, FR-004).
+LIGHT_CATEGORIES = frozenset({"entertainment", "music", "lifestyle", "oddities"})
+# Flags that keep the two-groups rule even in light categories.
+SENSITIVE_FLAGS = frozenset({"politics", "legal", "health", "finance"})
+Tone = Literal["comico", "pungente"]
 Role = Literal["starting", "confirmation-only", "inspiration-only"]
-Excluded = Literal["crime", "tragedy", "clickbait", "rumour", "sponsored", "social-only"]
+Excluded = Literal["crime", "tragedy", "harm", "clickbait", "rumour", "sponsored", "social-only"]
 Flag = Literal["politics", "health", "legal", "finance"]
 StoryStatus = Literal["candidate", "chosen", "rejected", "used", "follow-up"]
 
@@ -23,6 +30,7 @@ CATEGORY_IT = {
     "entertainment": "spettacolo",
     "music": "musica",
     "lifestyle": "lifestyle",
+    "oddities": "curiosità",
     "good-news": "buone notizie",
     "satire": "satira",
 }
@@ -77,6 +85,11 @@ class EditorialStory(BaseModel):
     importance_reason: str
     comic_potential: int = Field(ge=1, le=5)
     comic_reason: str
+    clarity: int = Field(default=3, ge=1, le=5)
+    clarity_reason: str = ""
+    satirical_potential: int = Field(default=1, ge=1, le=5)
+    satirical_reason: str = ""
+    sensitive: bool = False
     flags: list[Flag] = Field(default_factory=list)
     follow_up_of: Optional[str] = None
     already_covered: bool = False

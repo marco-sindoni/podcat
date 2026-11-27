@@ -22,7 +22,7 @@ def test_thursday_positive_stories_from_the_week_one_source_is_enough(repo):
     assert [s["title"] for s in stories] == ["Volontari riaprono una biblioteca", "Una scuola pianta un bosco"]
     assert all(s["positive"] for s in stories)
     assert [src["outlet"] for src in stories[1]["sources"]] == ["Italia che Cambia"]
-    assert meta["warning"] == "solo 2 buone notizie trovate negli ultimi 7 giorni."
+    assert meta["warning"] == "solo 2 buone notizie adatte negli ultimi 7 giorni."
     body = store.shortlist_path(THURSDAY, "daily").read_text()
     assert "# Giovedì buone notizie – giovedì 26 novembre 2026" in body
 
@@ -80,15 +80,22 @@ def test_thursday_triage_runs_in_chunks(repo, monkeypatch):
                                             for s in meta["candidates"]]
 
 
-def test_thursday_ranking_weighs_comic_potential():
-    from podcat.news.shortlist import select
+def test_thursday_ranking_comic_plus_clarity_and_floors():
+    """A1: Thursday orders by comic potential plus clarity, applies the floors, has no pungente slot."""
+    from podcat.news.shortlist import choose
 
-    def s(id, importance, comic):
-        return {"id": id, "importance": importance, "comic_potential": comic, "category": "good-news"}
+    def s(id, importance, comic, clarity, satire=1):
+        return {"id": id, "title": id, "importance": importance, "comic_potential": comic,
+                "clarity": clarity, "satirical_potential": satire, "category": "good-news"}
 
-    stories = [s("a-health", 4, 1), s("b-thief", 3, 5), s("c-painting", 3, 3)]
-    assert [x["id"] for x in select(stories)] == ["a-health", "b-thief", "c-painting"]
-    assert [x["id"] for x in select(stories, thursday=True)] == ["b-thief", "c-painting", "a-health"]
+    stories = [s("a-health", 4, 1, 5), s("b-thief", 3, 5, 4), s("c-painting", 3, 3, 5),
+               s("d-unclear", 4, 4, 2), s("e-sharp", 4, 2, 4, satire=5)]
+    result = choose(stories, thursday=True)
+    assert [x["id"] for x in result.chosen] == ["b-thief", "c-painting"]
+    assert all(x["tone"] == "comico" for x in result.chosen)
+    assert not result.no_pungente
+    reasons = {d["title"]: d["reason"] for d in result.discarded}
+    assert reasons == {"a-health": "comicità sotto 3", "d-unclear": "poco comprensibile", "e-sharp": "comicità sotto 3"}
 
 
 def test_thursday_triage_excludes_good_endings_of_violence():

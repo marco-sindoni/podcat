@@ -141,6 +141,8 @@ class NewsStore:
         lines = [heading, ""]
         if meta.get("warning"):
             lines += [f"> Attenzione: {meta['warning']}", ""]
+        if meta.get("note"):
+            lines += [f"> Nota: {meta['note']}", ""]
         lines += self._story_table(meta.get("candidates", []), meta.get("picked"), weekly=meta["kind"] == "weekly")
         if meta.get("backups"):
             lines += ["", "## Riserve dei giorni precedenti", ""]
@@ -153,6 +155,12 @@ class NewsStore:
             lines += [f"### {n}. {s['title']}", "", s["summary"], ""]
             lines.append(f"- Importanza {s['importance']}/5: {s['importance_reason']}")
             lines.append(f"- Potenziale comico {s['comic_potential']}/5: {s['comic_reason']}")
+            if s.get("satirical_potential") is not None:
+                lines.append(f"- Potenziale satirico {s['satirical_potential']}/5: {s.get('satirical_reason', '')}")
+            if s.get("clarity") is not None:
+                lines.append(f"- Comprensibilità {s['clarity']}/5: {s.get('clarity_reason', '')}")
+            if s.get("tone") == "pungente":
+                lines.append("- Tono: pungente (satira, osservazioni pungenti, riflessione)")
             if s.get("flags"):
                 lines.append("- Attenzione: " + ", ".join(s["flags"]))
             if s.get("follow_up_of"):
@@ -162,7 +170,7 @@ class NewsStore:
         return "\n".join(lines).rstrip()
 
     def _story_table(self, ids: list[str], picked: str | None, weekly: bool) -> list[str]:
-        head = "| # | Notizia | Categoria | Importanza | Potenziale comico | Fonti |"
+        head = "| # | Notizia | Tono | Categoria | Comicità | Satira | Comprensibilità | Importanza | Fonti |"
         if weekly:
             head += " Reel |"
         lines = [head, "|" + " --- |" * (head.count("|") - 1)]
@@ -171,8 +179,9 @@ class NewsStore:
             mark = " ✅" if sid == picked else ""
             outlets = ", ".join(dict.fromkeys(x["outlet"] for x in s["sources"]))
             row = (
-                f"| {n} | {s['title']}{mark} | {CATEGORY_IT.get(s['category'], s['category'])} | "
-                f"{s['importance']} | {s['comic_potential']} | {outlets} |"
+                f"| {n} | {s['title']}{mark} | {s.get('tone') or 'n/d'} | "
+                f"{CATEGORY_IT.get(s['category'], s['category'])} | {s['comic_potential']} | "
+                f"{_score(s.get('satirical_potential'))} | {_score(s.get('clarity'))} | {s['importance']} | {outlets} |"
             )
             if weekly:
                 row += " " + ("già usata" if s.get("status") == "used" else "nuova") + " |"
@@ -194,6 +203,10 @@ class NewsStore:
         meta = dict(meta, discarded=len(discarded))
         frontmatter.write(path, frontmatter.Document(meta=meta, body="\n".join(lines) + "\n"))
         return path
+
+
+def _score(value: Any) -> str:
+    return "n/d" if value is None else str(value)
 
 
 def _as_date(value: Any) -> date | None:

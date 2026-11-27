@@ -13,9 +13,9 @@ from podcat.llm.base import TextModel, Usage
 from podcat.news import editorial as editorial_step
 from podcat.news import triage as triage_step
 from podcat.news.fetch import FetchReport, fetch_all, in_window, load_agencies
-from podcat.news.models import EditorialResult, FeedItem, TriageResult
+from podcat.news.models import LIGHT_CATEGORIES, SENSITIVE_FLAGS, EditorialResult, FeedItem, TriageResult
 from podcat.news.prefilter import normalize_url, prefilter
-from podcat.news.shortlist import ShortlistError, select, warning_for
+from podcat.news.shortlist import ShortlistError, choose, warning_for
 from podcat.news.sources import load_sources
 from podcat.news.store import NewsStore
 from podcat.news.verify import effective_group, verify_all
@@ -106,7 +106,9 @@ def gather(
     for v in verdicts:
         if not v.verified:
             discarded.append({"title": v.items[0].title if v.items else "?", "reason": v.reason or ""})
-    verified = editorial_step.rank_for_editorial([v for v in verdicts if v.verified])
+    verified, left_out = editorial_step.rank_for_editorial([v for v in verdicts if v.verified])
+    if left_out:
+        discarded.append({"title": f"{left_out} notizie non valutate", "reason": "limite di budget"})
 
     # 5. editorial (cached)
     editorial_cached = store.cache_read(day, kind, "editorial")
@@ -124,6 +126,14 @@ def gather(
         if s.already_covered and not s.follow_up_of:
             discarded.append({"title": s.title, "reason": "notizia già trattata"})
             continue
+        if (
+            not thursday
+            and len(v.effective_groups) < 2
+            and v.group.category in LIGHT_CATEGORIES
+            and SENSITIVE_FLAGS.intersection(s.flags)
+        ):  # the one-source exception covers light stories only (FR-004, research R15)
+            discarded.append({"title": s.title, "reason": "una sola fonte per un tema delicato"})
+            continue
         proposals.append((s, v))
     drafts = [
         {
@@ -131,12 +141,18 @@ def gather(
             "category": v.group.category,
             "importance": s.importance,
             "comic_potential": s.comic_potential,
+            "clarity": s.clarity,
+            "satirical_potential": s.satirical_potential,
+            "sensitive": s.sensitive,
+            "flags": list(s.flags),
             "id": f"{i:03d}",
             "_pair": (s, v),
         }
         for i, (s, v) in enumerate(proposals)
     ]
-    chosen = select(drafts, thursday=thursday)
+    selection = choose(drafts, thursday=thursday)
+    discarded += selection.discarded
+    chosen = selection.chosen
     candidate_ids = []
     first_seen = now.astimezone(ROME).isoformat(timespec="minutes")
     for d in chosen:
@@ -164,6 +180,11 @@ def gather(
                 "importance_reason": s.importance_reason,
                 "comic_potential": s.comic_potential,
                 "comic_reason": s.comic_reason,
+                "satirical_potential": s.satirical_potential,
+                "satirical_reason": s.satirical_reason,
+                "clarity": s.clarity,
+                "clarity_reason": s.clarity_reason,
+                "tone": d["tone"],
                 "positive": v.group.positive,
                 "flags": list(s.flags),
                 "follow_up_of": s.follow_up_of,
@@ -205,6 +226,7 @@ def gather(
         "backups": backups,
         "picked": None,
         "warning": warning,
+        "note": "nessuna notizia pungente adatta oggi: la lista è tutta comica." if selection.no_pungente else None,
         "doc_url": None,
         "run_log": str(run_log.relative_to(settings.repo_root)),
         "cost_usd": cost,

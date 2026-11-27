@@ -17,3 +17,8 @@ Output is short Italian text for Marco; logs and file contents stay in English f
 | `podcat costs show [--month M]` | Print month total, cap and remaining | no | yes |
 
 `gather` and `weekly` print the shortlist path at the end, so the project chat can publish it.
+
+## Amendment A1 (2026-11-27)
+
+No new commands or exit codes. `podcat news show` adds the "Comprensibilità" column and line (data
+model A1). `podcat news gather` may print a shortlist with 1–2 candidates and a warning (FR-023).

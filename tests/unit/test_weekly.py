@@ -79,3 +79,14 @@ def test_weekly_without_stories_costs_nothing(repo):
     model = model_picking([])
     meta = weekly(settings, SATURDAY, lambda l, d: model).meta
     assert meta["candidates"] == [] and model.calls == [] and "nessuna" in meta["warning"]
+
+
+def test_weekly_prompt_has_tone_and_ratings_and_na_for_old_stories(repo):
+    settings, store = setup(repo)
+    s = store.read_story("b")
+    store.write_story(dict(s, tone="pungente", satirical_potential=4, clarity=5))
+    model = model_picking(["b", "c", "a"])
+    weekly(settings, SATURDAY, lambda l, d: model)
+    user = model.calls[0][1]
+    assert "tono pungente" in user and "satira 4" in user and "comprensibilità 5" in user
+    assert "satira n/d" in user and "comprensibilità n/d" in user  # stories created before A1

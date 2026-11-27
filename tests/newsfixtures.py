@@ -26,14 +26,17 @@ STORIES = {
     "caravaggio": ("I", "culture", None, False),
     "bosco": ("J", "good-news", None, True),
 }
+# key -> (title, importance, comic, clarity, satirical, sensitive)
 EDITORIAL = {
-    "A": ("Sciopero dei treni di 24 ore", 5, 4),
-    "B": ("Il vinile supera il cd", 3, 4),
-    "F": ("Sinner vince le Finals", 4, 3),
-    "H": ("Volontari riaprono una biblioteca", 3, 3),
-    "I": ("Caravaggio in mostra a Roma", 3, 2),
-    "J": ("Una scuola pianta un bosco", 2, 3),
+    "A": ("Sciopero dei treni di 24 ore", 5, 2, 4, 4, False),  # the pungente candidate
+    "B": ("Il vinile supera il cd", 3, 4, 5, 1, False),  # music: one ANSA wire is enough (A1)
+    "F": ("Sinner vince le Finals", 4, 3, 5, 1, False),
+    "H": ("Volontari riaprono una biblioteca", 3, 3, 4, 1, False),
+    "I": ("Caravaggio in mostra a Roma", 3, 3, 4, 1, True),  # flagged sensitive by the fake model
+    "J": ("Una scuola pianta un bosco", 2, 3, 4, 1, False),
 }
+
+FLAGS: dict[str, list[str]] = {}  # key -> flags returned by the fake editorial (tests may patch it)
 
 
 def mock_client(config_dir: Path) -> httpx.AsyncClient:
@@ -76,12 +79,14 @@ def editorial_answer(user: str) -> dict:
         block = match.group(0).lower()
         for keyword, (key, *_rest) in STORIES.items():
             if keyword in block and key in EDITORIAL:
-                title, importance, comic = EDITORIAL[key]
+                title, importance, comic, clarity, satire, sensitive = EDITORIAL[key]
                 stories.append({
                     "group_index": int(match.group(1)), "title": title,
                     "summary": f"{title}: riassunto neutro di prova.", "importance": importance,
                     "importance_reason": "molto ripresa", "comic_potential": comic,
-                    "comic_reason": "si presta a battute", "flags": [], "follow_up_of": None,
+                    "comic_reason": "si presta a battute", "clarity": clarity,
+                    "clarity_reason": "si capisce subito", "satirical_potential": satire,
+                    "satirical_reason": "spunto pungente", "sensitive": sensitive, "flags": FLAGS.get(key, []), "follow_up_of": None,
                     "already_covered": False,
                 })
                 break
@@ -89,4 +94,4 @@ def editorial_answer(user: str) -> dict:
 
 
 def fake_model() -> FakeModel:
-    return FakeModel({"TriageResult": triage_answer, "EditorialResult": editorial_answer})
+    return FakeModel({"TriageResult": triage_answer, "EditorialResult": editorial_answer, "MergeResult": {"merges": []}})

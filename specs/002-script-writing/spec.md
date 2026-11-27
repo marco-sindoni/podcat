@@ -134,7 +134,36 @@ in the story.
 
 ---
 
-### User Story 5 - Weekly episode script (Priority: P3)
+### User Story 5 - Comic or pungente register (Priority: P1)
+
+Since spec 001 amendment A1 every story carries a tone: `comico` (about four stories in five, plus
+good news on Thursdays) or `pungente` (about one in five: a sharper or more serious story). A
+comico story gets a joke-driven script. A pungente story gets satire, a pointed remark and a
+moment that makes people think: fewer gags, the laugh comes from the irony of the facts, and the
+close leaves a thought rather than a gag. The four cats and the fixed structure stay the same.
+
+**Why this priority**: Every pick from now on has a tone, and a pungente story written as a string
+of gags (or a comic one written as a sermon) would be the wrong episode.
+
+**Independent Test**: Write one script for a `comico` story and one for a `pungente` story; check
+that each records its tone, that the pungente one has Feedback's line as a reflection that still
+lands with irony and Flanella's close as a pointed remark, and that the head writer notes confirm
+the register.
+
+**Acceptance Scenarios**:
+
+1. **Given** the picked story has tone `pungente`, **When** the script is written, **Then** the
+   satire targets facts and the powerful, Fuzz's escalation is aimed at the absurdity of the facts
+   (never at victims), Feedback's final line is a reflection with an ironic twist, and Flanella
+   closes with a pointed remark.
+2. **Given** the picked story has tone `comico`, **When** the script is written, **Then** it is
+   joke-driven, with an absurd escalation and a surprising punchline.
+3. **Given** Marco comments "più leggera" or "più pungente", **When** the revision runs, **Then**
+   the register changes accordingly and the script records the new tone.
+
+---
+
+### User Story 6 - Weekly episode script (Priority: P3)
 
 On Saturday, after Marco picks from the weekly shortlist, he receives a script for the Sunday
 episode of about 2 minutes (280–320 words) in which all four cats have room: a cold open, the story
@@ -183,7 +212,7 @@ staging mode different from the last daily reel's.
 
 - **FR-001**: The system MUST write a script only for a story whose status is `chosen` in a daily
   or weekly shortlist, and MUST read the story record (title, summary, category, sources,
-  sensitivity flags, Thursday flag) as its only news input.
+  sensitivity flags, tone, Thursday flag) as its only news input.
 - **FR-002**: The system MUST write each script in Italian, in two passes: a comedy writer draft,
   then a head writer pass that rewrites weak lines, enforces length and character rules, and
   produces short notes (in Italian) on what it changed and why.
@@ -230,6 +259,10 @@ staging mode different from the last daily reel's.
   and refuse to start a paid step once the 50 USD monthly cap would be exceeded.
 - **FR-016**: When Marco picks a story from the phone (as in spec 001), the daily script MUST be
   written and its document delivered without Marco's computer, in the same cloud flow.
+- **FR-020**: The system MUST read the story's tone (`comico` or `pungente`, from spec 001 A1) and
+  write the script in the matching register: joke-driven for `comico` (and Thursday good news);
+  satire, pointed remarks and a closing thought with an ironic twist for `pungente`. The tone MUST
+  be recorded in the script file and shown in the document; Marco can change it with a comment.
 - **FR-017**: [NEEDS CLARIFICATION: Should the document also offer alternative punchlines? Option
   A: one final version only (cheapest, simplest); option B: the final version plus 2 alternative
   endings (Feedback's punchline + Flanella's close) that Marco can pick with a comment such as
@@ -244,7 +277,7 @@ staging mode different from the last daily reel's.
 ### Key Entities
 
 - **Script**: one script for one story and output type (daily or weekly). Story id, kind, date,
-  Thursday flag, status (`draft`, `review`, `approved`, `discarded`), current version, versions,
+  Thursday flag, tone (`comico` or `pungente`), status (`draft`, `review`, `approved`, `discarded`), current version, versions,
   staging mode of the news image, word count, estimated duration, document link, approval date and
   version, cost.
 - **Script version**: the full text of one version: lines (speaker, text), scenes (number,
@@ -289,4 +322,6 @@ staging mode different from the last daily reel's.
   it and estimates the cost.
 - The script document does not include visual prompts, the Fotor prompt for the news image, or
   the YouTube title and description: those belong to the CapCut package (spec 003).
+- The first real input is the story picked on 2026-11-27, "Hacker fanno impazzire i frigoriferi in
+  Slovenia" (tone `comico`); it is the first end-to-end test of this feature.
 - File names, field names and logs are in English; all script content and notes are in Italian.

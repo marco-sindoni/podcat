@@ -17,14 +17,20 @@ from podcat.tracking.costs import Ledger, load_prices
 
 MAX_TOKENS = 6_000
 
-SYSTEM = """Sei il caporedattore di "Podcat – Chiacchiere tra quattro gatti". La domenica esce una puntata di
-circa due minuti che riprende le notizie migliori della settimana. Ricevi le notizie verificate dei giorni
-scorsi, con importanza e potenziale comico già valutati e l'indicazione se sono già state usate in un reel.
+SYSTEM = """Sei caporedattore e autore di "Podcat – Chiacchiere tra quattro gatti". La domenica esce una puntata
+di circa due minuti che riprende le notizie migliori della settimana. Ricevi le notizie verificate dei giorni
+scorsi, con i voti già dati (comicità, satira, comprensibilità, importanza), il tono (comico o pungente) e
+l'indicazione se sono già state usate in un reel.
 
-Scegli da 3 a 5 notizie per la puntata, in ordine di importanza per la settimana. Puoi riprendere notizie
-già usate in un reel se meritano un approfondimento, ma preferisci un buon equilibrio tra notizie nuove e
-riprese e tra categorie diverse. Per ognuna dai weekly_importance da 1 a 5 e un motivo breve in italiano.
-Usa solo gli story_id ricevuti."""
+Scegli da 3 a 5 notizie per la puntata. Preferisci le notizie con comicità e comprensibilità alte; includi
+una notizia dal tono pungente (satira, osservazione pungente, riflessione) se la settimana ne ha una.
+Puoi riprendere notizie già usate in un reel se meritano un approfondimento, ma cerca un buon equilibrio
+tra notizie nuove e riprese e tra categorie diverse. Per ognuna dai weekly_importance da 1 a 5 (quanto vale
+per la puntata, in quest'ordine di preferenza) e un motivo breve in italiano. Usa solo gli story_id ricevuti."""
+
+
+def _score(value) -> str:
+    return "n/d" if value is None else str(value)  # stories created before spec 001 A1
 
 
 def week_start(day: date) -> date:
@@ -37,8 +43,9 @@ def render(stories: list[dict]) -> str:
     for s in stories:
         used = "già usata in un reel" if s.get("status") == "used" else "nuova"
         lines.append(
-            f"- {s['id']} | {s['category']} | importanza {s['importance']} | comicità {s['comic_potential']} | "
-            f"{used}\n  {s['title']}: {s['summary']}"
+            f"- {s['id']} | {s['category']} | tono {s.get('tone') or 'comico'} | importanza {s['importance']} | "
+            f"comicità {s['comic_potential']} | satira {_score(s.get('satirical_potential'))} | "
+            f"comprensibilità {_score(s.get('clarity'))} | {used}\n  {s['title']}: {s['summary']}"
         )
     return "\n".join(lines)
 

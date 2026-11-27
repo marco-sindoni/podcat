@@ -159,3 +159,53 @@ own.
 2. Then US2 and the 07:00 automatic run, so the daily routine is complete.
 3. Then Thursday (US3) and the weekly list (US4) before the first Thursday and Saturday in production.
 4. After each phase: tests green, commit and push, short report to Marco.
+
+---
+
+## Amendment A1: comedy-first selection (spec A1, research R12–R18)
+
+**Goal**: candidates that are funny and easy to grasp, plus one pungente story a day for satire and reflection, no harm stories, at most one politics story,
+one source enough for light categories, every verified story rated.
+
+**Independent test**: quickstart scenarios 7, 7b, 8 and 9 pass offline; scenario 10 on the first real run.
+
+### Phase A1.1: Sources and rules (needs Marco's OK on the R17 source list)
+
+- [X] T046 Add the `oddities` category and the 10 approved sources of research R17 (Focus.it replaced by GreenMe: Focus is already a culture source) to `docs/news-sources.md`, plus verification rule 6 (one starting source for light categories, two for anything political, legal, health or financial)
+- [X] T047 Add the same sources to `config/sources.yaml` and run `uv run podcat sources check --write` to confirm the feeds
+- [X] T048 [P] Amend the news-sources row of `.specify/memory/constitution.md` with the light-category exception (version 1.4.0) and add the decision to `docs/decisions.md`
+
+### Phase A1.2: Models (blocking)
+
+- [X] T049 In `src/podcat/news/models.py`: add `oddities` to the source and story category enums with Italian label "curiosità" (data-model.md Source.category, Amendment A1); add `harm` to the triage excluded enum (data-model.md Model outputs, Triage.excluded); add `clarity`, `clarity_reason`, `satirical_potential`, `satirical_reason`, `sensitive` to `EditorialStory` (data-model.md Model outputs, Editorial; Story.clarity, Story.satirical_potential 1–5, Story.tone)
+
+### Phase A1.3: Tests first (offline, recorded outputs)
+
+- [X] T050 [P] [US1] Unit tests for the light-category rule in `tests/unit/test_verify.py`: single starting source accepted for entertainment/music/lifestyle/oddities, rejected for current-affairs/sport/culture, satire never counts (quickstart scenario 8)
+- [X] T051 [P] [US1] New `tests/unit/test_shortlist_select.py`: floors (comic, clarity, importance), order comic + clarity then comic then importance, category cap 2, politics cap 1, no padding below 3 with warning, one pungente slot with its floors and Thursday without it (FR-020, FR-021, FR-023, FR-024; quickstart scenarios 7 and 7b)
+- [X] T052 [P] [US1] Update `tests/integration/test_gather.py` recorded editorial output with clarity and sensitive; assert sensitive stories and single-source sensitive-flag stories are discarded with their reasons in the run log (quickstart scenario 9)
+- [X] T053 [P] [US3] Update `tests/unit/test_thursday.py` for the new Thursday order (comic + clarity) and the clarity floor
+- [X] T054 [P] [US4] Update `tests/unit/test_weekly.py`: clarity, tone and satirical rating passed to the prompt, pre-A1 stories shown as "n/d"
+
+### Phase A1.4: Implementation
+
+- [X] T055 [US1] Rewrite the triage prompt in `src/podcat/news/triage.py`: keep single-article groups in light categories, add the `oddities` category and the `harm` exclusion with the retirement example (R14, R15)
+- [X] T056 [US1] Light-category rule in `verify_group`, `src/podcat/news/verify.py` (R15)
+- [X] T057 [US1] Rewrite the editorial prompt in `src/podcat/news/editorial.py` as editor-in-chief and author with comic, satirical and clarity anchors and the `sensitive` net; raise `MAX_GROUPS` to 60 and return the number left out (R13, R14, R16, R19)
+- [X] T058 [US1] In `src/podcat/news/shortlist.py`: floors, new `rank_key` (also Thursday), pungente slot filled first (skipped on Thursday), politics cap, remove the padding step, warning for 1–2 candidates; add the "Comprensibilità" and "Tono" columns and detail lines to the shortlist body (data-model.md Shortlist, Amendment A1) (R12, R18, R19)
+- [X] T059 [US1] In `src/podcat/news/pipeline.py`: discard sensitive and single-source sensitive-flag stories, write `clarity`, `clarity_reason`, `satirical_potential`, `satirical_reason` and `tone` to story files (data-model.md Story.clarity, Story.clarity_reason, Story.satirical_potential, Story.satirical_reason, Story.tone), record the new discard reasons and the budget-cap line in the run log (data-model.md Run log, Amendment A1)
+- [X] T060 [US4] In `src/podcat/news/weekly.py`: pass clarity, tone and satirical rating to the prompt (missing = "n/d", ranked as 3), ask for comic + clarity order and one pungente story when the week has one (R18, R19)
+
+### Phase A1.5: Check and close
+
+- [X] T061 Run `uv run pytest` (all green) and quickstart scenarios 7, 7b, 8 and 9; update `README.md` if the shortlist format changed
+- [X] T062 Update `specs/001-news-gathering/checklists/requirements.md` coverage notes for FR-019–FR-023 and add a BACKLOG.md item to review SC-008 after two weeks
+- [ ] T063 Verify on the first real weekday run (quickstart scenario 10): cost under 0.10 USD, Marco's judgement recorded in the run notes
+
+### A1 dependencies and parallel work
+
+- T046–T047 wait for Marco's OK on the R17 list; T048 can run in parallel. Everything else can start
+  without the new sources (oddities simply has no items until T047).
+- T049 blocks T050–T060. Tests T050–T054 together, then T055–T060 (T055/T056 and T057/T058 in
+  parallel pairs; T059 after T057 and T058; T060 independent).
+- T061–T063 last. Deploy is a push to main: the next 06:33 run uses the new rules.
