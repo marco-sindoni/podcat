@@ -43,3 +43,7 @@
 - Verified 2026-11-26 on Marco's machine: FR-009 changed after the first real Thursday run (7-day
   window, one reliable source, no good endings of violence, importance + comic ranking). B-010 done;
   B-008 is closed after the first automatic cloud run.
+- Amendment A1 (2026-11-27, selection strategy) validated against this checklist: all items pass.
+  No [NEEDS CLARIFICATION] markers; open choices (weekly and Thursday ordering, oddities sources) are
+  recorded as assumptions for Marco's review. FR-020/FR-021/FR-023 are testable on fixed ratings;
+  SC-008 is checked by Marco over two weeks.
