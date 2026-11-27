@@ -248,10 +248,12 @@ def script_model_factory(settings: Settings):
 
     pricing = yaml.safe_load((settings.config_dir / "pricing.yaml").read_text(encoding="utf-8"))
     models = pricing["script_models"]
+    efforts = pricing.get("script_effort", {})
 
     def factory(ledger: Ledger, day: date, step: str):
-        model_id = models[SCRIPT_STEP_KEY[step]]
-        return AnthropicModel(model_id, ledger, day, "script", api_key=settings.anthropic_api_key).for_step(step)
+        key = SCRIPT_STEP_KEY[step]
+        return AnthropicModel(models[key], ledger, day, "script", api_key=settings.anthropic_api_key,
+                              effort=efforts.get(key)).for_step(step)
 
     return factory
 

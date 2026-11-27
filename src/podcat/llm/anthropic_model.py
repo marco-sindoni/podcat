@@ -19,6 +19,7 @@ class AnthropicModel:
         feature: str,
         api_key: str | None = None,
         client: anthropic.Anthropic | None = None,
+        effort: str | None = None,
     ):
         self.name = model
         self.ledger = ledger
@@ -27,6 +28,8 @@ class AnthropicModel:
         self.step = "call"
         self._client = client
         self._api_key = api_key
+        # effort: None (model default), "off" (no thinking), or low | medium | high | xhigh | max
+        self.effort = effort
 
     @property
     def client(self) -> anthropic.Anthropic:
@@ -39,6 +42,15 @@ class AnthropicModel:
         self.step = step
         return self
 
+    def _thinking_args(self) -> dict:
+        if not self.effort:
+            return {}
+        if self.effort == "off":
+            # Sonnet 5.5 rejects "disabled" and turns thinking off with "between_tools" (effort <= high).
+            mode = "between_tools" if "sonnet-5-5" in self.name else "disabled"
+            return {"thinking": {"type": mode}, "output_config": {"effort": "medium"}}
+        return {"output_config": {"effort": self.effort}}
+
     def parse(self, system: str, user: str, schema: type[T], max_tokens: int) -> tuple[T, Usage]:
         # Refuse before paying if the worst case would exceed the monthly cap.
         self.ledger.check(self.day, self.ledger.worst_case(self.name, system + user, max_tokens))
@@ -48,6 +60,7 @@ class AnthropicModel:
             system=system,
             messages=[{"role": "user", "content": user}],
             output_format=schema,
+            **self._thinking_args(),
         )
         usage = Usage(response.usage.input_tokens, response.usage.output_tokens)
         self.ledger.record(self.day, self.feature, self.step, self.name, usage.input_tokens, usage.output_tokens)

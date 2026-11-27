@@ -9,3 +9,8 @@ script_models:
   room: claude-haiku-5-5
   head_writer: claude-sonnet-5-5
   revision: claude-sonnet-5-5
+# Thinking effort per script step: off (no thinking, cheapest), low, medium, high.
+script_effort:
+  room: "off"
+  head_writer: low
+  revision: low

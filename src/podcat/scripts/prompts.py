@@ -30,7 +30,8 @@ CONTENT_RULES = """Regole sui contenuti (non negoziabili):
 - Si commentano i fatti del riassunto, senza inventare fatti nuovi e senza copiare testi di giornali.
 - Satira sui fatti e sui potenti, mai su gruppi deboli, vittime, malati o persone comuni.
 - Nessun gatto dà consigli medici, legali o finanziari.
-- Politica mai di parte: si ride delle contraddizioni e del potere, non di uno schieramento.
+- Politica mai di parte: si ride delle contraddizioni e del potere, non di uno schieramento. Niente
+  nomi di partiti, niente battute su come votare o su chi votare.
 - Persone reali: solo i personaggi pubblici della notizia, per il loro ruolo pubblico.
 - Niente volgarità, niente contenuti scioccanti."""
 
@@ -92,7 +93,8 @@ def _limits(bible: Bible, kind: str) -> str:
                 "notizia raccontata e discussa, almeno un'escalation di Fuzz, una divagazione nostalgica di "
                 "Vinile, battuta di Feedback, saluto di Flanella.")
     return (f"Reel di circa {t} secondi: tra {w['min']} e {w['max']} parole dette in tutto (conta bene: "
-            "sono poche, ogni parola deve servire). Battute brevi, ritmo serrato.")
+            "sono poche, ogni parola deve servire). Punta a circa "
+            f"{(w['min'] + w['max']) // 2} parole: 7-8 battute brevi, quasi tutte sotto le 12 parole. Ritmo serrato.")
 
 
 def system_prompt(bible: Bible, role: str) -> str:
@@ -157,7 +159,7 @@ In notes (in italiano, brevi): cosa hai cambiato e perché, quale angolo hai sce
 e perché (se qualcuno resta zitto), e se la notizia ti sembra debole per un video."""
 
 
-def fix_user(bible: Bible, b: Brief, current_yaml: str, problems: list[str]) -> str:
+def fix_user(bible: Bible, b: Brief, current_yaml: str, problems: list[str], word_report: str = "") -> str:
     return brief_text(bible, b) + f"""
 
 ## Copione attuale
@@ -165,6 +167,7 @@ def fix_user(bible: Bible, b: Brief, current_yaml: str, problems: list[str]) -> 
 
 ## Problemi trovati dal controllo automatico
 {chr(10).join('- ' + x for x in problems)}
+{word_report}
 
 ## Compito
 Correggi SOLO quello che serve per risolvere i problemi, mantenendo le battute migliori. Restituisci

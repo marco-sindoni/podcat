@@ -48,7 +48,8 @@
 ## R4. Timing
 
 - **Decision**: duration of a line = words / speaking rate of the cat + 0.3 s pause; rates in
-  `config/scripts.yaml` (start: Flanella 2.6, Fuzz 3.0, Vinile 2.5, Feedback 2.0 words/s). Scene
+  `config/scripts.yaml` (start: Flanella 3.0, Fuzz 3.4, Vinile 2.9, Feedback 2.5 words/s, so that
+  70–90 words fit about 30 s as the constitution says). Scene
   duration = sum of its lines, or the fixed duration of a silent shot (B cut-in 2.5 s, Thursday sting
   3 s). Durations are computed by code, never by the model. Tolerance: ±5 s reel (target 30 s, sting
   excluded), ±15 s weekly (target 120 s).
@@ -131,3 +132,11 @@
 - **Decision**: same pipeline with `kind: weekly`: 280–320 words, all four cats with at least two
   lines, cold open, two escalations allowed, one Vinile detour. If the story was used in a reel, the
   head writer receives that reel's lines and must take a new angle.
+
+## R13. Thinking per step (found in the first real run, 2026-11-28)
+
+- **Decision**: `script_effort` in `config/pricing.yaml`: writers' room `off` (Haiku `disabled`),
+  head writer and revision `low` (adaptive thinking at low effort). `off` on Sonnet 5.5 maps to
+  `between_tools`, since `disabled` is rejected there. `max_tokens` raised to 16,000 (daily).
+- **Rationale**: with the model default, Haiku 5.5 used all 6,000 output tokens thinking and returned
+  truncated JSON. Thinking tokens are billed as output.

@@ -24,10 +24,10 @@ outputs, no paid calls. The checks (structure, words, reactions, rotation) are t
 
 **Purpose**: configuration, bible additions and package skeleton
 
-- [ ] T001 Create package skeleton `src/podcat/scripts/__init__.py` and empty modules listed in plan.md; add `tests/scriptfixtures.py` with a picked story (comico, the 2026-11-27 fridge story), a pungente story, a Thursday story and a weekly pick
-- [ ] T002 [P] Add `script_models` (`room: claude-haiku-5-5`, `head_writer: claude-sonnet-5-5`, `revision: claude-sonnet-5-5`) to `config/pricing.yaml`; the model of each step is read from there on every run, so changing one line switches model (data-model.md Configuration; Marco, 2026-11-27)
-- [ ] T003 [P] Create `config/scripts.yaml` with word limits, targets, tolerances, speaking rates, pause, fixed shot durations, Thursday formula, repeat window and tics per cat (data-model.md Configuration, research R4, R8, R9)
-- [ ] T004 [P] Create `bible/shots.md` with the fixed shot ids of research R11 (Italian description per shot) and link it from `bible/characters/README.md`
+- [X] T001 Create package skeleton `src/podcat/scripts/__init__.py` and empty modules listed in plan.md; add `tests/scriptfixtures.py` with a picked story (comico, the 2026-11-27 fridge story), a pungente story, a Thursday story and a weekly pick
+- [X] T002 [P] Add `script_models` (`room: claude-haiku-5-5`, `head_writer: claude-sonnet-5-5`, `revision: claude-sonnet-5-5`) to `config/pricing.yaml`; the model of each step is read from there on every run, so changing one line switches model (data-model.md Configuration; Marco, 2026-11-27)
+- [X] T003 [P] Create `config/scripts.yaml` with word limits, targets, tolerances, speaking rates, pause, fixed shot durations, Thursday formula, repeat window and tics per cat (data-model.md Configuration, research R4, R8, R9)
+- [X] T004 [P] Create `bible/shots.md` with the fixed shot ids of research R11 (Italian description per shot) and link it from `bible/characters/README.md`
 
 ---
 
@@ -35,12 +35,12 @@ outputs, no paid calls. The checks (structure, words, reactions, rotation) are t
 
 **Purpose**: models, storage, timing and checks used by every story
 
-- [ ] T005 Define Pydantic models in `src/podcat/scripts/models.py`: `Line`, `Reaction`, `Scene`, `NewsImage`, `Ending`, `RoomResult`, `HeadWriterResult`, `FixResult`, `RevisionResult` (data-model.md Script version.lines, .scenes, .news_image, .endings; Model outputs); cat ids restricted to `flanella`, `fuzz`, `vinile`, `feedback`; mode to `A`, `B`, `C`
-- [ ] T006 [P] Implement `src/podcat/scripts/bible.py`: load the four character sheets (role, personality, tics, evolution log), the shot ids from `bible/shots.md` and `config/scripts.yaml`
-- [ ] T007 [P] Implement `src/podcat/scripts/timing.py`: word count (sting excluded) and line, scene and total durations from speaking rates (research R4; data-model.md Script version.words, .duration_s, Script version.scenes.duration_s)
-- [ ] T008 Implement `src/podcat/scripts/store.py`: script id, index and version files, `versions` list, status transitions and story effects (`story.script`, `status`, `episode`) (data-model.md Script index.id, .status, .versions, .current_version, .cost_usd; contracts/tracking-files.md)
-- [ ] T009 [P] Write `tests/unit/test_script_timing.py` and `tests/unit/test_script_store.py` (word count, durations, transitions draft → review → approved → review, discarded, unknown keys and notes kept)
-- [ ] T010 Write `tests/unit/test_script_checks.py` first (failing), covering every check of research R3, then implement `src/podcat/scripts/checks.py` returning a list of Italian problem strings
+- [X] T005 Define Pydantic models in `src/podcat/scripts/models.py`: `Line`, `Reaction`, `Scene`, `NewsImage`, `Ending`, `RoomResult`, `HeadWriterResult`, `FixResult`, `RevisionResult` (data-model.md Script version.lines, .scenes, .news_image, .endings; Model outputs); cat ids restricted to `flanella`, `fuzz`, `vinile`, `feedback`; mode to `A`, `B`, `C`
+- [X] T006 [P] Implement `src/podcat/scripts/bible.py`: load the four character sheets (role, personality, tics, evolution log), the shot ids from `bible/shots.md` and `config/scripts.yaml`
+- [X] T007 [P] Implement `src/podcat/scripts/timing.py`: word count (sting excluded) and line, scene and total durations from speaking rates (research R4; data-model.md Script version.words, .duration_s, Script version.scenes.duration_s)
+- [X] T008 Implement `src/podcat/scripts/store.py`: script id, index and version files, `versions` list, status transitions and story effects (`story.script`, `status`, `episode`) (data-model.md Script index.id, .status, .versions, .current_version, .cost_usd; contracts/tracking-files.md)
+- [X] T009 [P] Write `tests/unit/test_script_timing.py` and `tests/unit/test_script_store.py` (word count, durations, transitions draft → review → approved → review, discarded, unknown keys and notes kept)
+- [X] T010 Write `tests/unit/test_script_checks.py` first (failing), covering every check of research R3, then implement `src/podcat/scripts/checks.py` returning a list of Italian problem strings
 
 **Checkpoint**: storage, timing and checks work offline.
 
@@ -52,16 +52,18 @@ outputs, no paid calls. The checks (structure, words, reactions, rotation) are t
 
 **Independent Test**: quickstart steps 1–2 with recorded outputs; with the real API on the fridge story.
 
-- [ ] T011 [US1] Write the Italian system prompts in `src/podcat/scripts/prompts.py`: writers' room (two drafts, two angles, cast rules, all four speak by default, reactions for silent cats), head writer (choose or merge, rewrite, 2 alternative endings, notes, content rules of FR-007, flags of research R9), fix (list of problems); the story summary is the only news input
-- [ ] T012 [P] [US1] Implement `src/podcat/scripts/room.py` (call 1, step `room`, model from `script_models.room`)
-- [ ] T013 [P] [US1] Implement `src/podcat/scripts/headwriter.py` (call 2, step `head-writer`; fix call, step `fix`, at most once) with the last 7 scripts' openings and closings (research R8)
-- [ ] T014 [US1] Implement `src/podcat/scripts/rotation.py` (previous non-discarded script, allowed modes; research R7; data-model.md Script index.news_image_mode, .previous_script)
-- [ ] T015 [US1] Implement `src/podcat/scripts/pipeline.py` `write()`: find the picked story, idempotency, room → head writer → timing → checks → one fix → save v1 (`draft`), or save with `problems` and exit 4 (data-model.md Script index.problems); budget check reused from the ledger
-- [ ] T016 [US1] Implement `src/podcat/scripts/render.py` with the Italian document text of contracts/tracking-files.md (numbered lines, scenes table with reactions, image, endings, notes, closing instructions)
-- [ ] T017 [US1] Add the `script` command group to `src/podcat/cli.py`: `write`, `show`, `list` (contracts/cli.md, exit codes 0/1/2/4)
-- [ ] T018 [US1] Write `tests/integration/test_script_write.py`: write with recorded outputs, idempotent rerun with no ledger entry, failed checks → fix call → success, failed fix → exit 4, budget cap → exit 2 with no files
+- [X] T011 [US1] Write the Italian system prompts in `src/podcat/scripts/prompts.py`: writers' room (two drafts, two angles, cast rules, all four speak by default, reactions for silent cats), head writer (choose or merge, rewrite, 2 alternative endings, notes, content rules of FR-007, flags of research R9), fix (list of problems); the story summary is the only news input
+- [X] T012 [P] [US1] Implement `src/podcat/scripts/room.py` (call 1, step `room`, model from `script_models.room`)
+- [X] T013 [P] [US1] Implement `src/podcat/scripts/headwriter.py` (call 2, step `head-writer`; fix call, step `fix`, at most once) with the last 7 scripts' openings and closings (research R8)
+- [X] T014 [US1] Implement `src/podcat/scripts/rotation.py` (previous non-discarded script, allowed modes; research R7; data-model.md Script index.news_image_mode, .previous_script)
+- [X] T015 [US1] Implement `src/podcat/scripts/pipeline.py` `write()`: find the picked story, idempotency, room → head writer → timing → checks → one fix → save v1 (`draft`), or save with `problems` and exit 4 (data-model.md Script index.problems); budget check reused from the ledger
+- [X] T016 [US1] Implement `src/podcat/scripts/render.py` with the Italian document text of contracts/tracking-files.md (numbered lines, scenes table with reactions, image, endings, notes, closing instructions)
+- [X] T017 [US1] Add the `script` command group to `src/podcat/cli.py`: `write`, `show`, `list` (contracts/cli.md, exit codes 0/1/2/4)
+- [X] T018 [US1] Write `tests/integration/test_script_write.py`: write with recorded outputs, idempotent rerun with no ledger entry, failed checks → fix call → success, failed fix → exit 4, budget cap → exit 2 with no files
 
 **Checkpoint**: MVP. Run once with the real API on the fridge story and check cost < 0.05 USD.
+
+*Done 2026-11-28*: v1 failed the word check twice (99 words) at 0.055 USD; after adding exact word counts to the fix prompt and a ~80-word target, v2 passed at 0.030 USD (89 words, 31 s). Thinking had to be controlled per step (`script_effort` in `config/pricing.yaml`): with the default, Haiku spent the whole output budget thinking.
 
 ---
 

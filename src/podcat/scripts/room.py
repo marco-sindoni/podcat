@@ -7,7 +7,7 @@ from podcat.scripts.bible import Bible
 from podcat.scripts.models import RoomResult
 from podcat.scripts.prompts import Brief, room_user, system_prompt
 
-MAX_TOKENS = {"daily": 6_000, "weekly": 12_000}
+MAX_TOKENS = {"daily": 16_000, "weekly": 20_000}
 
 
 def write_drafts(model: TextModel, bible: Bible, brief: Brief) -> RoomResult:
