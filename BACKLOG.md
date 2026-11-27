@@ -19,3 +19,4 @@ and link the spec folder here.
 | B-012 | Visual test session in Fotor and CapCut following `docs/visual-test-plan.md`; approve reference assets and voices | 1 | ready | |
 | B-013 | Review spec 001 A1 after two weeks of runs (SC-008): at least one easy-to-use candidate 4 days out of 5, a pungente candidate 3 weekdays out of 5, no harm stories; tune floors and prompts | 1 | ready | [001](specs/001-news-gathering/spec.md) |
 | B-014 | Script writing for the four cats: two passes, scenes, review by comments (RF-03, RF-04, RF-05) | 1 | in-spec | [002](specs/002-script-writing/spec.md) |
+| B-015 | CapCut package per approved script: scene guide, news image prompt, assets to reuse or create, voice sheet, captions, publishing kit (RF-13) | 1 | in-spec | [003](specs/003-capcut-package/spec.md) |
