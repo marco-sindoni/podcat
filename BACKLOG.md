@@ -12,7 +12,7 @@ and link the spec folder here.
 | B-005 | Reusable clip library per cat and shot | 2 | idea | |
 | B-006 | Fotor OpenAPI for reference and news images | 2 | idea | |
 | B-007 | Upload to YouTube as private draft with "AI use" disclosure (RF-14) | 2 | idea | |
-| B-008 | Scheduled daily run up to the approval gate, with notification (RF-15); news part at 07:00 in the cloud | 1 | in-spec | [001](specs/001-news-gathering/spec.md) |
+| B-008 | Scheduled daily run up to the approval gate, with notification (RF-15); news part at 07:00 in the cloud | 1 | done | [001](specs/001-news-gathering/spec.md) |
 | B-009 | Real audio-driven lip-sync | 2 | idea | |
 | B-010 | "Giovedì buone notizie": every Thursday the daily reel covers one positive story (human progress, hope, heart-warming), from anywhere in the world, using the `good-news` source category (in the constitution since v1.1.0) | 1 | done | [001](specs/001-news-gathering/spec.md) |
 | B-011 | "Giovedì buone notizie" logo and 2–3 s opening sting: steaming plate of gnocchi al sugo on the tavern table, soft 3D cartoon style (Fotor image, animated in CapCut); the words "Giovedì" and "gnocchi" in red or another standout color, so it reads "giovedì gnocchi" at a glance | 1 | ready | |

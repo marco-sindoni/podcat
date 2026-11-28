@@ -104,7 +104,7 @@ own.
 - [X] T034 [US1] Install with `uv sync` at the start of the routine (no setup script needed: uv is preinstalled) and document required settings (network access, `ANTHROPIC_API_KEY`) in `docs/routines/daily-news.md`
 - [X] T035 [US1] Add commit-and-push of `tracking/` after a run (commit message "News shortlist <date>") in the routine; no push of cache files
 - [X] T036 [US1] Create the scheduled trigger: every day 07:00 Europe/Rome, prompt = the routine in `docs/routines/daily-news.md`; on Saturday also the weekly run once US4 exists
-- [ ] T037 [US1] Fire the trigger once by hand and check the result against SC-007
+- [X] T037 [US1] Fire the trigger once by hand and check the result against SC-007
 
 ---
 
