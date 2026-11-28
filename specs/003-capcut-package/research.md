@@ -21,7 +21,7 @@ Decisions taken while planning spec 003. Format: decision, rationale, alternativ
 - **Rationale**: the creative parts are short and constrained; titles are the only part where
   quality shows, and the model is one line to change.
 - **Alternatives**: Sonnet for everything (still cheap, over the SC-006 target); a second call only
-  for titles on a stronger model (more moving parts). Question for Marco in the review document.
+  for titles on a stronger model (more moving parts). Marco went ahead with Haiku (2026-11-28); switch to Sonnet if the titles are flat.
 
 ## R3 – Cats on screen from the shot and the seating
 
@@ -58,7 +58,9 @@ Decisions taken while planning spec 003. Format: decision, rationale, alternativ
   row.
 - **Estimate**: a 45 s reel has about 10 scenes, 7–8 units after merging, so about 6–8 new clips of
   4–5 s; a weekly about 20–25. CapCut credits per clip are measured in the visual test session
-  (B-012, step 6.4). Question for Marco: which CapCut plan he has.
+  (B-012, step 6.4). Marco's CapCut plan is not known yet: measure credits per clip in B-012 step 6.4; if about 200
+  new clips a month do not fit, the fallback to propose is a still image made for the episode with
+  a slow zoom counted as new.
 
 ## R6 – Voice text
 

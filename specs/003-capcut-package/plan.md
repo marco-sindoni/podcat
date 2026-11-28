@@ -4,7 +4,7 @@
 
 **Input**: Feature specification from `specs/003-capcut-package/spec.md` (approved 2026-11-28)
 
-**Plan status**: draft, waiting for Marco's review (two questions in the review document)
+**Plan status**: approved by Marco on 2026-11-28 ("aggiorna il piano e i task"): D1 Haiku 5.5 as default model; D2 CapCut credits measured in the visual test session (B-012) before the first real package; subtitles = CapCut auto-captions plus correction (research R14)
 
 ## Summary
 
